@@ -8,11 +8,12 @@ function App() {
       const response = await fetch(url)
       const data = await response.json()
       console.log(data)
+      console.log('test')
     }
 
     fetchServerData()
   }, [])
-  return <div className="App">test1</div>
+  return <div className="App">Вот тут будет жить ваше приложение :)</div>
 }
 
 export default App
