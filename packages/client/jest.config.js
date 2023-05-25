@@ -9,6 +9,6 @@ export default {
     __SERVER_PORT__: process.env.SERVER_PORT,
   },
   moduleNameMapper: {
-    "\\.(scss|css|jpg|png|gif)$": "<rootDir>/file.mock.js"
-  }
+    '\\.(scss|css|jpg|png|gif)$': '<rootDir>/file.mock.js',
+  },
 };
