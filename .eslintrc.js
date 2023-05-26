@@ -35,10 +35,10 @@ module.exports = {
           {
             arrays: "always-multiline",
             objects: "always-multiline",
-          }
+          },
         ],
       },
     },
   ],
   ignorePatterns: ['.eslintrc.js', '*.config.*']
-}
+};

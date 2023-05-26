@@ -1,0 +1,16 @@
+.list {
+  list-style: none;
+  display: flex;
+  gap: 1rem;
+
+  a {
+    text-decoration: none;
+    color: #009106;
+    
+    &:hover,
+    &.active {
+      color: #e5ad00;
+      text-decoration: underline;
+    }
+  }
+}

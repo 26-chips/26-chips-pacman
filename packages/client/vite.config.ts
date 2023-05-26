@@ -1,3 +1,4 @@
+import path from 'path';
 import { defineConfig } from 'vite';
 import react from '@vitejs/plugin-react';
 import stylelint from 'vite-plugin-stylelint';
@@ -13,4 +14,11 @@ export default defineConfig({
     __SERVER_PORT__: process.env.SERVER_PORT,
   },
   plugins: [react(), stylelint()],
+  resolve: {
+    alias: {
+      components: path.resolve(__dirname, './src/components'),
+      pages: path.resolve(__dirname, './src/pages'),
+      router: path.resolve(__dirname, './src/router'),
+    },
+  },
 });
