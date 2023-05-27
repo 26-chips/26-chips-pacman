@@ -10,5 +10,8 @@ export default {
   },
   moduleNameMapper: {
     '\\.(scss|css|jpg|png|gif)$': '<rootDir>/file.mock.js',
+    '^components(.*)$': '<rootDir>/src/components$1',
+    '^router(.*)$': '<rootDir>/src/router$1',
+    '^pages(.*)$': '<rootDir>/src/pages$1',
   },
 };

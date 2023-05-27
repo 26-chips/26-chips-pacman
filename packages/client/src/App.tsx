@@ -1,4 +1,6 @@
 import { useEffect } from 'react';
+import { RouterProvider } from 'react-router-dom';
+import { router } from 'router';
 import styles from './styles.module.scss';
 
 function App() {
@@ -12,8 +14,11 @@ function App() {
 
     fetchServerData();
   }, []);
+
   return (
-    <div className={styles.app}>Вот тут будет жить ваше приложение :)</div>
+    <div className={styles.app}>
+      <RouterProvider router={router} />
+    </div>
   );
 }
 
