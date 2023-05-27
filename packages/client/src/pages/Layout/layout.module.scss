@@ -1,0 +1,10 @@
+.layout {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.content {
+  background-color: aqua;
+  flex: 1
+}
