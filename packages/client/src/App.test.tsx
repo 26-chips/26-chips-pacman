@@ -1,5 +1,6 @@
 import App from './App';
-import { render, screen } from '@testing-library/react';
+import { render, screen, waitFor } from '@testing-library/react';
+
 
 const appContent = 'Main Page';
 
@@ -10,5 +11,5 @@ global.fetch = jest.fn(() =>
 
 test('Example test', async () => {
   render(<App />);
-  expect(screen.getByText(appContent)).toBeDefined();
+  await waitFor(() => expect(screen.getByText(appContent)).toBeDefined());
 });

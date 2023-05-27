@@ -1,3 +1,4 @@
+import { Suspense } from 'react';
 import { Outlet } from 'react-router-dom';
 
 import { Menu } from 'components';
@@ -5,6 +6,8 @@ import { Menu } from 'components';
 export const Layout = () => (
   <div>
     <Menu />
-    <Outlet />
+    <Suspense fallback="Loading...">
+      <Outlet />
+    </Suspense>
   </div>
 );

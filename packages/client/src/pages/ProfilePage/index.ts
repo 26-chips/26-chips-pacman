@@ -1,1 +1,3 @@
-export * from './ProfilePage';
+import { lazy } from 'react';
+
+export const ProfilePage = lazy(() => import('./ProfilePage'));
