@@ -1,65 +1,40 @@
-import React, { ReactNode, useState } from 'react';
+import { ReactNode, InputHTMLAttributes } from 'react';
 import cn from 'classnames';
 import styles from './input.module.scss';
 
-type InputProps = {
-  value: string;
-  label: string;
+export interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
   isLabelStatic: boolean;
-  isValid?: boolean;
   errorMessage?: string;
   deleteSymbol?: string | ReactNode;
-  validateFn?: (s: string) => boolean;
-};
+}
 
 export const Input = (props: InputProps) => {
-  const {
-    value,
-    label,
-    validateFn,
-    deleteSymbol,
-    errorMessage,
-    isLabelStatic,
-  } = props;
-
-  const [val, setValue] = useState(value);
-  const [isValid, setIsValid] = useState(true);
-
-  const handleClear = () => {
-    setValue('');
-  };
-
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setValue(e.target.value);
-  };
-
-  const handleBlur = (e: React.ChangeEvent<HTMLInputElement>) => {
-    if (validateFn) {
-      setIsValid(validateFn(e.target.value));
-    }
-  };
+  const { value, deleteSymbol, errorMessage, isLabelStatic, ...otherProps } =
+    props;
 
   return (
-    <div className={cn(styles.inputContainer)}>
+    <div className={styles.container}>
       <label
-        className={cn(styles.inputUnderlined, { [styles.danger]: !isValid })}>
+        className={cn(styles.underlined, {
+          [styles.warning]: errorMessage?.length,
+        })}>
         <input
-          value={val}
-          title={label}
-          onBlur={handleBlur}
-          onInput={handleChange}
-          className={cn({ [styles.textRight]: isLabelStatic })}></input>
+          {...otherProps}
+          className={cn(styles.input, {
+            [styles.textRight]: isLabelStatic,
+          })}></input>
         <span
-          className={cn(styles.inputLabel, {
-            [styles.hide]: val.length > 25,
-            [styles.inputLabelUp]: val.length > 0 && !isLabelStatic,
+          className={cn(styles.title, {
+            [styles.labelUp]: !isLabelStatic,
           })}>
-          {label}
+          {otherProps.title}
         </span>
-        <span className={cn(styles.helper)}>{errorMessage}</span>
-        <span className={cn(styles.inputClear)} onClick={handleClear}>
-          {deleteSymbol || ' '}
-        </span>
+        {errorMessage ? (
+          <span className={styles.errorMessage}>{errorMessage}</span>
+        ) : undefined}
+        {deleteSymbol ? (
+          <span className={styles.clear}>{deleteSymbol}</span>
+        ) : undefined}
       </label>
     </div>
   );
