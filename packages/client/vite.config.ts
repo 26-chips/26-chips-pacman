@@ -19,6 +19,7 @@ export default defineConfig({
       components: path.resolve(__dirname, './src/components'),
       pages: path.resolve(__dirname, './src/pages'),
       router: path.resolve(__dirname, './src/router'),
+      style_constants: path.resolve(__dirname, './src/_constants.scss'),
     },
   },
   css: {
