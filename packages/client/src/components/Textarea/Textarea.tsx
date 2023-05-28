@@ -1,4 +1,5 @@
-import { InputHTMLAttributes } from 'react';
+import { ChangeEvent, InputHTMLAttributes, useState } from 'react';
+import cn from 'classnames';
 import styles from './textarea.module.scss';
 
 export interface TextareaProps
@@ -8,22 +9,28 @@ export interface TextareaProps
 }
 
 export const Textarea = (props: TextareaProps) => {
-  const { title, value, placeholder, errorMessage, allowedCharactersNumber } =
-    props;
+  const { errorMessage, allowedCharactersNumber, ...otherProps } = props;
+
+  const [val, setValue] = useState('');
+  const handleChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
+    setValue(e.target.value);
+  };
 
   return (
-    <div className={styles.container}>
+    <div
+      className={cn(styles.container, {
+        [styles.warning]: errorMessage?.length,
+      })}>
       <textarea
-        value={value}
-        title={title}
+        {...otherProps}
         className={styles.textarea}
-        placeholder={placeholder}></textarea>
+        onChange={handleChange}></textarea>
       <div className={styles.counter}>
         <span>
-          {value ? value.toString().length : 0}/{allowedCharactersNumber}
+          {val.length}/{allowedCharactersNumber}
         </span>
       </div>
-      <span className="helper">{errorMessage}</span>
+      <span className={styles.errorMessage}>{errorMessage}</span>
     </div>
   );
 };
