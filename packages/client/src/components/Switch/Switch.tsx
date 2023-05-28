@@ -6,7 +6,7 @@ export const Switch = (props: InputHTMLAttributes<HTMLInputElement>) => {
   const { defaultChecked, ...otherProps } = props;
   const [isChecked, setIsChecked] = useState(defaultChecked);
 
-  // Заглушка для изменеия состояния checked
+  // Заглушка для изменения состояния checked
   const toggleCheckbox = (e: MouseEvent<HTMLInputElement>) => {
     e.stopPropagation();
     setIsChecked(!isChecked);
