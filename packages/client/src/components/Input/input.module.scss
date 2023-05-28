@@ -36,17 +36,6 @@
   color: $color-font;
 }
 
-.warning {
-  .error-message {
-    display: block;
-    color: $color-warning;
-  }
-}
-
-.hide {
-  display: none;
-}
-
 .input {
   width: 100%;
   height: 30px;
@@ -63,10 +52,21 @@
   &:focus {
     outline: none;
   }
+}
 
-  @at-root .warning#{&} {
+.warning {
+  .error-message {
+    display: block;
+    color: $color-warning;
+  }
+
+  .input {
     border-color: $color-warning;
   }
+}
+
+.hide {
+  display: none;
 }
 
 .label-up {
