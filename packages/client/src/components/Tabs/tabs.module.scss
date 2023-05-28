@@ -1,0 +1,39 @@
+@import "style_constants";
+
+.container {
+  max-width: 300px;
+
+  * {
+    list-style: none;
+  }
+
+  .ul{
+    display: flex;
+    justify-content: center;
+
+    .li {
+      width: 100px;
+      text-align: center;
+      background: transparent;
+      border: 1px solid $blue;
+      padding: 5px 20px;
+      cursor: pointer;
+      transition: all 0.2s ease;
+
+      &:first-child {
+        border-top-left-radius: 5px;
+        border-bottom-left-radius: 5px;
+      }
+
+      &:last-child {
+        border-top-right-radius: 5px;
+        border-bottom-right-radius: 5px;
+      }
+
+      &:hover,
+      &.active {
+        background: $blue;
+      }
+    }
+  }
+}
