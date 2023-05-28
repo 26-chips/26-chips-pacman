@@ -4,10 +4,10 @@
   width: 335px;
   height: 48px;
   font-size: 16px;
-  color: $color-font;
+  color: $white;
   border: none;
   border-radius: 8px;
-  background: $color-border;
+  background: $blue;
   cursor: pointer;
   transition: .4s;
 
@@ -22,7 +22,7 @@
 
   &:disabled {
     background: $grey;
-    color: $color-background;
+    color: $black;
   }
 }
 
@@ -32,6 +32,6 @@
 
 .loading {
   &:hover {
-    background: $color-border;
+    background: $blue;
   }
 }
