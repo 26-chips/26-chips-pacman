@@ -1,0 +1,37 @@
+@import 'style_constants';
+
+.button {
+  width: 335px;
+  height: 48px;
+  font-size: 16px;
+  color: $color-font;
+  border: none;
+  border-radius: 8px;
+  background: $color-border;
+  cursor: pointer;
+  transition: .4s;
+
+  &:hover {
+    background: $blue-hover;
+  }
+
+  &:active {
+    transition: 0s;
+    background: $blue-active;
+  }
+
+  &:disabled {
+    background: $grey;
+    color: $color-background;
+  }
+}
+
+.light {
+  background: $blue-light;
+}
+
+.loading {
+  &:hover {
+    background: $color-border;
+  }
+}
