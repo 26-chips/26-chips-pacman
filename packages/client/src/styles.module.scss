@@ -1,4 +1,13 @@
+@import "constants";
+
 body {
-  background: #0a0708;
-  color: #fff;
+  background: $color-background;
+  color: $color-font;
+  margin: 0;
+  height: 100%;
+}
+
+.app {
+  min-width: 320px;
+  height: 100%;
 }

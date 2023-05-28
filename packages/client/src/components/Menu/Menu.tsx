@@ -8,7 +8,7 @@ const getActiveStyles = ({ isActive }: { isActive: boolean }) =>
   isActive ? styles.active : undefined;
 
 export const Menu = () => (
-  <nav>
+  <nav className={styles.menu}>
     <ul className={styles.list}>
       <li>
         <NavLink to={ROUTES.MAIN} className={getActiveStyles}>
