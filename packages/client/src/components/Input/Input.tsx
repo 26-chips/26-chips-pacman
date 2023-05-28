@@ -22,11 +22,10 @@ export const Input = (props: InputProps) => {
           {...otherProps}
           className={cn(styles.input, {
             [styles.textRight]: isLabelStatic,
-          })}></input>
+          })}
+        />
         <span
-          className={cn(styles.title, {
-            [styles.labelUp]: !isLabelStatic,
-          })}>
+          className={cn(styles.title, { [styles.labelUp]: !isLabelStatic })}>
           {otherProps.title}
         </span>
         {errorMessage ? (
