@@ -1,5 +1,4 @@
-import { Button } from 'components/Button';
-import { Input } from '../../components';
+import { Button, Input } from 'components';
 import { FunctionComponent } from 'react';
 import styles from './styles.module.scss';
 
