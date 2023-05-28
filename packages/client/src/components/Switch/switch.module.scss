@@ -1,0 +1,51 @@
+@import "style_constants";
+
+.container {
+  padding: 15px;
+  margin: 10px 0;
+}
+
+.slider {
+  inset: 0;
+  cursor: pointer;
+  position: absolute;
+  border-radius: 100px;
+}
+
+.slider::before {
+  content: "";
+  width: 16px;
+  height: 16px;
+  top: 3px;
+  left: 2px;
+  transition: .5s;
+  position: absolute;
+  border-radius: 100px;
+  background-color: $white;
+  border: solid 2px $white;
+}
+
+.switch {
+  position: absolute;
+  width: 44px;
+  height: 26px;
+  border-radius: 100px;
+  border: solid 2px $white;
+  transition: .5s;
+
+  .input {
+    width: 0;
+    height: 0;
+    opacity: 0;
+  }
+
+  .input:checked + .slider::before {
+    transform: translateX(20px);
+    background-color: $blue;
+    border: solid 2px $blue;
+  }
+}
+
+.checked {
+  border: solid 2px $blue;
+}
