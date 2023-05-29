@@ -1,4 +1,4 @@
-import { Button, Input } from 'components';
+import { Button, Checkbox, Input } from 'components';
 import { FunctionComponent } from 'react';
 import styles from './styles.module.scss';
 
@@ -48,6 +48,14 @@ const UIPage = () => {
         </div>
         <div style={{ width: '350px' }}>
           <Button thema="transparent">Transparent Button</Button>
+        </div>
+      </div>
+
+      <h2>Checkbox</h2>
+      <div className={styles.block}>
+        <div>
+          <Checkbox checked />
+          <Checkbox />
         </div>
       </div>
     </>

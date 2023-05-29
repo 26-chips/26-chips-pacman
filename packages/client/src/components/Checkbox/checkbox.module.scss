@@ -29,6 +29,12 @@
   border-radius: 4px;
   background-color: $black;
   border: solid 1px $blue;
+
+  &::after {
+    content: "";
+    position: absolute;
+    display: none;
+  }
 }
 
 .checkbox:hover .input ~ .checkmark {
@@ -37,12 +43,6 @@
 
 .checkbox .input:checked ~ .checkmark {
   background-color: $blue;
-}
-
-.checkmark::after {
-  content: "";
-  position: absolute;
-  display: none;
 }
 
 .checkbox .checkmark::after {
