@@ -1,7 +1,6 @@
-import { Button, Input } from 'components';
+import { Button, Input, Switch } from 'components';
 import { FunctionComponent } from 'react';
 import styles from './styles.module.scss';
-import { Switch } from '../../components/Switch';
 
 const UIPage = () => {
   return (
