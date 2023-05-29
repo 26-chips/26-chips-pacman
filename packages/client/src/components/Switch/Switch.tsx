@@ -3,10 +3,10 @@ import cn from 'classnames';
 import styles from './switch.module.scss';
 
 export const Switch = (props: InputHTMLAttributes<HTMLInputElement>) => {
-  const { defaultChecked, ...otherProps } = props;
-  const [isChecked, setIsChecked] = useState(defaultChecked);
+  const { checked, ...otherProps } = props;
 
   // Заглушка для изменения состояния checked
+  const [isChecked, setIsChecked] = useState(checked);
   const toggleCheckbox = (e: MouseEvent<HTMLInputElement>) => {
     e.stopPropagation();
     setIsChecked(!isChecked);
@@ -17,7 +17,8 @@ export const Switch = (props: InputHTMLAttributes<HTMLInputElement>) => {
       <label className={cn(styles.switch, { [styles.checked]: isChecked })}>
         <input
           {...otherProps}
-          defaultChecked={defaultChecked}
+          checked={isChecked}
+          defaultChecked={checked}
           type="checkbox"
           className={styles.input}
           onClick={toggleCheckbox}

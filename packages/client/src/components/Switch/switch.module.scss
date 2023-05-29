@@ -10,19 +10,19 @@
   cursor: pointer;
   position: absolute;
   border-radius: 100px;
-}
 
-.slider::before {
-  content: "";
-  width: 16px;
-  height: 16px;
-  top: 3px;
-  left: 2px;
-  transition: .5s;
-  position: absolute;
-  border-radius: 100px;
-  background-color: $white;
-  border: solid 2px $white;
+  &::before {
+    content: "";
+    width: 16px;
+    height: 16px;
+    top: 3px;
+    left: 2px;
+    transition: .5s;
+    position: absolute;
+    border-radius: 100px;
+    background-color: $white;
+    border: solid 2px $white;
+  }
 }
 
 .switch {

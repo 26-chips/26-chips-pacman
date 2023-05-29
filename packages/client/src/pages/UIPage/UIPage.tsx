@@ -1,6 +1,7 @@
 import { Button, Input } from 'components';
 import { FunctionComponent } from 'react';
 import styles from './styles.module.scss';
+import { Switch } from '../../components/Switch';
 
 const UIPage = () => {
   return (
@@ -49,6 +50,12 @@ const UIPage = () => {
         <div style={{ width: '350px' }}>
           <Button thema="transparent">Transparent Button</Button>
         </div>
+      </div>
+
+      <h2>Switches</h2>
+      <div className={styles.block}>
+        <Switch />
+        <Switch checked />
       </div>
     </>
   );
