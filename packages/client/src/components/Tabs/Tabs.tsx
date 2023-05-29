@@ -8,7 +8,7 @@ interface TabsProps extends LiHTMLAttributes<HTMLLIElement> {
 }
 
 export const Tabs = (props: TabsProps) => {
-  const { tabNames, activeTab, ...otherProps } = props;
+  const { tabNames, className, activeTab, ...otherProps } = props;
   const [currentTab, setCurrentTab] = useState(activeTab);
 
   //Заглушка для прощелкивания табов
@@ -18,7 +18,7 @@ export const Tabs = (props: TabsProps) => {
 
   return (
     <div className={styles.container}>
-      <ul onClick={toggleTab} className={styles.ul}>
+      <ul onClick={toggleTab} className={cn(styles.ul, className)}>
         {tabNames.map(tab => (
           <li
             {...otherProps}

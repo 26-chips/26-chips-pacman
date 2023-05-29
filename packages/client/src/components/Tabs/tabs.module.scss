@@ -1,7 +1,7 @@
 @import "style_constants";
 
 .container {
-  max-width: 300px;
+  width: 100%;
 
   * {
     list-style: none;
@@ -9,14 +9,14 @@
 
   .ul{
     display: flex;
-    justify-content: center;
+    padding-inline-start: 0;
 
     .li {
-      width: 100px;
+      width: 100%;
       text-align: center;
       background: transparent;
       border: 1px solid $blue;
-      padding: 5px 20px;
+      padding: 5px;
       cursor: pointer;
       transition: all 0.2s ease;
 
