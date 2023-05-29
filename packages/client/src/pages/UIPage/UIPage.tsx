@@ -1,4 +1,4 @@
-import { Button, Input } from 'components';
+import { Button, Input, Textarea } from 'components';
 import { FunctionComponent } from 'react';
 import styles from './styles.module.scss';
 
@@ -48,6 +48,16 @@ const UIPage = () => {
         </div>
         <div style={{ width: '350px' }}>
           <Button thema="transparent">Transparent Button</Button>
+        </div>
+      </div>
+
+      <h2>Textarea</h2>
+      <div className={styles.block}>
+        <div style={{ width: '350px' }}>
+          <Textarea allowedCharactersNumber={100} />
+        </div>
+        <div style={{ width: '350px' }}>
+          <Textarea errorMessage={'Error'} allowedCharactersNumber={100} />
         </div>
       </div>
     </>

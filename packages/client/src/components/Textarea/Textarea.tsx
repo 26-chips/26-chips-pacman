@@ -9,7 +9,8 @@ export interface TextareaProps
 }
 
 export const Textarea = (props: TextareaProps) => {
-  const { errorMessage, allowedCharactersNumber, ...otherProps } = props;
+  const { errorMessage, className, allowedCharactersNumber, ...otherProps } =
+    props;
 
   const [val, setValue] = useState('');
   const handleChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
@@ -23,7 +24,7 @@ export const Textarea = (props: TextareaProps) => {
       })}>
       <textarea
         {...otherProps}
-        className={styles.textarea}
+        className={cn(styles.textarea, className)}
         onChange={handleChange}></textarea>
       <div className={styles.counter}>
         <span>

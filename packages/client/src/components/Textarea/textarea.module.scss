@@ -1,7 +1,7 @@
 @import "style_constants";
 
 .container {
-  max-width: 400px;
+  width: 100%
 }
 
 .error-message {
@@ -16,8 +16,8 @@
 .textarea {
   width: 100%;
   resize: none;
-  padding: 0.5rem;
   min-height: 100px;
+  padding: 5px;
   color: $white;
   border-radius: 8px;
   border: 0.1rem solid $blue;
@@ -25,21 +25,20 @@
 
   &:focus {
     outline: none;
-    box-shadow: inset 0 0.05rem 0.1rem 0.01rem $blue;
+    box-shadow: inset 0 1px 2px 1px $blue;
   }
 
   &[placeholder] {
-    font-size: 0.8rem;
+    font-size: 0.8em;
   }
 }
 
 .counter {
   float: right;
-  top: -1.5rem;
-  right: -1rem;
-  padding: 0.1rem;
+  top: -25px;
+  right: 5px;
   position: relative;
-  font-size: 0.9rem;
+  font-size: 0.9em;
 }
 
 .warning {
@@ -53,7 +52,7 @@
 
     &:focus {
       outline: none;
-      box-shadow: inset 0 0.05rem 0.1rem 0.01rem $red;
+      box-shadow: inset 0 1px 2px 1px $red;
     }
   }
 }
