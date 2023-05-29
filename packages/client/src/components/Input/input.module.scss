@@ -1,9 +1,8 @@
 @import "style_constants";
 
 .container {
-  max-width: 300px;
+  width: 100%;
   position: relative;
-  margin: 40px 10px;
 }
 
 .error-message {
@@ -16,7 +15,7 @@
 }
 
 .clear {
-  left: 99%;
+  left: 96%;
   top: 20px;
   margin: 0;
   padding: 0;
@@ -43,7 +42,6 @@
   font-size: 1rem;
   line-height: 90%;
   padding-top: 20px;
-  padding-left: 10px;
   padding-bottom: 1px;
   color: $white;
   background-color: transparent;

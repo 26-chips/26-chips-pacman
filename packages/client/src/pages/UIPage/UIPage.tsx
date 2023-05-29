@@ -9,7 +9,7 @@ const UIPage = () => {
 
       <h2>Inputs</h2>
       <div className={styles.block}>
-        <div>
+        <div style={{ width: '350px' }}>
           <h3>Error input 1</h3>
           <Input
             title="Input 1"
@@ -18,15 +18,15 @@ const UIPage = () => {
             errorMessage="Error"
           />
         </div>
-        <div>
+        <div style={{ width: '350px' }}>
           <h3>Valid input 1</h3>
           <Input title="Input 1" inlineTitle={false} deleteSymbol=" × " />
         </div>
-        <div>
+        <div style={{ width: '350px' }}>
           <h3>Valid input 2</h3>
           <Input title="Input 2" inlineTitle />
         </div>
-        <div>
+        <div style={{ width: '350px' }}>
           <h3>Error input 2</h3>
           <Input title="Input 2" inlineTitle errorMessage="Error" />
         </div>
