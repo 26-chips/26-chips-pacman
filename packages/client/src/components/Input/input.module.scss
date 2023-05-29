@@ -1,7 +1,7 @@
 @import "style_constants";
 
 .container {
-  max-width: $component-width;
+  max-width: 300px;
   position: relative;
   margin: 40px 10px;
 }
@@ -12,7 +12,7 @@
   font-size: 0.8em;
   margin: 5px 10px;
   letter-spacing: 0.05em;
-  color: $color-font;
+  color: $white;
 }
 
 .clear {
@@ -23,7 +23,7 @@
   font-size: 1em;
   cursor: pointer;
   position: absolute;
-  color: $color-font;
+  color: $white;
   border: none;
   background-color: transparent;
 }
@@ -33,7 +33,7 @@
   top: 20px;
   position: absolute;
   transition: top .5s;
-  color: $color-font;
+  color: $white;
 }
 
 .input {
@@ -45,9 +45,9 @@
   padding-top: 20px;
   padding-left: 10px;
   padding-bottom: 1px;
-  color: $color-font;
+  color: $white;
   background-color: transparent;
-  border-bottom: 1px solid $color-border;
+  border-bottom: 1px solid $blue;
 
   &:focus {
     outline: none;
@@ -57,11 +57,11 @@
 .warning {
   .error-message {
     display: block;
-    color: $color-warning;
+    color: $red;
   }
 
   .input {
-    border-color: $color-warning;
+    border-color: $red;
   }
 }
 
