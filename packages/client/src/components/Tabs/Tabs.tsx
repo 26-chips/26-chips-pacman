@@ -13,7 +13,7 @@ export const Tabs = (props: TabsProps) => {
 
   //Заглушка для прощелкивания табов
   const toggleTab = (e: MouseEvent<HTMLUListElement>) => {
-    setCurrentTab((e.target as HTMLLIElement).innerText.toString());
+    setCurrentTab((e.target as HTMLLIElement).innerText);
   };
 
   return (
