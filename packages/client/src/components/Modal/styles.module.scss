@@ -1,0 +1,39 @@
+.modal {
+  display: none;
+  position: absolute;
+  z-index: 10000;
+  background-color: #282828cc;
+  top: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.show {
+  display:flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.content {
+  width: 460px;
+  height: 290px;
+  background-color: black;
+  border: 1px solid #163BF3;
+  box-shadow: 0 0 20px #163bf3cc;
+  border-radius: 8px;
+  padding: 20px;
+  position: relative;
+
+  .close {
+    width: 14px;
+    height: 14px;
+    margin-right: auto;
+    position: absolute;
+    margin-top: 20px;
+    display: flex;
+    align-items: center;
+    left: calc(100% - 34px);
+    top: 0;
+    justify-content: center;
+  }
+}
