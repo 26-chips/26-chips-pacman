@@ -1,7 +1,7 @@
 @import 'style_constants';
 
 .button {
-  width: 335px;
+  width: 100%;
   height: 48px;
   font-size: 16px;
   color: $white;
@@ -22,12 +22,18 @@
 
   &:disabled {
     background: $grey;
+    pointer-events: none;
     color: $black;
   }
 }
 
 .light {
   background: $blue-light;
+}
+
+.transparent {
+  border: 1px solid $blue;
+  background: transparent;
 }
 
 .loading {

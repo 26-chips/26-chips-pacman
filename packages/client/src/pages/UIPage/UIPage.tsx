@@ -34,13 +34,21 @@ const UIPage = () => {
 
       <h2>Buttons</h2>
       <div className={styles.block}>
-        <Button>Default Button</Button>
-        <Button thema="light">Light Button</Button>
-        <Button disabled>Disabled Button</Button>
-        <Button width={100} height={100}>
-          Custom Size
-        </Button>
-        <Button loading>Loading Button</Button>
+        <div style={{ width: '350px' }}>
+          <Button>Default Button</Button>
+        </div>
+        <div style={{ width: '350px' }}>
+          <Button thema="light">Light Button</Button>
+        </div>
+        <div style={{ width: '350px' }}>
+          <Button disabled>Disabled Button</Button>
+        </div>
+        <div style={{ width: '350px' }}>
+          <Button loading>Loading Button</Button>
+        </div>
+        <div style={{ width: '350px' }}>
+          <Button thema="transparent">Transparent Button</Button>
+        </div>
       </div>
     </>
   );
