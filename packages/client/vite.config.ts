@@ -27,4 +27,9 @@ export default defineConfig({
       localsConvention: 'camelCase',
     },
   },
+  esbuild: {
+    define: {
+      this: 'window',
+    },
+  },
 });
