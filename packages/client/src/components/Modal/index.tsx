@@ -1,5 +1,4 @@
 import { MouseEvent, ReactNode } from 'react';
-import cn from 'classnames';
 import styles from './styles.module.scss';
 import CloseIcon from 'assets/icons/CloseIcon.svg';
 
@@ -12,10 +11,8 @@ interface ModalProps {
 export const Modal = (props: ModalProps) => {
   const { onClose, children, show } = props;
 
-  return (
-    <div
-      className={cn(styles.modal, { [styles.show]: show })}
-      onClick={onClose}>
+  return show ? (
+    <div className={styles.modal} onClick={onClose}>
       <div
         className={styles.content}
         onClick={(e: MouseEvent) => e.stopPropagation()}>
@@ -25,5 +22,5 @@ export const Modal = (props: ModalProps) => {
         </button>
       </div>
     </div>
-  );
+  ) : null;
 };
