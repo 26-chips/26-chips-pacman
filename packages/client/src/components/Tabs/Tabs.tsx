@@ -1,29 +1,25 @@
-import { LiHTMLAttributes, MouseEvent, useState } from 'react';
+import { LiHTMLAttributes } from 'react';
 import cn from 'classnames';
 import styles from './tabs.module.scss';
 
 interface TabsProps extends LiHTMLAttributes<HTMLLIElement> {
   tabNames: string[];
-  activeTab?: string;
+  activeTab?: number;
+  setActiveTab?: (num: number) => void;
 }
 
 export const Tabs = (props: TabsProps) => {
-  const { tabNames, className, activeTab, ...otherProps } = props;
-  const [currentTab, setCurrentTab] = useState(activeTab);
-
-  //Заглушка для прощелкивания табов
-  const toggleTab = (e: MouseEvent<HTMLUListElement>) => {
-    setCurrentTab((e.target as HTMLLIElement).innerText);
-  };
+  const { tabNames, className, activeTab, setActiveTab, ...otherProps } = props;
 
   return (
     <div className={styles.container}>
-      <ul onClick={toggleTab} className={cn(styles.ul, className)}>
-        {tabNames.map(tab => (
+      <ul className={cn(styles.ul, className)}>
+        {tabNames.map((tab, i) => (
           <li
             {...otherProps}
-            className={cn(styles.li, { [styles.active]: tab === currentTab })}
-            key={tab}>
+            className={cn(styles.li, { [styles.active]: i === activeTab })}
+            key={i}
+            id={i.toString()}>
             {tab}
           </li>
         ))}

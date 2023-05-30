@@ -1,8 +1,14 @@
 import { Button, Input, Tabs } from 'components';
-import { FunctionComponent } from 'react';
+import { FunctionComponent, useState } from 'react';
 import styles from './styles.module.scss';
 
 const UIPage = () => {
+  const [activeTab, setActiveTab] = useState(0);
+
+  setTimeout(() => {
+    setActiveTab(Math.floor(Math.random() * 3));
+  }, 2000);
+
   return (
     <>
       <h1>UI Page</h1>
@@ -55,7 +61,8 @@ const UIPage = () => {
       <div className={styles.block}>
         <div style={{ width: '350px' }}>
           <Tabs
-            activeTab={'Label 2'}
+            activeTab={activeTab}
+            setActiveTab={setActiveTab}
             tabNames={['Label 1', 'Label 2', 'Label 3']}
           />
         </div>
