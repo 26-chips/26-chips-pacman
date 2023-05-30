@@ -54,10 +54,10 @@ const UIPage = () => {
       <h2>Textarea</h2>
       <div className={styles.block}>
         <div style={{ width: '350px' }}>
-          <Textarea allowedCharactersNumber={100} />
+          <Textarea />
         </div>
         <div style={{ width: '350px' }}>
-          <Textarea errorMessage={'Error'} allowedCharactersNumber={100} />
+          <Textarea errorMessage="Error" />
         </div>
       </div>
     </>

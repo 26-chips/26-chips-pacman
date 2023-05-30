@@ -4,17 +4,21 @@ import styles from './textarea.module.scss';
 
 export interface TextareaProps
   extends InputHTMLAttributes<HTMLTextAreaElement> {
-  allowedCharactersNumber: number;
   errorMessage?: string;
 }
 
 export const Textarea = (props: TextareaProps) => {
-  const { errorMessage, className, allowedCharactersNumber, ...otherProps } =
-    props;
+  const {
+    errorMessage,
+    value = '',
+    className,
+    maxLength = 50,
+    ...otherProps
+  } = props;
 
-  const [val, setValue] = useState('');
+  const [counter, setCounter] = useState(value.toString().length);
   const handleChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
-    setValue(e.target.value);
+    setCounter(e.target.value?.length);
   };
 
   return (
@@ -24,11 +28,12 @@ export const Textarea = (props: TextareaProps) => {
       })}>
       <textarea
         {...otherProps}
+        maxLength={maxLength}
         className={cn(styles.textarea, className)}
         onChange={handleChange}></textarea>
       <div className={styles.counter}>
         <span>
-          {val.length}/{allowedCharactersNumber}
+          {counter}/{maxLength}
         </span>
       </div>
       <span className={styles.errorMessage}>{errorMessage}</span>
