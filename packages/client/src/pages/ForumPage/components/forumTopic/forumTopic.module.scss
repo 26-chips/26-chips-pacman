@@ -1,0 +1,36 @@
+.wrapper {
+  border-top: 1px solid var(--primary-color);
+  border-bottom: 1px solid var(--primary-color);
+  margin-top: 21px;
+}
+
+.topic {
+  display: grid;
+  align-items: center;
+  grid-template-columns: repeat(5, 1fr);
+  font-size: 18px;
+  cursor: pointer;
+
+  &:hover {
+    background-color: rgb(124 145 250 / 40%);
+  }
+}
+
+.title {
+  grid-column: span 2;
+  margin: 0;
+  padding: 9px;
+}
+
+.number {
+  grid-column-start: 3;
+}
+
+.themes {
+  text-align: center;
+}
+
+.header {
+  text-align: center;
+  margin: 0;
+}

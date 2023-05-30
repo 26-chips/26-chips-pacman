@@ -1,0 +1,30 @@
+.forum {
+  max-width: 1280px;
+  margin: auto;
+}
+
+.title {
+  font-family: LexendPeta, sans-serif;
+  font-size: 100px;
+  margin: 0;
+  color: var(--primary-color);
+
+}
+
+.line {
+  position: absolute;
+  width: 100vw;
+  top: 171px;
+  left: 0;
+  border-top: 1px solid var(--primary-color);
+}
+
+.logo {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+}
+
+.orange {
+  z-index: 10;
+}

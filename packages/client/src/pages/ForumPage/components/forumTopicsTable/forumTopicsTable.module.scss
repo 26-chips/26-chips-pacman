@@ -1,0 +1,28 @@
+.table {
+  position: relative;
+  overflow-y: auto;
+  height: 500px;
+  z-index: 10000;
+}
+
+.headers {
+  display: grid;
+  background-color: var(--background-color);
+  grid-template-columns: repeat(5, 1fr);
+  font-family: LexendPeta, sans-serif;
+  font-weight: 700;
+  font-size: 18px;
+  padding-left: 9px;
+  margin-top: 40px;
+  position: sticky;
+  top: 0;
+  left: 0;
+}
+
+.themes {
+  grid-column-start: 3;
+}
+
+.header {
+  text-align: center;
+}
