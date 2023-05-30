@@ -1,3 +1,5 @@
+@import "constants";
+
 :root {
   --primary-color: #163BF3;
   --background-color: #0a0708;
@@ -24,8 +26,8 @@ html {
 body {
   font-family: Inter, sans-serif;
   font-weight: 400;
-  background: var(--background-color);
-  color: #fff;
+  background: $black;
+  color: $white;
   margin: 0;
   height: 100%;
 }
