@@ -74,7 +74,7 @@ const ForumPage = () => (
     <div className={styles.line}></div>
     <ForumTopicsTable topicsList={topicsList} />
     <img
-      className={`${styles.logo} ${styles.orange}`}
+      className={`${styles.logo} ${styles.orangeLogo}`}
       src={orangeLogo}
       alt="logo"
     />
