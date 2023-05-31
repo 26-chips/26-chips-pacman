@@ -30,8 +30,8 @@
   width: 44px;
   height: 26px;
   border-radius: 100px;
-  border: solid 2px $white;
   transition: .5s;
+  border: solid 2px $white;
 
   .input {
     width: 0;
@@ -43,9 +43,9 @@
     transform: translateX(20px);
     background-color: $blue;
     border: solid 2px $blue;
+  }
 
-    @at-root .switch {
-      border: solid 2px $blue;
-    }
+  &:has(input:checked) {
+    border: solid 2px $blue;
   }
 }
