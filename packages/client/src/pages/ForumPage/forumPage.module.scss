@@ -1,3 +1,5 @@
+@import 'style_constants';
+
 .forum {
   max-width: 1280px;
   margin: auto;
@@ -7,7 +9,7 @@
   font-family: LexendPeta, sans-serif;
   font-size: 100px;
   margin: 0;
-  color: var(--primary-color);
+  color: $blue;
 }
 
 .line {
@@ -15,7 +17,7 @@
   width: 100vw;
   top: 171px;
   left: 0;
-  border-top: 1px solid var(--primary-color);
+  border-top: 1px solid $blue;
 }
 
 .logo {
@@ -26,4 +28,29 @@
 
 .orange-logo {
   z-index: 10;
+}
+
+.button-add-theme {
+  display: flex;
+  font-size: 16px;
+  align-items: center;
+  background-color: $black;
+  color: $white;
+  border: none;
+  column-gap: 10px;
+  cursor: pointer;
+  align-self: end;
+
+  &:hover {
+    color: $blue-hover;
+  }
+}
+
+.button-title {
+  margin: 0;
+}
+
+.table-container {
+  display: flex;
+  flex-direction: column;
 }

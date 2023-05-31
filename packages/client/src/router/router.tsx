@@ -11,7 +11,8 @@ import {
   ProfilePage,
   LeaderboardPage,
   ForumPage,
-  UIPage
+  UIPage,
+  ForumChatPage
 } from 'pages';
 
 import { ROUTES } from './routes';
@@ -29,6 +30,7 @@ const routes: RouteObject[] = [
       { path: ROUTES.PROFILE, element: <ProfilePage /> },
       { path: ROUTES.LEADERBOARD, element: <LeaderboardPage /> },
       { path: ROUTES.FORUM, element: <ForumPage /> },
+      { path: ROUTES.FORUM_TOPIC, element: <ForumChatPage /> },
       { path: ROUTES.UI, element: <UIPage /> },
     ],
   },

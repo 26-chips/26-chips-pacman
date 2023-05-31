@@ -1,6 +1,8 @@
+@import 'style_constants';
+
 .wrapper {
-  border-top: 1px solid var(--primary-color);
-  border-bottom: 1px solid var(--primary-color);
+  border-top: 1px solid $blue;
+  border-bottom: 1px solid $blue;
   margin-top: 21px;
 }
 
@@ -12,7 +14,7 @@
   cursor: pointer;
 
   &:hover {
-    background-color: rgb(124 145 250 / 40%);
+    background-color: $blue-hover;
   }
 }
 

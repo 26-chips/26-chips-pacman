@@ -1,10 +1,5 @@
 @import "constants";
 
-:root {
-  --primary-color: #163BF3;
-  --background-color: #0a0708;
-}
-
 @font-face {
   font-family: Inter;
   src: url("assets/fonts/Inter.ttf");
@@ -26,6 +21,7 @@ html {
 body {
   font-family: Inter, sans-serif;
   font-weight: 400;
+  font-size: 16px;
   background: $black;
   color: $white;
   margin: 0;
