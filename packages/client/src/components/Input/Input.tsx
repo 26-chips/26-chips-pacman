@@ -9,21 +9,15 @@ export interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
 }
 
 export const Input = (props: InputProps) => {
-  const {
-    value,
-    title,
-    deleteSymbol,
-    errorMessage,
-    inlineTitle,
-    ...otherProps
-  } = props;
+  const { title, deleteSymbol, errorMessage, inlineTitle, ...otherProps } =
+    props;
 
   const inputRef = useRef<HTMLInputElement>(null);
 
-  // Временная заглушка
   const handleClear = () => {
-    // @ts-ignore
-    inputRef.current.value = '';
+    if (inputRef.current) {
+      inputRef.current.value = '';
+    }
   };
 
   return (
@@ -31,6 +25,7 @@ export const Input = (props: InputProps) => {
       <label className={cn({ [styles.warning]: errorMessage?.length })}>
         <input
           {...otherProps}
+          title={title}
           className={cn(styles.input, { [styles.textRight]: inlineTitle })}
           ref={inputRef}
         />
