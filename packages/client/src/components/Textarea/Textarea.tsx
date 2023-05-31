@@ -1,4 +1,4 @@
-import { ChangeEvent, InputHTMLAttributes, useState } from 'react';
+import { InputHTMLAttributes } from 'react';
 import cn from 'classnames';
 import styles from './textarea.module.scss';
 
@@ -16,11 +16,6 @@ export const Textarea = (props: TextareaProps) => {
     ...otherProps
   } = props;
 
-  const [counter, setCounter] = useState(value.toString().length);
-  const handleChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
-    setCounter(e.target.value?.length);
-  };
-
   return (
     <div
       className={cn(styles.container, {
@@ -28,12 +23,13 @@ export const Textarea = (props: TextareaProps) => {
       })}>
       <textarea
         {...otherProps}
+        value={value}
         maxLength={maxLength}
         className={cn(styles.textarea, className)}
-        onChange={handleChange}></textarea>
+      />
       <div className={styles.counter}>
         <span>
-          {counter}/{maxLength}
+          {value.toString().length}/{maxLength}
         </span>
       </div>
       <span className={styles.errorMessage}>{errorMessage}</span>

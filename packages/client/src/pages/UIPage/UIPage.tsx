@@ -1,8 +1,19 @@
 import { Button, Input, Textarea } from 'components';
-import { FunctionComponent } from 'react';
+import { ChangeEvent, FunctionComponent, useState } from 'react';
 import styles from './styles.module.scss';
 
 const UIPage = () => {
+  const [value1, setValue1] = useState('');
+  const [value2, setValue2] = useState('');
+
+  const handleChange1 = (e: ChangeEvent<HTMLTextAreaElement>) => {
+    setValue1(e.target.value);
+  };
+
+  const handleChange2 = (e: ChangeEvent<HTMLTextAreaElement>) => {
+    setValue2(e.target.value);
+  };
+
   return (
     <>
       <h1>UI Page</h1>
@@ -54,10 +65,14 @@ const UIPage = () => {
       <h2>Textarea</h2>
       <div className={styles.block}>
         <div style={{ width: '350px' }}>
-          <Textarea />
+          <Textarea onChange={handleChange1} value={value1} />
         </div>
         <div style={{ width: '350px' }}>
-          <Textarea errorMessage="Error" />
+          <Textarea
+            onChange={handleChange2}
+            value={value2}
+            errorMessage="Error"
+          />
         </div>
       </div>
     </>
