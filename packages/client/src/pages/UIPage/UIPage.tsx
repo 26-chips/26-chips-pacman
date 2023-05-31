@@ -1,15 +1,21 @@
-import { Button, Input, Textarea } from 'components';
+import { Button, Checkbox, Input, Tabs, Modal, Textarea } from 'components';
 import { ChangeEvent, FunctionComponent, useState } from 'react';
 import styles from './styles.module.scss';
 
 const UIPage = () => {
+  //Tabs additionals
+  const [activeTab, setActiveTab] = useState(0);
+  const [showModal, setShowModal] = useState(false);
+  setTimeout(() => {
+    setActiveTab(Math.floor(Math.random() * 3));
+  }, 2000);
+
+  //Textarea additionals
   const [value1, setValue1] = useState('');
   const [value2, setValue2] = useState('');
-
   const handleChange1 = (e: ChangeEvent<HTMLTextAreaElement>) => {
     setValue1(e.target.value);
   };
-
   const handleChange2 = (e: ChangeEvent<HTMLTextAreaElement>) => {
     setValue2(e.target.value);
   };
@@ -60,6 +66,33 @@ const UIPage = () => {
         <div style={{ width: '350px' }}>
           <Button thema="transparent">Transparent Button</Button>
         </div>
+      </div>
+
+      <h2>Checkbox</h2>
+      <div className={styles.block}>
+        <div>
+          <Checkbox checked />
+          <Checkbox />
+        </div>
+      </div>
+
+      <h2>Tabs</h2>
+      <div className={styles.block}>
+        <div style={{ width: '350px' }}>
+          <Tabs
+            activeTab={activeTab}
+            setActiveTab={setActiveTab}
+            tabNames={['Label 1', 'Label 2', 'Label 3']}
+          />
+        </div>
+      </div>
+
+      <h2>Modal</h2>
+      <div className={styles.block} style={{ width: '350px' }}>
+        <Button onClick={() => setShowModal(true)}>Open Modal</Button>
+        <Modal show={showModal} onClose={() => setShowModal(false)}>
+          Hello World
+        </Modal>
       </div>
 
       <h2>Textarea</h2>
