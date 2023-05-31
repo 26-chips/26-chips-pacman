@@ -1,8 +1,15 @@
-import { Button, Input, Switch } from 'components';
-import { FunctionComponent } from 'react';
+import { Button, Checkbox, Input, Tabs, Modal, Switch } from 'components';
+import { FunctionComponent, useState } from 'react';
 import styles from './styles.module.scss';
 
 const UIPage = () => {
+  const [activeTab, setActiveTab] = useState(0);
+  const [showModal, setShowModal] = useState(false);
+
+  setTimeout(() => {
+    setActiveTab(Math.floor(Math.random() * 3));
+  }, 2000);
+
   return (
     <>
       <h1>UI Page</h1>
@@ -49,6 +56,33 @@ const UIPage = () => {
         <div style={{ width: '350px' }}>
           <Button thema="transparent">Transparent Button</Button>
         </div>
+      </div>
+
+      <h2>Checkbox</h2>
+      <div className={styles.block}>
+        <div>
+          <Checkbox checked />
+          <Checkbox />
+        </div>
+      </div>
+
+      <h2>Tabs</h2>
+      <div className={styles.block}>
+        <div style={{ width: '350px' }}>
+          <Tabs
+            activeTab={activeTab}
+            setActiveTab={setActiveTab}
+            tabNames={['Label 1', 'Label 2', 'Label 3']}
+          />
+        </div>
+      </div>
+
+      <h2>Modal</h2>
+      <div className={styles.block} style={{ width: '350px' }}>
+        <Button onClick={() => setShowModal(true)}>Open Modal</Button>
+        <Modal show={showModal} onClose={() => setShowModal(false)}>
+          Hello World
+        </Modal>
       </div>
 
       <h2>Switches</h2>
