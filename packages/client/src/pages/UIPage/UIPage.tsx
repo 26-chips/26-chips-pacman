@@ -1,4 +1,4 @@
-import { Button, Input, Tabs, Modal } from 'components';
+import { Button, Checkbox, Input, Tabs, Modal } from 'components';
 import { FunctionComponent, useState } from 'react';
 import styles from './styles.module.scss';
 
@@ -58,6 +58,14 @@ const UIPage = () => {
         </div>
       </div>
 
+      <h2>Checkbox</h2>
+      <div className={styles.block}>
+        <div>
+          <Checkbox checked />
+          <Checkbox />
+        </div>
+      </div>
+
       <h2>Tabs</h2>
       <div className={styles.block}>
         <div style={{ width: '350px' }}>
@@ -76,6 +84,7 @@ const UIPage = () => {
           Hello World
         </Modal>
       </div>
+      
     </>
   );
 };
