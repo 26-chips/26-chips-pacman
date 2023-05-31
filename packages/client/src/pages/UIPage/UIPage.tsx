@@ -8,7 +8,7 @@ const UIPage = () => {
   const [showModal, setShowModal] = useState(false);
   setTimeout(() => {
     setActiveTab(Math.floor(Math.random() * 3));
-  }, 2000);
+  }, 5000);
 
   //Textarea additionals
   const [value1, setValue1] = useState('');
