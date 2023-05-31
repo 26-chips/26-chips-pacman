@@ -43,9 +43,9 @@
     transform: translateX(20px);
     background-color: $blue;
     border: solid 2px $blue;
-  }
-}
 
-.checked {
-  border: solid 2px $blue;
+    @at-root .switch {
+      border: solid 2px $blue;
+    }
+  }
 }
