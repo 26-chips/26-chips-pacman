@@ -54,7 +54,7 @@ const UIPage = () => {
       <h2>Switches</h2>
       <div className={styles.block}>
         <Switch />
-        <Switch checked />
+        <Switch defaultChecked />
       </div>
     </>
   );
