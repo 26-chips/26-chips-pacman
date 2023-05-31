@@ -1,8 +1,9 @@
-import { Button, Input } from 'components';
-import { FunctionComponent } from 'react';
+import { FunctionComponent, useState } from 'react';
+import { Button, Input, Modal } from 'components';
 import styles from './styles.module.scss';
 
 const UIPage = () => {
+  const [showModal, setShowModal] = useState(false);
   return (
     <>
       <h1>UI Page</h1>
@@ -49,6 +50,14 @@ const UIPage = () => {
         <div style={{ width: '350px' }}>
           <Button thema="transparent">Transparent Button</Button>
         </div>
+      </div>
+
+      <h2>Modal</h2>
+      <div className={styles.block} style={{ width: '350px' }}>
+        <Button onClick={() => setShowModal(true)}>Open Modal</Button>
+        <Modal show={showModal} onClose={() => setShowModal(false)}>
+          Hello World
+        </Modal>
       </div>
     </>
   );
