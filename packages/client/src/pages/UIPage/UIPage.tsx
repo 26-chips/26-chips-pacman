@@ -1,10 +1,15 @@
+
 import { Button, Input, Tabs } from 'components';
 import { FunctionComponent, useState } from 'react';
+import styles from './styles.module.scss';
+import { FunctionComponent, useState } from 'react';
+import { Button, Input, Modal } from 'components';
 import styles from './styles.module.scss';
 
 const UIPage = () => {
   const [activeTab, setActiveTab] = useState(0);
-
+  const [showModal, setShowModal] = useState(false);
+  
   setTimeout(() => {
     setActiveTab(Math.floor(Math.random() * 3));
   }, 2000);
@@ -66,6 +71,13 @@ const UIPage = () => {
             tabNames={['Label 1', 'Label 2', 'Label 3']}
           />
         </div>
+        
+      <h2>Modal</h2>
+      <div className={styles.block} style={{ width: '350px' }}>
+        <Button onClick={() => setShowModal(true)}>Open Modal</Button>
+        <Modal show={showModal} onClose={() => setShowModal(false)}>
+          Hello World
+        </Modal>
       </div>
     </>
   );

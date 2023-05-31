@@ -9,7 +9,7 @@ export default {
     __SERVER_PORT__: process.env.SERVER_PORT,
   },
   moduleNameMapper: {
-    '\\.(scss|css|jpg|png|gif)$': '<rootDir>/file.mock.js',
+    '\\.(scss|jpg|png|gif|svg)$': '<rootDir>/file.mock.js',
     '^components(.*)$': '<rootDir>/src/components$1',
     '^router(.*)$': '<rootDir>/src/router$1',
     '^pages(.*)$': '<rootDir>/src/pages$1',
