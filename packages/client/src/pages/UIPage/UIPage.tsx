@@ -61,7 +61,7 @@ const UIPage = () => {
       <h2>Checkbox</h2>
       <div className={styles.block}>
         <div>
-          <Checkbox checked />
+          <Checkbox defaultChecked />
           <Checkbox />
         </div>
       </div>
