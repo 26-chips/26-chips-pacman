@@ -7,10 +7,10 @@ interface FormProps<T> extends FormikConfig<T> {
 }
 
 export function Form<T extends FormikValues>(props: FormProps<T>) {
-  const { initialValues, onSubmit, children, className } = props;
+  const { children, className, ...restProps } = props;
 
   return (
-    <Formik initialValues={initialValues} onSubmit={onSubmit}>
+    <Formik {...restProps}>
       <FORM className={className}>{children}</FORM>
     </Formik>
   );
