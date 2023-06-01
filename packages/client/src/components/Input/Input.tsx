@@ -3,7 +3,7 @@ import cn from 'classnames';
 import styles from './input.module.scss';
 
 export interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
-  inlineTitle: boolean;
+  inlineTitle?: boolean;
   errorMessage?: string;
   deleteSymbol?: string | ReactNode;
 }
@@ -22,7 +22,7 @@ export const Input = (props: InputProps) => {
 
   return (
     <div className={styles.container}>
-      <label className={cn({ [styles.warning]: errorMessage?.length })}>
+      <label className={cn({ [styles.warning]: errorMessage })}>
         <input
           {...otherProps}
           title={title}
