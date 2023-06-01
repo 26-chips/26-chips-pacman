@@ -1,5 +1,13 @@
-import { Button, Checkbox, Input, Tabs, Modal, Textarea } from 'components';
-import { ChangeEvent, FunctionComponent, useState } from 'react';
+import {
+  Button,
+  Checkbox,
+  Input,
+  Tabs,
+  Modal,
+  Switch,
+  Textarea
+} from 'components';
+import { FunctionComponent, useState, ChangeEvent } from 'react';
 import styles from './styles.module.scss';
 
 const UIPage = () => {
@@ -71,7 +79,7 @@ const UIPage = () => {
       <h2>Checkbox</h2>
       <div className={styles.block}>
         <div>
-          <Checkbox checked />
+          <Checkbox defaultChecked />
           <Checkbox />
         </div>
       </div>
@@ -106,6 +114,11 @@ const UIPage = () => {
             value={value2}
             errorMessage="Error"
           />
+        </div>
+        <h2>Switches</h2>
+        <div className={styles.block}>
+          <Switch />
+          <Switch defaultChecked />
         </div>
       </div>
     </>
