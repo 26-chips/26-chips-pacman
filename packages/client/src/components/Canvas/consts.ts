@@ -1,4 +1,4 @@
-import { CellsType } from './canvas';
+import { CellsType } from './Canvas';
 import { makePathCycle } from './helpers';
 
 export const field = <CellsType[][]>[
