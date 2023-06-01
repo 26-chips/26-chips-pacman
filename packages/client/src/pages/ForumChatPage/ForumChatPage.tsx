@@ -1,13 +1,28 @@
-import { FunctionComponent } from 'react';
+import { FunctionComponent, MouseEvent, useState } from 'react';
 import styles from './forumChatPage.module.scss';
 import iconArrowBack from '../../assets/icons/icon-arrow-back.svg';
 import { Link } from 'react-router-dom';
 import { ROUTES } from '../../router';
-import { MessageLayout } from './components/messageLayout/MessageLayout';
 import defaultAvatar from '../../assets/default-avatar.png';
+import { MessageLayout } from './components/messageLayout/MessageLayout';
 import iconSend from '../../assets/icons/icon-send.svg';
+import arrowUp from '../../assets/icons/arrow-up.svg';
+import arrowDown from '../../assets/icons/arrow-down.svg';
+import { ParticipantItem } from './components/participantItem/participantItem';
 
 const ForumChatPage = () => {
+  // const { state } = props.location;
+
+  const [showParticipantsList, setShowParticipantsList] = useState(false);
+
+  const handleShowParticipantsList = () => {
+    setShowParticipantsList(!showParticipantsList);
+  };
+
+  const participantsListIcon = (): typeof arrowUp | typeof arrowDown => {
+    return showParticipantsList ? arrowUp : arrowDown;
+  };
+
   return (
     <div className={styles.chat}>
       <div className={styles.line}></div>
@@ -20,8 +35,28 @@ const ForumChatPage = () => {
         </div>
         <div className={styles.chatContent}>
           <div className={styles.chatContentHeader}>
-            <h1 className={styles.chatTitle}>Тема чата</h1>
-            <button className={styles.participantsListBtn}>Участники</button>
+            <h1 className={styles.chatTitle}></h1>
+            <button onClick={handleShowParticipantsList} className={styles.participantsListBtn}>
+              <p>Участники</p>
+              <img src={participantsListIcon()} alt="Список участников" />
+              {
+                showParticipantsList ?
+                  <div onClick={(e: MouseEvent) => e.stopPropagation()}
+                       className={styles.participantsList}>
+                    <span className={styles.numberOfParticipants}>100</span>
+                    <ul className={styles.list}>
+                      <ParticipantItem name="ivanovi" />
+                      <ParticipantItem name="petrov" />
+                      <ParticipantItem name="ivanovi" />
+                      <ParticipantItem name="petrov" />
+                      <ParticipantItem name="ivanovi" />
+                      <ParticipantItem name="petrov" />
+                      <ParticipantItem name="ivanovi" />
+                    </ul>
+                  </div> :
+                  <></>
+              }
+            </button>
           </div>
           <div className={styles.chatWrapper}>
             <div className={styles.messages}>

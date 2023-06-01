@@ -34,8 +34,7 @@ export const ForumTopicsTable = (props: ForumTopicsTableProps) => {
           <Link
             className={styles.link}
             key={topic.id}
-            state={{ topic: topic }}
-            to={`${ROUTES.FORUM}/${topic.id}`}>
+            to={{ pathname: `${ROUTES.FORUM}/${topic.id}` }}>
             <ForumTopic
               title={topic.title}
               numberOfTopic={topic.numberOfTopic}
