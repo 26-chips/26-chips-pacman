@@ -11,6 +11,7 @@ import smallPillImg from '../../assets/pill1.png';
 import bigPillImg from '../../assets/pill2.png';
 import { resourcesHandler } from './resources';
 import { field as fieldArray } from './consts';
+
 export type DirectionsType = 'up' | 'down' | 'left' | 'right' | 'still';
 export type CellsType =
   | 'wall'
@@ -21,10 +22,11 @@ export type CellsType =
   | 'pill+pacman';
 
 type Props = {
-  setTime: (ar: number) => void;
+  setTime: (value: number) => void;
   setPoints: React.Dispatch<React.SetStateAction<number>>;
   reduceLives: () => void;
 };
+
 //должно делиться на 2 без остатка
 export const cellSize = 50;
 const bigPillSize = 20;
@@ -43,7 +45,6 @@ export function CanvasComponent({ setPoints, reduceLives, setTime }: Props) {
   const requestIdRef = useRef<number | null>(null);
   const field = useRef<CellsType[][]>(fieldArray);
   const refGameIsPaused = useRef<boolean>(true);
-  const dtRef = useRef<number>(0);
   const totalGameTimeRef = useRef<number>(0);
   const ticksCounter = useRef<number>(0);
 
@@ -79,19 +80,16 @@ export function CanvasComponent({ setPoints, reduceLives, setTime }: Props) {
 
   const handleKeyboard = (e: KeyboardEvent) => {
     if (e.code === 'ArrowUp') {
-      console.log('1');
       pacman.updateDirection('up');
     }
     if (e.code === 'ArrowRight') {
       pacman.updateDirection('right');
-      console.log(totalGameTimeRef.current);
     }
     if (e.code === 'ArrowDown') {
       pacman.updateDirection('down');
     }
     if (e.code === 'ArrowLeft') {
       pacman.updateDirection('left');
-      console.log(dtRef.current);
     }
     if (e.code === 'Space') {
       refGameIsPaused.current = !refGameIsPaused.current;
@@ -112,7 +110,6 @@ export function CanvasComponent({ setPoints, reduceLives, setTime }: Props) {
         let { x, y } = pacman.getPosition();
         let { x: enemyX, y: enemyY } = pinky.getPosition();
 
-        ctx.fillStyle = 'green';
         for (let i = 0; i < fld.length; i++) {
           for (let j = 0; j < fld[i].length; j++) {
             if (fld[i][j] === 'smallPill') {
@@ -172,6 +169,7 @@ export function CanvasComponent({ setPoints, reduceLives, setTime }: Props) {
           }
         }
 
+        // если пересеклись с противником - смерть
         if (
           collidesSquare(x, y, pacmanSize - 1, enemyX, enemyY, enemiesSize - 1)
         ) {
@@ -193,8 +191,8 @@ export function CanvasComponent({ setPoints, reduceLives, setTime }: Props) {
   const renderWalls = () => {
     if (canvasRef.current) {
       const ctx = canvasRef.current.getContext('2d');
-
       const fld = field.current;
+
       for (let i = 0; i < fld.length; i++) {
         for (let j = 0; j < fld[i].length; j++) {
           if (fld[i][j] === 'wall') {
@@ -238,7 +236,6 @@ export function CanvasComponent({ setPoints, reduceLives, setTime }: Props) {
 
   useEffect(() => {
     resourcesHandler.load([wallImg, pacmanImg, spritesImg, pinkyImg]);
-
     document.addEventListener('keydown', handleKeyboard);
 
     //стены рисуем вне цикла

@@ -60,7 +60,7 @@ export const field = <CellsType[][]>[
     'wall',
     'wall',
     'smallPill',
-    'wall',
+    'empty',
   ], //4
   [
     'wall',

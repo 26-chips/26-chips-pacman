@@ -9,7 +9,7 @@ export type PathType = {
 export class Enemy {
   private centerPosition: { x: number; y: number };
 
-  // по сколько пикселей за цикл двигаемся
+  // шаг в пикселях за цикл
   private step: number;
 
   // текущий кусок пути
@@ -29,8 +29,7 @@ export class Enemy {
   constructor(
     private path: PathType,
     private field: CellsType[][],
-    //позиция в координатах-пикселях
-    private startPosition: { x: number; y: number }, // позиция в матрице поля
+    private startPosition: { x: number; y: number },
     private activationTime: number
   ) {
     this.step = 5;
@@ -45,14 +44,12 @@ export class Enemy {
 
   updateTime(time?: number) {
     this.time = typeof time != 'undefined' ? time : this.time + 1;
-    console.log('ENEMIES_TIME', time, this.time);
   }
 
   updatePosition() {
     if (this.time >= this.activationTime) {
       if (this.currentDirection === 'up') {
         if (this.position.y > this.step) {
-          console.log('ENEMIES_TIME2', this.time);
           this.position.y -= this.step;
         } else {
           this.position.y = this.field.length * cellSize - cellSize / 2;
