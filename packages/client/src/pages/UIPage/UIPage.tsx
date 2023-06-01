@@ -5,7 +5,7 @@ import {
   Tabs,
   Modal,
   Switch,
-  Textarea
+  Textarea,
 } from 'components';
 import { FunctionComponent, useState, ChangeEvent } from 'react';
 import styles from './styles.module.scss';
