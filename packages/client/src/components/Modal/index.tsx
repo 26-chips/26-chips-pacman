@@ -2,8 +2,8 @@ import { MouseEvent, ReactNode } from 'react';
 import styles from './styles.module.scss';
 import CloseIcon from 'assets/icons/CloseIcon.svg';
 
-interface ModalProps {
-  children: ReactNode;
+export interface ModalProps {
+  children?: ReactNode;
   onClose: () => void;
   show: boolean;
 }
