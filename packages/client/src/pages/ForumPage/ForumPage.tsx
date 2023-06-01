@@ -1,10 +1,11 @@
-import { FunctionComponent } from 'react';
+import { FunctionComponent, useState } from 'react';
 import styles from './forumPage.module.scss';
 import { ForumTopicType } from './types';
 import { ForumTopicsTable } from './components/forumTopicsTable/forumTopicsTable';
 import violetLogo from '../../assets/icons/violet-logo-image.svg';
 import orangeLogo from '../../assets/icons/orange-logo-image.svg';
 import iconPlus from '../../assets/icons/icon-plus.svg';
+import { CreateTopic } from './components/createTopic/createTopic';
 
 const topicsList: ForumTopicType[] = [
   {
@@ -79,24 +80,37 @@ const topicsList: ForumTopicType[] = [
   },
 ];
 
-const ForumPage = () => (
-  <div className={styles.forum}>
-    <h1 className={styles.title}>forum</h1>
-    <div className={styles.line}></div>
-    <div className={styles.tableContainer}>
-      <button className={styles.buttonAddTheme}>
-        <img src={iconPlus} alt="Иконка добавить" />
-        <p className={styles.buttonTitle}>Создать новую тему</p>
-      </button>
-      <ForumTopicsTable topicsList={topicsList} />
+const ForumPage = () => {
+  const [createTopic, setCreateTopic] = useState(false);
+
+  const handleCancelCreateTopic = () => {
+    setCreateTopic(false);
+  };
+
+  return (
+    <div className={styles.forum}>
+      <h1 className={styles.title}>forum</h1>
+      <div className={styles.line}></div>
+      {
+        createTopic ?
+          <CreateTopic handleCancelCreateTopic={handleCancelCreateTopic} />
+          :
+          <div className={styles.tableContainer}>
+            <button onClick={() => setCreateTopic(true)} className={styles.buttonAddTheme}>
+              <img src={iconPlus} alt="Иконка добавить" />
+              <p className={styles.buttonTitle}>Создать новую тему</p>
+            </button>
+            <ForumTopicsTable topicsList={topicsList} />
+          </div>
+      }
+      <img
+        className={`${styles.logo} ${styles.orangeLogo}`}
+        src={orangeLogo}
+        alt="logo"
+      />
+      <img className={styles.logo} src={violetLogo} alt="logo" />
     </div>
-    <img
-      className={`${styles.logo} ${styles.orangeLogo}`}
-      src={orangeLogo}
-      alt="logo"
-    />
-    <img className={styles.logo} src={violetLogo} alt="logo" />
-  </div>
-);
+  );
+};
 
 export default ForumPage as FunctionComponent;
