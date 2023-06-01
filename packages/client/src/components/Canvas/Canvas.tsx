@@ -5,7 +5,7 @@ import { collidesSquare } from './helpers';
 import { Pacman } from './Pacman';
 import wallImg from '../../assets/wall.jpg';
 import pinkyImg from '../../assets/pinky.png';
-import spritesImg from '../../assets/sprites.png';
+
 import pacmanImg from '../../assets/pacman.png';
 import smallPillImg from '../../assets/pill1.png';
 import bigPillImg from '../../assets/pill2.png';
@@ -235,7 +235,13 @@ export function CanvasComponent({ setPoints, reduceLives, setTime }: Props) {
   }, []);
 
   useEffect(() => {
-    resourcesHandler.load([wallImg, pacmanImg, spritesImg, pinkyImg]);
+    resourcesHandler.load([
+      wallImg,
+      pacmanImg,
+      pinkyImg,
+      smallPillImg,
+      bigPillImg,
+    ]);
     document.addEventListener('keydown', handleKeyboard);
 
     //стены рисуем вне цикла
