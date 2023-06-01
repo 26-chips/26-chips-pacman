@@ -5,7 +5,6 @@ import { collidesSquare } from './helpers';
 import { Pacman } from './Pacman';
 import wallImg from '../../assets/wall.jpg';
 import pinkyImg from '../../assets/pinky.png';
-
 import pacmanImg from '../../assets/pacman.png';
 import smallPillImg from '../../assets/pill1.png';
 import bigPillImg from '../../assets/pill2.png';
