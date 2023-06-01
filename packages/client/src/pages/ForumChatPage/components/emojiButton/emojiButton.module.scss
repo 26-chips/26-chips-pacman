@@ -1,0 +1,21 @@
+@import 'style_constants';
+
+.button {
+  position: relative;
+  background-color: $blue-light;
+  width: 100%;
+  max-width: 54px;
+  border-radius: 20px;
+  display: flex;
+  padding: 3px 5px;
+  align-items: center;
+  column-gap: 8px;
+
+  &:hover {
+    background-color: $blue-hover;
+  }
+}
+
+.number {
+  font-size: 12px;
+}

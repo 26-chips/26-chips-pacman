@@ -4,7 +4,6 @@ import { ForumTopicType } from './types';
 import { ForumTopicsTable } from './components/forumTopicsTable/forumTopicsTable';
 import violetLogo from '../../assets/icons/violet-logo-image.svg';
 import orangeLogo from '../../assets/icons/orange-logo-image.svg';
-import iconPlus from '../../assets/icons/icon-plus.svg';
 import { CreateTopic } from './components/createTopic/createTopic';
 
 const topicsList: ForumTopicType[] = [
@@ -83,26 +82,22 @@ const topicsList: ForumTopicType[] = [
 const ForumPage = () => {
   const [createTopic, setCreateTopic] = useState(false);
 
-  const handleCancelCreateTopic = () => {
-    setCreateTopic(false);
+  const handleChangeCreateTopic = () => {
+    setCreateTopic(!createTopic);
   };
 
   return (
     <div className={styles.forum}>
       <h1 className={styles.title}>forum</h1>
       <div className={styles.line}></div>
-      {
-        createTopic ?
-          <CreateTopic handleCancelCreateTopic={handleCancelCreateTopic} />
-          :
-          <div className={styles.tableContainer}>
-            <button onClick={() => setCreateTopic(true)} className={styles.buttonAddTheme}>
-              <img src={iconPlus} alt="Иконка добавить" />
-              <p className={styles.buttonTitle}>Создать новую тему</p>
-            </button>
-            <ForumTopicsTable topicsList={topicsList} />
-          </div>
-      }
+      {createTopic ? (
+        <CreateTopic handleChangeCreateTopic={handleChangeCreateTopic} />
+      ) : (
+        <ForumTopicsTable
+          topicsList={topicsList}
+          handleChangeCreateTopic={handleChangeCreateTopic}
+        />
+      )}
       <img
         className={`${styles.logo} ${styles.orangeLogo}`}
         src={orangeLogo}

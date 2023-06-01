@@ -29,28 +29,3 @@
 .orange-logo {
   z-index: 10;
 }
-
-.button-add-theme {
-  display: flex;
-  font-size: 16px;
-  align-items: center;
-  background-color: $black;
-  color: $white;
-  border: none;
-  column-gap: 10px;
-  cursor: pointer;
-  align-self: end;
-
-  &:hover {
-    color: $blue-hover;
-  }
-}
-
-.button-title {
-  margin: 0;
-}
-
-.table-container {
-  display: flex;
-  flex-direction: column;
-}

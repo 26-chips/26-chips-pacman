@@ -37,6 +37,7 @@ const ForumChatPage = () => {
                 message="Lorem"
                 avatar={defaultAvatar}
                 time="11:35"
+                emojis={[{ id: 1, emoji: '🥰', number: 20 }]}
               />
               <MessageLayout
                 name="you"
@@ -44,6 +45,10 @@ const ForumChatPage = () => {
                 avatar={defaultAvatar}
                 time="11:40"
                 interlocutor={false}
+                emojis={[
+                  { id: 1, emoji: '😀', number: 10 },
+                  { id: 2, emoji: '😝', number: 10 },
+                ]}
               />
             </div>
             <form className={styles.form}>

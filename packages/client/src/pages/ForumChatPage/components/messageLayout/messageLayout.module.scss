@@ -17,6 +17,7 @@
 }
 
 .message-container {
+  position: relative;
   width: 100%;
   max-width: 392px;
   display: flex;
@@ -36,15 +37,25 @@
 }
 
 .message-time {
-  position: relative;
+  position: absolute;
   color: $grey;
   margin: 5px 0 0 5px;
   font-size: 9px;
   align-self: end;
+  bottom: 11px;
+  right: 11px;
 }
 
 .author-name {
   font-size: 12px;
   margin-top: 0;
   color: $blue-light;
+}
+
+.emoji-container {
+  margin-top: 10px;
+  display: flex;
+  gap: 8px;
+  width: 100%;
+  flex-wrap: wrap;
 }

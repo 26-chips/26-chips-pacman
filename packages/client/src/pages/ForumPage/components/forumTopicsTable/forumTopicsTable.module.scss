@@ -33,3 +33,28 @@
   text-decoration: none;
   color: $white;
 }
+
+.table-container {
+  display: flex;
+  flex-direction: column;
+}
+
+.button-add-theme {
+  display: flex;
+  font-size: 16px;
+  align-items: center;
+  background-color: $black;
+  color: $white;
+  border: none;
+  column-gap: 10px;
+  cursor: pointer;
+  align-self: end;
+
+  &:hover {
+    color: $blue-hover;
+  }
+}
+
+.button-add-theme-title {
+  margin: 0;
+}
