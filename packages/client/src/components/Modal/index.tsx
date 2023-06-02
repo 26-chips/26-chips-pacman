@@ -3,7 +3,7 @@ import styles from './styles.module.scss';
 import CloseIcon from 'assets/icons/CloseIcon.svg';
 
 export interface ModalProps {
-  children?: ReactNode;
+  children: ReactNode;
   onClose: () => void;
   show: boolean;
 }
