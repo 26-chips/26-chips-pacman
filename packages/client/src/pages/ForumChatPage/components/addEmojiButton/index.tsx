@@ -1,7 +1,7 @@
 import styles from './addEmojiButton.module.scss';
-import iconPlus from '../../../../assets/icons/icon-plus.svg';
+import iconPlus from 'assets/icons/icon-plus.svg';
 import { useState } from 'react';
-import { EmojisList } from '../emojisList/emojisList';
+import { EmojisList } from '../emojisList';
 
 export const AddEmojiButton = () => {
   const [showEmojisList, setShowEmojisList] = useState(false);

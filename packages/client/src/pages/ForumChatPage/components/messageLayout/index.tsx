@@ -1,6 +1,6 @@
 import styles from './messageLayout.module.scss';
-import { AddEmojiButton } from '../addEmojiButton/addEmojiButton';
-import { EmojiButton } from '../emojiButton/emojiButton';
+import { AddEmojiButton } from '../addEmojiButton';
+import { EmojiButton } from '../emojiButton';
 import { EmojiType } from '../../types';
 import cn from 'classnames';
 
@@ -34,8 +34,10 @@ export const MessageLayout = (props: MessageLayoutProps) => {
         <p className={styles.message}>{message}</p>
         <p className={styles.messageTime}>{time}</p>
         <div className={styles.emojiContainer}>
-          {emojis && emojis?.length > 0
-            ? emojis.map(emoji => <EmojiButton key={emoji.id} emoji={emoji} />)
+          {emojis && emojis.length > 0
+            ? emojis.map(({ emoji, number, id }) => (
+                <EmojiButton key={id} emoji={emoji} number={number} />
+            ))
             : ''}
           <AddEmojiButton />
         </div>

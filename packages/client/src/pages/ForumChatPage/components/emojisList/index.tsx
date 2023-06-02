@@ -1,5 +1,5 @@
 import styles from './emojisList.module.scss';
-import { emojisList } from '../../../../utils/emojis';
+import { emojisList } from '../../consts';
 import { MouseEvent } from 'react';
 
 export const EmojisList = () => {

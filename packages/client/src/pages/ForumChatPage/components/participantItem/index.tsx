@@ -1,5 +1,5 @@
 import styles from './participantItem.module.scss';
-import defaultAvatar from '../../../../assets/default-avatar.png';
+import defaultAvatar from 'assets/default-avatar.png';
 
 interface ParticipantItemProps {
   name: string;

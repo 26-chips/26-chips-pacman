@@ -6,3 +6,4 @@ export * from './Tabs';
 export * from './Modal';
 export * from './Textarea';
 export * from './Switch';
+export * from './Loader';

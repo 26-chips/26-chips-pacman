@@ -1,4 +1,4 @@
-import { emojisList } from '../../utils/emojis';
+import { emojisList } from './consts';
 
 export interface EmojiType {
   id: number;

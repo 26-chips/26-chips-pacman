@@ -1,10 +1,10 @@
 import { FunctionComponent, useState } from 'react';
+import cn from 'classnames';
 import styles from './forumPage.module.scss';
 import { ForumTopicType } from './types';
-import { ForumTopicsTable } from './components/forumTopicsTable/forumTopicsTable';
-import violetLogo from '../../assets/icons/violet-logo-image.svg';
-import orangeLogo from '../../assets/icons/orange-logo-image.svg';
-import { CreateTopic } from './components/createTopic/createTopic';
+import { ForumTopicsTable, CreateTopic } from './components';
+import violetLogo from 'assets/icons/violet-logo-image.svg';
+import orangeLogo from 'assets/icons/orange-logo-image.svg';
 
 const topicsList: ForumTopicType[] = [
   {
@@ -99,7 +99,7 @@ const ForumPage = () => {
         />
       )}
       <img
-        className={`${styles.logo} ${styles.orangeLogo}`}
+        className={cn(styles.logo, styles.orangeLogo)}
         src={orangeLogo}
         alt="logo"
       />

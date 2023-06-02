@@ -1,6 +1,6 @@
 import styles from './participantsList.module.scss';
 import { MouseEvent } from 'react';
-import { ParticipantItem } from '../participantItem/participantItem';
+import { ParticipantItem } from '../participantItem';
 
 export const ParticipantsList = () => {
   return (

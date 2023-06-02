@@ -1,9 +1,9 @@
 import styles from './forumTopicsTable.module.scss';
 import { ForumTopicType } from '../../types';
-import { ForumTopic } from '../forumTopic/forumTopic';
+import { ForumTopic } from '../forumTopic';
 import { Link } from 'react-router-dom';
 import { ROUTES } from 'router';
-import iconPlus from '../../../../assets/icons/icon-plus.svg';
+import iconPlus from 'assets/icons/icon-plus.svg';
 
 interface ForumTopicsTableProps {
   topicsList: ForumTopicType[];

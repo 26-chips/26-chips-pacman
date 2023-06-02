@@ -1,12 +1,8 @@
 import styles from './emojiButton.module.scss';
 import { EmojiType } from '../../types';
 
-interface EmojiButtonProps {
-  emoji: EmojiType;
-}
-
-export const EmojiButton = (props: EmojiButtonProps) => {
-  const { emoji, number } = props.emoji;
+export const EmojiButton = (props: Omit<EmojiType, 'id'>) => {
+  const { emoji, number } = props;
 
   return (
     <button className={styles.button}>

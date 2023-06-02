@@ -1,14 +1,13 @@
 import { FunctionComponent, useState } from 'react';
 import styles from './forumChatPage.module.scss';
-import iconArrowBack from '../../assets/icons/icon-arrow-back.svg';
+import iconArrowBack from 'assets/icons/icon-arrow-back.svg';
 import { Link } from 'react-router-dom';
-import { ROUTES } from '../../router';
-import defaultAvatar from '../../assets/default-avatar.png';
-import { MessageLayout } from './components/messageLayout/MessageLayout';
-import iconSend from '../../assets/icons/icon-send.svg';
-import arrowUp from '../../assets/icons/arrow-up.svg';
-import arrowDown from '../../assets/icons/arrow-down.svg';
-import { ParticipantsList } from './components/participantsListButton/participantsList';
+import { ROUTES } from 'router';
+import defaultAvatar from 'assets/default-avatar.png';
+import { MessageLayout, ParticipantsList } from './components';
+import iconSend from 'assets/icons/icon-send.svg';
+import arrowUp from 'assets/icons/arrow-up.svg';
+import arrowDown from 'assets/icons/arrow-down.svg';
 
 const ForumChatPage = () => {
   const [showParticipantsList, setShowParticipantsList] = useState(false);
