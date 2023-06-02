@@ -3,11 +3,11 @@ import { Enemy } from './Enemy';
 import { pinkyPath } from './consts';
 import { collidesSquare } from './helpers';
 import { Pacman } from './Pacman';
-import wallImg from '../../assets/wall.jpg';
-import pinkyImg from '../../assets/pinky.png';
-import pacmanImg from '../../assets/pacman.png';
-import smallPillImg from '../../assets/pill1.png';
-import bigPillImg from '../../assets/pill2.png';
+import wallImg from 'assets/wall.jpg';
+import pinkyImg from 'assets/pinky.png';
+import pacmanImg from 'assets/pacman.png';
+import smallPillImg from 'assets/pill1.png';
+import bigPillImg from 'assets/pill2.png';
 import { resourcesHandler } from './resources';
 import { field as fieldArray } from './consts';
 
