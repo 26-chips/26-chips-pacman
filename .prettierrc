@@ -4,5 +4,6 @@
   "arrowParens": "avoid",
   "bracketSameLine": true,
   "width": 50,
+  "trailingComma": "none",
   "endOfLine": "crlf"
 }
