@@ -4,6 +4,8 @@ import Authorization from 'assets/img/Authorization.png';
 import styles from './styles.module.scss';
 import { Button, Form, Input } from 'components';
 import { auth } from './api';
+import { NavLink } from 'react-router-dom';
+import { ROUTES } from 'router';
 
 interface IData {
   login: string;
@@ -41,8 +43,8 @@ const SigninPage = () => {
             </Field>
           </div>
           <div className={styles.buttons}>
-            <Button type="submit">Зарегистрироваться</Button>
-            <span>Войти</span>
+            <Button type="submit">Войти</Button>
+            <NavLink to={ROUTES.SIGNUP}>Зарегистрироваться</NavLink>
           </div>
         </Form>
       </div>

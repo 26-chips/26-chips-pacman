@@ -35,6 +35,21 @@ export const Menu = () => (
           Профиль
         </NavLink>
       </li>
+      <li>
+        <NavLink to={ROUTES.UI} className={getActiveStyles}>
+          UI страница
+        </NavLink>
+      </li>
+      <li>
+        <NavLink to={ROUTES.SIGNIN} className={getActiveStyles}>
+          Страница логина
+        </NavLink>
+      </li>
+      <li>
+        <NavLink to={ROUTES.SIGNUP} className={getActiveStyles}>
+          Страница регистрации
+        </NavLink>
+      </li>
     </ul>
   </nav>
 );

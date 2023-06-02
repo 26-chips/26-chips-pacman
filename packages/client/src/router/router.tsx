@@ -28,15 +28,9 @@ const routes: RouteObject[] = [
       { path: ROUTES.LEADERBOARD, element: <LeaderboardPage /> },
       { path: ROUTES.FORUM, element: <ForumPage /> },
       { path: ROUTES.UI, element: <UIPage /> },
+      { path: ROUTES.SIGNIN, element: <SigninPage /> },
+      { path: ROUTES.SIGNUP, element: <SignupPage /> },
     ],
-  },
-  {
-    path: ROUTES.SIGNIN,
-    element: <SigninPage />,
-  },
-  {
-    path: ROUTES.SIGNUP,
-    element: <SignupPage />,
   },
 ];
 
