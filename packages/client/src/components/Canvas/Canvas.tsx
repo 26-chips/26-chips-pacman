@@ -1,4 +1,4 @@
-import { useRef, useEffect, useCallback } from 'react';
+import { useRef, useEffect } from 'react';
 import { Enemy } from './Enemy';
 import { pinkyPath } from './consts';
 import { collidesSquare } from './helpers';
@@ -100,7 +100,7 @@ export function CanvasComponent({ setPoints, reduceLives, setTime }: Props) {
     pinky.updatePosition();
   };
 
-  const renderFrame = useCallback(() => {
+  const renderFrame = () => {
     if (canvasRef.current) {
       const ctx = canvasRef.current.getContext('2d');
 
@@ -185,7 +185,7 @@ export function CanvasComponent({ setPoints, reduceLives, setTime }: Props) {
 
       updateFieldAfterPacman();
     }
-  }, []);
+  };
 
   const renderWalls = () => {
     if (canvasRef.current) {
@@ -210,7 +210,7 @@ export function CanvasComponent({ setPoints, reduceLives, setTime }: Props) {
     }
   };
 
-  const tick = useCallback(() => {
+  const tick = () => {
     if (!refGameIsPaused.current) {
       renderFrame();
     }
@@ -231,7 +231,7 @@ export function CanvasComponent({ setPoints, reduceLives, setTime }: Props) {
 
       requestIdRef.current = requestAnimationFrame(tick);
     }, 1000 / ticksPerSecond);
-  }, []);
+  };
 
   useEffect(() => {
     resourcesHandler.load([
