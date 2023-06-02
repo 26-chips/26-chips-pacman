@@ -2,7 +2,7 @@ import styles from './endgamescreen.module.scss';
 import { Button } from '../Button';
 import { Modal, ModalProps } from '../Modal';
 import { NavLink } from 'react-router-dom';
-import { ROUTES } from '../../router';
+import { ROUTES } from 'router';
 
 export interface EndGameComponentProps {
   username: string;
@@ -25,14 +25,15 @@ function EndGameComponent({
           .toISOString()
           .substring(11, 19)}
       </h3>
+      <div className={styles.buttonContainer}>
+        <NavLink to={ROUTES.GAME}>
+          <Button>Начать сначала</Button>
+        </NavLink>
 
-      <NavLink to={ROUTES.GAME}>
-        <Button>Начать сначала</Button>
-      </NavLink>
-
-      <NavLink to={ROUTES.MAIN}>
-        <Button thema="transparent">На главную</Button>
-      </NavLink>
+        <NavLink to={ROUTES.MAIN}>
+          <Button thema="transparent">На главную</Button>
+        </NavLink>
+      </div>
     </div>
   );
 }
