@@ -43,7 +43,7 @@ export class Enemy {
   }
 
   updateTime(time?: number) {
-    this.time = typeof time != 'undefined' ? time : this.time + 1;
+    this.time = typeof time !== 'undefined' ? time : this.time + 1;
   }
 
   updatePosition() {
