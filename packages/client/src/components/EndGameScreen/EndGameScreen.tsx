@@ -3,20 +3,23 @@ import { Button } from '../Button';
 import { Modal, ModalProps } from '../Modal';
 import { NavLink } from 'react-router-dom';
 import { ROUTES } from 'router';
+import cn from 'classnames';
 
 export interface EndGameComponentProps {
   username: string;
   score: string;
+  className?: string;
   elapsedTimeSec: number | string;
 }
 
 function EndGameComponent({
   username,
   score,
+  className,
   elapsedTimeSec,
 }: EndGameComponentProps): JSX.Element {
   return (
-    <div className={styles.container}>
+    <div className={cn(styles.container, className)}>
       <h1>{username}</h1>
       <h1>Ваши результаты</h1>
       <h1 className={styles.blue}>{score}</h1>
