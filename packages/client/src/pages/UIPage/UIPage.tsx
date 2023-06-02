@@ -6,7 +6,7 @@ import {
   Modal,
   Switch,
   Textarea,
-  EndGameScreen
+  EndGameScreen,
 } from 'components';
 import { FunctionComponent, useState, ChangeEvent } from 'react';
 import styles from './styles.module.scss';
