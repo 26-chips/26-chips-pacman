@@ -78,20 +78,22 @@ export function CanvasComponent({ setPoints, reduceLives, setTime }: Props) {
   };
 
   const handleKeyboard = (e: KeyboardEvent) => {
-    if (e.code === 'ArrowUp') {
-      pacman.updateDirection('up');
-    }
-    if (e.code === 'ArrowRight') {
-      pacman.updateDirection('right');
-    }
-    if (e.code === 'ArrowDown') {
-      pacman.updateDirection('down');
-    }
-    if (e.code === 'ArrowLeft') {
-      pacman.updateDirection('left');
-    }
-    if (e.code === 'Space') {
-      refGameIsPaused.current = !refGameIsPaused.current;
+    switch (e.code) {
+      case 'ArrowUp':
+        pacman.updateDirection('up');
+        break;
+      case 'ArrowRight':
+        pacman.updateDirection('right');
+        break;
+      case 'ArrowDown':
+        pacman.updateDirection('down');
+        break;
+      case 'ArrowLeft':
+        pacman.updateDirection('left');
+        break;
+      case 'Space':
+        refGameIsPaused.current = !refGameIsPaused.current;
+        break;
     }
   };
 

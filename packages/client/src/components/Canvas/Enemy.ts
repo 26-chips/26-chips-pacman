@@ -48,42 +48,44 @@ export class Enemy {
 
   updatePosition() {
     if (this.time >= this.activationTime) {
-      if (this.currentDirection === 'up') {
-        if (this.position.y > this.step) {
-          this.position.y -= this.step;
-        } else {
-          this.position.y = this.field.length * cellSize - cellSize / 2;
-        }
-      }
+      switch (this.currentDirection) {
+        case 'up':
+          if (this.position.y > this.step) {
+            this.position.y -= this.step;
+          } else {
+            this.position.y = this.field.length * cellSize - cellSize / 2;
+          }
+          break;
 
-      if (this.currentDirection === 'down') {
-        if (
-          this.position.y <
-          this.field.length * cellSize - cellSize / 2 - this.step
-        ) {
-          this.position.y += this.step;
-        } else {
-          this.position.y = 0;
-        }
-      }
+        case 'down':
+          if (
+            this.position.y <
+            this.field.length * cellSize - cellSize / 2 - this.step
+          ) {
+            this.position.y += this.step;
+          } else {
+            this.position.y = 0;
+          }
+          break;
 
-      if (this.currentDirection === 'right') {
-        if (
-          this.position.x <
-          this.field[0].length * cellSize - cellSize / 2 - this.step
-        ) {
-          this.position.x += this.step;
-        } else {
-          this.position.x = 0;
-        }
-      }
+        case 'right':
+          if (
+            this.position.x <
+            this.field[0].length * cellSize - cellSize / 2 - this.step
+          ) {
+            this.position.x += this.step;
+          } else {
+            this.position.x = 0;
+          }
+          break;
 
-      if (this.currentDirection === 'left') {
-        if (this.position.x > this.step) {
-          this.position.x -= this.step;
-        } else {
-          this.position.x = this.field[0].length * cellSize - cellSize / 2;
-        }
+        case 'left':
+          if (this.position.x > this.step) {
+            this.position.x -= this.step;
+          } else {
+            this.position.x = this.field[0].length * cellSize - cellSize / 2;
+          }
+          break;
       }
 
       this.centerPosition = {

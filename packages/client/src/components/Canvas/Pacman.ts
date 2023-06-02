@@ -63,58 +63,60 @@ export class Pacman {
   }
 
   updatePosition() {
-    if (this.currentDirection === 'up') {
-      if (!this.isBlocked.up) {
-        if (this.position.y > this.step) {
-          this.position.y -= this.step;
+    switch (this.currentDirection) {
+      case 'up':
+        if (!this.isBlocked.up) {
+          if (this.position.y > this.step) {
+            this.position.y -= this.step;
+          } else {
+            this.position.y = this.field.length * cellSize - cellSize / 2;
+          }
         } else {
-          this.position.y = this.field.length * cellSize - cellSize / 2;
+          this.isStill = true;
         }
-      } else {
-        this.isStill = true;
-      }
-    }
+        break;
 
-    if (this.currentDirection === 'down') {
-      if (!this.isBlocked.down) {
-        if (
-          this.position.y <
-          this.field.length * cellSize - cellSize / 2 - this.step
-        ) {
-          this.position.y += this.step;
+      case 'down':
+        if (!this.isBlocked.down) {
+          if (
+            this.position.y <
+            this.field.length * cellSize - cellSize / 2 - this.step
+          ) {
+            this.position.y += this.step;
+          } else {
+            this.position.y = 0;
+          }
         } else {
-          this.position.y = 0;
+          this.isStill = true;
         }
-      } else {
-        this.isStill = true;
-      }
-    }
+        break;
 
-    if (this.currentDirection === 'right') {
-      if (!this.isBlocked.right) {
-        if (
-          this.position.x <
-          this.field[0].length * cellSize - cellSize / 2 - this.step
-        ) {
-          this.position.x += this.step;
+      case 'right':
+        if (!this.isBlocked.right) {
+          if (
+            this.position.x <
+            this.field[0].length * cellSize - cellSize / 2 - this.step
+          ) {
+            this.position.x += this.step;
+          } else {
+            this.position.x = 0;
+          }
         } else {
-          this.position.x = 0;
+          this.isStill = true;
         }
-      } else {
-        this.isStill = true;
-      }
-    }
+        break;
 
-    if (this.currentDirection === 'left') {
-      if (!this.isBlocked.left) {
-        if (this.position.x > this.step) {
-          this.position.x -= this.step;
+      case 'left':
+        if (!this.isBlocked.left) {
+          if (this.position.x > this.step) {
+            this.position.x -= this.step;
+          } else {
+            this.position.x = this.field[0].length * cellSize - cellSize / 2;
+          }
         } else {
-          this.position.x = this.field[0].length * cellSize - cellSize / 2;
+          this.isStill = true;
         }
-      } else {
-        this.isStill = true;
-      }
+        break;
     }
 
     this.centerPosition = {
