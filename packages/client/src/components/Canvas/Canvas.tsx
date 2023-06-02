@@ -101,109 +101,106 @@ export function CanvasComponent({ setPoints, reduceLives, setTime }: Props) {
   };
 
   const renderFrame = () => {
-    if (canvasRef.current) {
-      const ctx = canvasRef.current.getContext('2d');
+    if (!canvasRef.current) return;
+    const ctx = canvasRef.current.getContext('2d');
 
-      if (ctx) {
-        const fld = field.current;
-        let { x, y } = pacman.getPosition();
-        let { x: enemyX, y: enemyY } = pinky.getPosition();
+    if (!ctx) return;
 
-        for (let i = 0; i < fld.length; i++) {
-          for (let j = 0; j < fld[i].length; j++) {
-            if (fld[i][j] === 'smallPill') {
-              //если пересекаемся с маленькой таблеткой то кушаем ее
-              if (
-                collidesSquare(
-                  j * cellSize + cellSize / 2,
-                  i * cellSize + cellSize / 2,
-                  smallPillSize,
-                  x,
-                  y,
-                  cellSize
-                )
-              ) {
-                setPoints((prev: number) => prev + smallPillPoints);
-                fld[i][j] = 'empty';
-                //если нет - то отрисовываем
-              } else {
-                ctx.drawImage(
-                  smallPillIcon,
-                  j * cellSize,
-                  i * cellSize,
-                  cellSize,
-                  cellSize
-                );
-              }
-            } else if (fld[i][j] === 'bigPill') {
-              //если пересекаемся с большой таблеткой то кушаем ее
-              if (
-                collidesSquare(
-                  j * cellSize + cellSize / 2,
-                  i * cellSize + cellSize / 2,
-                  bigPillSize,
-                  x,
-                  y,
-                  cellSize
-                )
-              ) {
-                setPoints((prev: number) => prev + bigPillPoints);
-                fld[i][j] = 'empty';
-                //если нет - то отрисовываем
-              } else {
-                ctx.drawImage(
-                  bigPillIcon,
-                  j * cellSize,
-                  i * cellSize,
-                  cellSize,
-                  cellSize
-                );
-              }
-            } else {
-              if (fld[i][j] !== 'wall') {
-                ctx.fillStyle = 'black';
-                ctx.fillRect(j * cellSize, i * cellSize, cellSize, cellSize);
-              }
-            }
+    const fld = field.current;
+    let { x, y } = pacman.getPosition();
+    let { x: enemyX, y: enemyY } = pinky.getPosition();
+
+    for (let i = 0; i < fld.length; i++) {
+      for (let j = 0; j < fld[i].length; j++) {
+        if (fld[i][j] === 'smallPill') {
+          //если пересекаемся с маленькой таблеткой то кушаем ее
+          if (
+            collidesSquare(
+              j * cellSize + cellSize / 2,
+              i * cellSize + cellSize / 2,
+              smallPillSize,
+              x,
+              y,
+              cellSize
+            )
+          ) {
+            setPoints((prev: number) => prev + smallPillPoints);
+            fld[i][j] = 'empty';
+            //если нет - то отрисовываем
+          } else {
+            ctx.drawImage(
+              smallPillIcon,
+              j * cellSize,
+              i * cellSize,
+              cellSize,
+              cellSize
+            );
+          }
+        } else if (fld[i][j] === 'bigPill') {
+          //если пересекаемся с большой таблеткой то кушаем ее
+          if (
+            collidesSquare(
+              j * cellSize + cellSize / 2,
+              i * cellSize + cellSize / 2,
+              bigPillSize,
+              x,
+              y,
+              cellSize
+            )
+          ) {
+            setPoints((prev: number) => prev + bigPillPoints);
+            fld[i][j] = 'empty';
+            //если нет - то отрисовываем
+          } else {
+            ctx.drawImage(
+              bigPillIcon,
+              j * cellSize,
+              i * cellSize,
+              cellSize,
+              cellSize
+            );
+          }
+        } else {
+          if (fld[i][j] !== 'wall') {
+            ctx.fillStyle = 'black';
+            ctx.fillRect(j * cellSize, i * cellSize, cellSize, cellSize);
           }
         }
-
-        // если пересеклись с противником - смерть
-        if (
-          collidesSquare(x, y, pacmanSize - 1, enemyX, enemyY, enemiesSize - 1)
-        ) {
-          handleDeath();
-
-          x = pacman.getPosition().x;
-          y = pacman.getPosition().y;
-          enemyX = pinky.getPosition().x;
-          enemyY = pinky.getPosition().y;
-        }
-        ctx.drawImage(pinkyIcon, enemyX, enemyY, cellSize, cellSize);
-        ctx.drawImage(pacmanIcon, x, y, cellSize, cellSize);
       }
-
-      updateFieldAfterPacman();
     }
+
+    // если пересеклись с противником - смерть
+    if (collidesSquare(x, y, pacmanSize - 1, enemyX, enemyY, enemiesSize - 1)) {
+      handleDeath();
+
+      x = pacman.getPosition().x;
+      y = pacman.getPosition().y;
+      enemyX = pinky.getPosition().x;
+      enemyY = pinky.getPosition().y;
+    }
+    ctx.drawImage(pinkyIcon, enemyX, enemyY, cellSize, cellSize);
+    ctx.drawImage(pacmanIcon, x, y, cellSize, cellSize);
+
+    updateFieldAfterPacman();
   };
 
   const renderWalls = () => {
-    if (canvasRef.current) {
-      const ctx = canvasRef.current.getContext('2d');
-      const fld = field.current;
+    if (!canvasRef.current) return;
 
-      for (let i = 0; i < fld.length; i++) {
-        for (let j = 0; j < fld[i].length; j++) {
-          if (fld[i][j] === 'wall') {
-            if (ctx) {
-              ctx.drawImage(
-                wallIcon,
-                j * cellSize,
-                i * cellSize,
-                cellSize,
-                cellSize
-              );
-            }
+    const ctx = canvasRef.current.getContext('2d');
+    const fld = field.current;
+
+    for (let i = 0; i < fld.length; i++) {
+      for (let j = 0; j < fld[i].length; j++) {
+        if (fld[i][j] === 'wall') {
+          if (ctx) {
+            ctx.drawImage(
+              wallIcon,
+              j * cellSize,
+              i * cellSize,
+              cellSize,
+              cellSize
+            );
           }
         }
       }
