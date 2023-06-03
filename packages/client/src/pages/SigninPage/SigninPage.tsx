@@ -1,8 +1,7 @@
 import { FunctionComponent } from 'react';
-import { Field, FieldProps } from 'formik';
 import Authorization from 'assets/img/Authorization.png';
 import styles from './styles.module.scss';
-import { Button, Form, Input } from 'components';
+import { Button, Form } from 'components';
 import { auth } from './api';
 import { NavLink } from 'react-router-dom';
 import { ROUTES } from 'router';
@@ -31,17 +30,27 @@ const SigninPage = () => {
             login: '',
             password: '',
           }}
-          onSubmit={onSubmit}>
-          <div className={styles.inputs}>
-            <Field name="login">
-              {({ field }: FieldProps) => <Input title="Логин" {...field} />}
-            </Field>
-            <Field name="password">
-              {({ field }: FieldProps) => (
-                <Input title="Пароль" type="password" {...field} />
-              )}
-            </Field>
-          </div>
+          onSubmit={onSubmit}
+          fieldsClassName={styles.inputs}
+          fields={[
+            {
+              type: 'INPUT',
+              name: 'login',
+              props: {
+                title: 'Логин',
+                showDeleteSymbol: true,
+              },
+            },
+            {
+              type: 'INPUT',
+              name: 'password',
+              props: {
+                title: 'Пароль',
+                type: 'password',
+                showDeleteSymbol: true,
+              },
+            },
+          ]}>
           <div className={styles.buttons}>
             <Button type="submit">Войти</Button>
             <NavLink to={ROUTES.SIGNUP}>Зарегистрироваться</NavLink>
