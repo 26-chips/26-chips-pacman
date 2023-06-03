@@ -1,5 +1,5 @@
 import { FunctionComponent } from 'react';
 
-const MainPage = () => <h1>Main Page</h1>;
+const SigninPage = () => <h1>Signin Page</h1>;
 
-export default MainPage as FunctionComponent;
+export default SigninPage as FunctionComponent;
