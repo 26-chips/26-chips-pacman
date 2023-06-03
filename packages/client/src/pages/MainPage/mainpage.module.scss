@@ -1,0 +1,37 @@
+@import 'style_constants';
+
+.header {
+  display: flex;
+  width: 90%;
+  align-items: end;
+  justify-content: end;
+
+  .menu {
+    position: relative;
+    top: 40px;
+    right: 40px;
+  }
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  height: 40vw;
+
+  .buttons {
+    width: 335px;
+    height: 388px;
+    margin: auto;
+
+    button {
+      margin: 10px 0;
+    }
+  }
+
+  .image {
+    margin-top: 100px;
+    width: 800px;
+    height: 300px;
+  }
+}
