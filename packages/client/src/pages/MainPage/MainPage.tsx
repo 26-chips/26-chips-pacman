@@ -33,7 +33,7 @@ const MainPage = () => {
 
       <div className={styles.buttons}>
         <Link to={ROUTES.GAME}>
-          <Button type="submit">Начнем?</Button>
+          <Button>Начнем?</Button>
         </Link>
         <Link to={ROUTES.PROFILE}>
           <Button thema="transparent">В личный кабинет</Button>
