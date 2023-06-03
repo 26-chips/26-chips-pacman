@@ -1,5 +1,5 @@
 import React, { FunctionComponent, useState } from 'react';
-import styles from './mainpage.module.scss';
+import styles from './mainPage.module.scss';
 import { Button, Switch } from 'components';
 import Logo from 'assets/img/Mainpage.svg';
 import { ROUTES } from 'router';
@@ -17,27 +17,26 @@ const MainPage = () => {
           onChange={() => {
             toggleTheme(!theme);
           }}></Switch>
-        <div className={styles.menu}>
-          <span>Меню</span>
-        </div>
+        <div className={styles.menu}></div>
       </div>
+      <div className={styles.imageContainer}>
+        <img
+          src={Logo}
+          alt="Main page logo"
+          title="Main page logo"
+          className={styles.image}
+        />
 
-      <img
-        src={Logo}
-        alt="Main page logo"
-        title="Main page logo"
-        className={styles.image}
-      />
+        <h1>IvanovI</h1>
 
-      <h1>IvanovI</h1>
-
-      <div className={styles.buttons}>
-        <Link to={ROUTES.GAME}>
-          <Button>Начнем?</Button>
-        </Link>
-        <Link to={ROUTES.PROFILE}>
-          <Button thema="transparent">В личный кабинет</Button>
-        </Link>
+        <div className={styles.buttons}>
+          <Link to={ROUTES.GAME}>
+            <Button>Начнем?</Button>
+          </Link>
+          <Link to={ROUTES.PROFILE}>
+            <Button thema="transparent">В личный кабинет</Button>
+          </Link>
+        </div>
       </div>
     </div>
   );
