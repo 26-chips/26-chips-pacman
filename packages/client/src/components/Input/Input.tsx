@@ -12,7 +12,7 @@ export interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
 export const Input = (props: InputProps) => {
   const {
     title,
-    showDeleteSymbol,
+    showDeleteSymbol = true,
     deleteSymbol = ' × ',
     errorMessage,
     inlineTitle,

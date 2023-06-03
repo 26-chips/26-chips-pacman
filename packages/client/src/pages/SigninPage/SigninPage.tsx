@@ -1,9 +1,8 @@
 import { FunctionComponent } from 'react';
 import Authorization from 'assets/img/Authorization.png';
 import styles from './styles.module.scss';
-import { Button, Form } from 'components';
+import { Button, Form, Link } from 'components';
 import { auth } from './api';
-import { NavLink } from 'react-router-dom';
 import { ROUTES } from 'router';
 
 interface IData {
@@ -31,10 +30,10 @@ const SigninPage = () => {
             password: '',
           }}
           onSubmit={onSubmit}
-          fieldsClassName={styles.inputs}
+          className={styles.form}
           fields={[
             {
-              type: 'INPUT',
+              component: 'INPUT',
               name: 'login',
               props: {
                 title: 'Логин',
@@ -42,7 +41,7 @@ const SigninPage = () => {
               },
             },
             {
-              type: 'INPUT',
+              component: 'INPUT',
               name: 'password',
               props: {
                 title: 'Пароль',
@@ -53,7 +52,7 @@ const SigninPage = () => {
           ]}>
           <div className={styles.buttons}>
             <Button type="submit">Войти</Button>
-            <NavLink to={ROUTES.SIGNUP}>Зарегистрироваться</NavLink>
+            <Link to={ROUTES.SIGNUP}>Зарегистрироваться</Link>
           </div>
         </Form>
       </div>
