@@ -1,5 +1,21 @@
 import { CellsType } from './Canvas';
 import { makePathCycle } from './helpers';
+import wallImg from 'assets/wall.jpg';
+import pinkyImg from 'assets/pinky.png';
+import pacmanImg from 'assets/pacman.png';
+import smallPillImg from 'assets/pill1.png';
+import bigPillImg from 'assets/pill2.png';
+import { formIcons } from './helpers';
+
+export const imagesConfig = {
+  wallIcon: wallImg,
+  pacmanIcon: pacmanImg,
+  pinkyIcon: pinkyImg,
+  smallPillIcon: smallPillImg,
+  bigPillIcon: bigPillImg,
+};
+
+export const icons = formIcons(imagesConfig);
 
 export const field = <CellsType[][]>[
   [

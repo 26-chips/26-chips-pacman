@@ -56,3 +56,17 @@ export const makePathCycle = (arr: PathType) => {
 
   return cycleArray;
 };
+
+export const formIcons = <T extends Record<string, string>>(
+  config: T
+): Record<keyof T, HTMLImageElement> => {
+  // prettier-ignore
+  const icon: Record<keyof T, HTMLImageElement> = {} as Record<keyof T, HTMLImageElement>;
+
+  for (const key in config) {
+    const img = new Image();
+    img.src = config[key];
+    icon[key] = img;
+  }
+  return icon;
+};
