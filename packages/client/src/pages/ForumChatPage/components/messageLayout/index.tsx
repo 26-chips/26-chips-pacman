@@ -1,34 +1,25 @@
 import styles from './messageLayout.module.scss';
 import { AddEmojiButton } from '../addEmojiButton';
 import { EmojiButton } from '../emojiButton';
-import { EmojiType } from '../../types';
 import cn from 'classnames';
+import { MessageLayoutType } from '../../types';
 
-interface MessageLayoutProps {
-  avatar: string;
-  message: string;
-  time: string;
-  name: string;
-  interlocutor?: boolean;
-  emojis?: EmojiType[];
-}
-
-export const MessageLayout = (props: MessageLayoutProps) => {
-  const { avatar, message, time, name, emojis, interlocutor = true } = props;
+export const MessageLayout = (props: MessageLayoutType) => {
+  const { avatar, message, time, name, emojis, isInterlocutor = true } = props;
 
   return (
     <div
       className={cn(styles.messageLayout, {
-        [styles.messageLayoutOwner]: !interlocutor,
+        [styles.messageLayoutOwner]: !isInterlocutor,
       })}>
-      {interlocutor ? (
+      {isInterlocutor ? (
         <img className={styles.avatar} src={avatar} alt="Аватар" />
       ) : (
         ''
       )}
       <div
         className={cn(styles.messageContainer, {
-          [styles.messageContainerOwner]: !interlocutor,
+          [styles.messageContainerOwner]: !isInterlocutor,
         })}>
         <p className={styles.authorName}>{name}</p>
         <p className={styles.message}>{message}</p>
@@ -42,7 +33,7 @@ export const MessageLayout = (props: MessageLayoutProps) => {
           <AddEmojiButton />
         </div>
       </div>
-      {!interlocutor ? (
+      {!isInterlocutor ? (
         <img className={styles.avatar} src={avatar} alt="Аватар" />
       ) : (
         ''
