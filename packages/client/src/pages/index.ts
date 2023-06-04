@@ -7,4 +7,5 @@ export * from './SignupPage';
 export * from './ProfilePage';
 export * from './LeaderboardPage';
 export * from './ForumPage';
+export * from './ForumChatPage';
 export * from './UIPage';
