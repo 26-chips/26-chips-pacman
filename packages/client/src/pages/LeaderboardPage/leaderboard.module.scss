@@ -1,0 +1,52 @@
+@import 'style_constants';
+
+.wrapper {
+  display: flex;
+  justify-content: center;
+}
+
+.leaderboard {
+  font-family: Inter, sans-serif;
+  font-size: 16px;
+  line-height: 19px;
+  font-weight: 700;
+  width: 475px;
+  padding: 20px 0 150px;
+  border: 2px solid $blue;
+  border-radius: 12px;
+  border-spacing: 0;
+  text-align: left;
+
+  thead tr {
+    height: 40px;
+  }
+
+  tbody tr {
+    height: 70px;
+  }
+
+  td {
+    border-bottom: 1px solid $blue;
+  }
+
+  th {
+    font-size: 14px;
+    line-height: 17px;
+    font-weight: 400;
+  }
+
+  th:nth-child(1),
+  th:nth-child(3),
+  th:nth-child(4) {
+    width: 100px;
+  }
+
+  th:nth-child(2) {
+    width: 75px;
+  }
+
+  th:nth-child(1),
+  td:nth-child(1) {
+    text-align: center;
+  }
+}
