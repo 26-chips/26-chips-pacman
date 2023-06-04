@@ -1,0 +1,61 @@
+@import 'style_constants';
+
+.message-layout {
+  display: flex;
+  column-gap: 13px;
+  margin-bottom: 20px;
+}
+
+.message-layout-owner {
+  align-self: end;
+}
+
+.avatar {
+  max-width: 40px;
+  max-height: 40px;
+  align-self: end;
+}
+
+.message-container {
+  position: relative;
+  width: 100%;
+  max-width: 392px;
+  display: flex;
+  flex-direction: column;
+  border: 1px solid $blue;
+  padding: 8px 11px;
+  border-radius: 10px 10px 10px 0;
+}
+
+.message-container-owner {
+  border-radius: 10px 10px 0;
+}
+
+.message {
+  margin: 0;
+  font-size: 12px;
+}
+
+.message-time {
+  position: absolute;
+  color: $grey;
+  margin: 5px 0 0 5px;
+  font-size: 9px;
+  align-self: end;
+  bottom: 11px;
+  right: 11px;
+}
+
+.author-name {
+  font-size: 12px;
+  margin-top: 0;
+  color: $blue-light;
+}
+
+.emoji-container {
+  margin-top: 10px;
+  display: flex;
+  gap: 8px;
+  width: 100%;
+  flex-wrap: wrap;
+}
