@@ -11,7 +11,7 @@ import {
   ProfilePage,
   LeaderboardPage,
   ForumPage,
-  UIPage
+  UIPage,
 } from 'pages';
 
 import { ROUTES } from './routes';

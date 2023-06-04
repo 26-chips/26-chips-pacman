@@ -5,20 +5,23 @@ import {
   Tabs,
   Modal,
   Switch,
-  Textarea
+  Textarea,
+  EndGameScreen,
 } from 'components';
 import { FunctionComponent, useState, ChangeEvent } from 'react';
 import styles from './styles.module.scss';
 
 const UIPage = () => {
-  //Tabs additionals
-  const [activeTab, setActiveTab] = useState(0);
   const [showModal, setShowModal] = useState(false);
+  const [showEndGame, toggleEndGame] = useState(false);
+
+  //Tabs additional
+  const [activeTab, setActiveTab] = useState(0);
   setTimeout(() => {
     setActiveTab(Math.floor(Math.random() * 3));
   }, 5000);
 
-  //Textarea additionals
+  //Textarea additional
   const [value1, setValue1] = useState('');
   const [value2, setValue2] = useState('');
   const handleChange1 = (e: ChangeEvent<HTMLTextAreaElement>) => {
@@ -99,8 +102,24 @@ const UIPage = () => {
       <div className={styles.block} style={{ width: '350px' }}>
         <Button onClick={() => setShowModal(true)}>Open Modal</Button>
         <Modal show={showModal} onClose={() => setShowModal(false)}>
-          Hello World
+          <div
+            className={styles.block}
+            style={{ width: '400px', height: '200px' }}>
+            Hello World
+          </div>
         </Modal>
+      </div>
+
+      <h2>End Game Screen</h2>
+      <div className={styles.block} style={{ width: '350px' }}>
+        <Button onClick={() => toggleEndGame(true)}>End Game</Button>
+        <EndGameScreen
+          username="IvanovI"
+          show={showEndGame}
+          onClose={() => toggleEndGame(false)}
+          score={Math.trunc(Math.random() * 1000).toString()}
+          elapsedTimeSec={Math.trunc(Math.random() * 1000).toString()}
+        />
       </div>
 
       <h2>Textarea</h2>
@@ -115,8 +134,11 @@ const UIPage = () => {
             errorMessage="Error"
           />
         </div>
-        <h2>Switches</h2>
-        <div className={styles.block}>
+      </div>
+
+      <h2>Switches</h2>
+      <div className={styles.block}>
+        <div style={{ width: '350px' }}>
           <Switch />
           <Switch defaultChecked />
         </div>
