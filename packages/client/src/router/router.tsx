@@ -12,7 +12,7 @@ import {
   LeaderboardPage,
   ForumPage,
   UIPage,
-  ForumChatPage
+  ForumChatPage,
 } from 'pages';
 
 import { ROUTES } from './routes';
