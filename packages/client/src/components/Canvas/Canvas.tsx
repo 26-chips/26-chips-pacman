@@ -1,21 +1,20 @@
-import { useRef, useEffect } from 'react';
-import { Enemy } from './Enemy';
-import { pinkyPath } from './consts';
-import { collidesSquare } from './helpers';
-import { Pacman } from './Pacman';
-import wallImg from 'assets/wall.jpg';
-import pinkyImg from 'assets/pinky.png';
-import pacmanImg from 'assets/pacman.png';
-import smallPillImg from 'assets/pill1.png';
-import bigPillImg from 'assets/pill2.png';
+import { useRef, useEffect, useState } from 'react';
 import { resourcesHandler } from './resources';
-import { field as fieldArray } from './consts';
+import { imagesConfig } from './consts';
+import { Map } from './Map';
+import { mapString } from './lvl1';
+import { Pill, BigPill } from './blocks';
+import { smallPillPoints, bigPillPoints } from './consts';
 
 export type DirectionsType = 'up' | 'down' | 'left' | 'right' | 'still';
 export type CellsType =
   | 'wall'
   | 'empty'
   | 'pacman'
+  | 'pinky'
+  | 'blinky'
+  | 'inky'
+  | 'clyde'
   | 'smallPill'
   | 'bigPill'
   | 'pill+pacman';
@@ -26,55 +25,27 @@ type Props = {
   reduceLives: () => void;
 };
 
-//должно делиться на 2 без остатка
-export const cellSize = 50;
-const bigPillSize = 20;
-const smallPillSize = 10;
-const enemiesSize = 10;
-const pacmanSize = 10;
-const smallPillPoints = 4;
-const bigPillPoints = 8;
 const ticksPerSecond = 50;
-const size = { width: 650, height: 850 };
-const pacmanStartPosition = { x: 6, y: 4 };
-const pinkyStartPosition = { x: 6, y: 7 };
 
 export function CanvasComponent({ setPoints, reduceLives, setTime }: Props) {
+  const [canvasSize, setCanvasSize] = useState({ width: 0, height: 0 });
+
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
   const requestIdRef = useRef<number | null>(null);
-  const field = useRef<CellsType[][]>(fieldArray);
   const refGameIsPaused = useRef<boolean>(true);
   const totalGameTimeRef = useRef<number>(0);
   const ticksCounter = useRef<number>(0);
 
-  const wallIcon = new Image();
-  const pinkyIcon = new Image();
-  const pacmanIcon = new Image();
-  const smallPillIcon = new Image();
-  const bigPillIcon = new Image();
-
-  wallIcon.src = wallImg;
-  pacmanIcon.src = pacmanImg;
-  pinkyIcon.src = pinkyImg;
-  smallPillIcon.src = smallPillImg;
-  bigPillIcon.src = bigPillImg;
-
-  const pacman = new Pacman(field.current, {
-    x: pacmanStartPosition.x * cellSize,
-    y: pacmanStartPosition.y * cellSize,
-  });
-  const pinky = new Enemy(
-    pinkyPath,
-    field.current,
-    { x: pinkyStartPosition.x * cellSize, y: pinkyStartPosition.y * cellSize },
-    5
-  );
+  const map = new Map(mapString);
+  const mapAsBlocks = map.getMapAsBlocks();
+  const pacman = map.getPacman();
+  const enemies = map.getEnemies();
 
   const handleDeath = () => {
     reduceLives();
     refGameIsPaused.current = true;
     pacman.reset();
-    pinky.reset();
+    enemies.forEach(item => item.reset());
   };
 
   const handleKeyboard = (e: KeyboardEvent) => {
@@ -99,7 +70,9 @@ export function CanvasComponent({ setPoints, reduceLives, setTime }: Props) {
 
   const updateFieldAfterPacman = () => {
     pacman.updatePosition();
-    pinky.updatePosition();
+    enemies.forEach(item => {
+      item.updatePosition();
+    });
   };
 
   const renderFrame = () => {
@@ -108,105 +81,38 @@ export function CanvasComponent({ setPoints, reduceLives, setTime }: Props) {
 
     if (!ctx) return;
 
-    const fld = field.current;
-    let { x, y } = pacman.getPosition();
-    let { x: enemyX, y: enemyY } = pinky.getPosition();
+    const { x, y } = pacman.getPosition();
 
-    for (let i = 0; i < fld.length; i++) {
-      for (let j = 0; j < fld[i].length; j++) {
-        if (fld[i][j] === 'smallPill') {
-          //если пересекаемся с маленькой таблеткой то кушаем ее
-          if (
-            collidesSquare(
-              j * cellSize + cellSize / 2,
-              i * cellSize + cellSize / 2,
-              smallPillSize,
-              x,
-              y,
-              cellSize
-            )
-          ) {
-            setPoints((prev: number) => prev + smallPillPoints);
-            fld[i][j] = 'empty';
-            //если нет - то отрисовываем
-          } else {
-            ctx.drawImage(
-              smallPillIcon,
-              j * cellSize,
-              i * cellSize,
-              cellSize,
-              cellSize
-            );
-          }
-        } else if (fld[i][j] === 'bigPill') {
-          //если пересекаемся с большой таблеткой то кушаем ее
-          if (
-            collidesSquare(
-              j * cellSize + cellSize / 2,
-              i * cellSize + cellSize / 2,
-              bigPillSize,
-              x,
-              y,
-              cellSize
-            )
-          ) {
-            setPoints((prev: number) => prev + bigPillPoints);
-            fld[i][j] = 'empty';
-            //если нет - то отрисовываем
-          } else {
-            ctx.drawImage(
-              bigPillIcon,
-              j * cellSize,
-              i * cellSize,
-              cellSize,
-              cellSize
-            );
-          }
-        } else {
-          if (fld[i][j] !== 'wall') {
-            ctx.fillStyle = 'black';
-            ctx.fillRect(j * cellSize, i * cellSize, cellSize, cellSize);
+    for (const row of mapAsBlocks) {
+      for (const block of row) {
+        if (block) {
+          block.setPacmanPosition(x, y);
+          block.draw(ctx);
+
+          // TODO возможно заменить на dispatch евента внутри класса
+          if (block.checkCollisions()) {
+            if (block instanceof Pill) {
+              setPoints((prev: number) => prev + smallPillPoints);
+            }
+            if (block instanceof BigPill) {
+              setPoints((prev: number) => prev + bigPillPoints);
+            }
           }
         }
       }
     }
 
-    // если пересеклись с противником - смерть
-    if (collidesSquare(x, y, pacmanSize - 1, enemyX, enemyY, enemiesSize - 1)) {
-      handleDeath();
+    enemies.forEach(item => {
+      if (item.getCollisionWithPacman(x, y)) {
+        handleDeath();
+      }
+    });
 
-      x = pacman.getPosition().x;
-      y = pacman.getPosition().y;
-      enemyX = pinky.getPosition().x;
-      enemyY = pinky.getPosition().y;
-    }
-    ctx.drawImage(pinkyIcon, enemyX, enemyY, cellSize, cellSize);
-    ctx.drawImage(pacmanIcon, x, y, cellSize, cellSize);
-
+    pacman.paint(ctx);
+    enemies.forEach(item => {
+      item.paint(ctx);
+    });
     updateFieldAfterPacman();
-  };
-
-  const renderWalls = () => {
-    if (!canvasRef.current) return;
-
-    const ctx = canvasRef.current.getContext('2d');
-    const fld = field.current;
-
-    for (let i = 0; i < fld.length; i++) {
-      for (let j = 0; j < fld[i].length; j++) {
-        if (fld[i][j] === 'wall') {
-          if (ctx) {
-            ctx.drawImage(
-              wallIcon,
-              j * cellSize,
-              i * cellSize,
-              cellSize,
-              cellSize
-            );
-          }
-        }
-      }
-    }
   };
 
   const tick = () => {
@@ -221,7 +127,11 @@ export function CanvasComponent({ setPoints, reduceLives, setTime }: Props) {
         // дергаем пропсы только раз в секунду
         if (ticksCounter.current === ticksPerSecond) {
           setTime((totalGameTimeRef.current += 1));
-          pinky.updateTime();
+
+          enemies.forEach(item => {
+            item.updateTime();
+          });
+
           ticksCounter.current = 0;
         } else {
           ticksCounter.current++;
@@ -233,18 +143,11 @@ export function CanvasComponent({ setPoints, reduceLives, setTime }: Props) {
   };
 
   useEffect(() => {
-    resourcesHandler.load([
-      wallImg,
-      pacmanImg,
-      pinkyImg,
-      smallPillImg,
-      bigPillImg,
-    ]);
     document.addEventListener('keydown', handleKeyboard);
 
-    //стены рисуем вне цикла
+    setCanvasSize(map.getCanvasSize());
+    resourcesHandler.load(Object.values(imagesConfig));
     resourcesHandler.onReady(() => {
-      renderWalls();
       renderFrame();
     });
 
@@ -256,9 +159,5 @@ export function CanvasComponent({ setPoints, reduceLives, setTime }: Props) {
     };
   }, []);
 
-  return (
-    <>
-      <canvas {...size} ref={canvasRef} />
-    </>
-  );
+  return <canvas {...canvasSize} ref={canvasRef} />;
 }
