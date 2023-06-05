@@ -35,6 +35,7 @@ const SigninPage = () => {
             {
               component: 'INPUT',
               name: 'login',
+              validationType: 'login',
               props: {
                 title: 'Логин',
                 showDeleteSymbol: true,
@@ -43,6 +44,7 @@ const SigninPage = () => {
             {
               component: 'INPUT',
               name: 'password',
+              validationType: 'password',
               props: {
                 title: 'Пароль',
                 type: 'password',

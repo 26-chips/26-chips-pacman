@@ -1,7 +1,5 @@
-import { ReactNode } from 'react';
 import {
   Formik,
-  FormikConfig,
   Form as FormikForm,
   FormikValues,
   Field,
@@ -9,32 +7,17 @@ import {
   FieldInputProps,
 } from 'formik';
 import { Input } from 'components/Input';
-
-enum FieldComponent {
-  INPUT = 'INPUT',
-}
-
-interface IField {
-  component: keyof typeof FieldComponent;
-  name: string;
-  props: Record<string, unknown>;
-}
-
-interface FormProps<T> extends FormikConfig<T> {
-  className?: string;
-  children: ReactNode;
-  initialValues: T;
-  onSubmit: (data: T) => Promise<void>;
-  fields: IField[];
-}
+import { FormProps, IField } from './types';
+import { validate } from './validate';
 
 const renderField = (
   { component = 'INPUT', props }: IField,
-  field: FieldInputProps<any>
+  field: FieldInputProps<any>,
+  error?: string
 ) => {
   switch (component) {
     case 'INPUT':
-      return <Input {...props} {...field} />;
+      return <Input {...props} {...field} errorMessage={error} />;
   }
 };
 
@@ -43,19 +26,31 @@ export function Form<T extends FormikValues>(props: FormProps<T>) {
 
   return (
     <Formik {...restProps}>
-      <FormikForm className={className}>
-        <div>
-          {fields.map(item => {
-            const { name } = item;
-            return (
-              <Field key={name} name={name}>
-                {({ field }: FieldProps) => renderField(item, field)}
-              </Field>
-            );
-          })}
-        </div>
-        {children}
-      </FormikForm>
+      {({ errors, touched }) => (
+        <FormikForm className={className}>
+          <div>
+            {fields.map(item => {
+              const { name, customValidation, validationType } = item;
+              const error = touched[name] ? errors[name] : '';
+              return (
+                <Field
+                  key={name}
+                  name={name}
+                  validate={
+                    customValidation
+                      ? customValidation
+                      : validate(validationType)
+                  }>
+                  {({ field }: FieldProps) =>
+                    renderField(item, field, error as string)
+                  }
+                </Field>
+              );
+            })}
+          </div>
+          {children}
+        </FormikForm>
+      )}
     </Formik>
   );
 }
