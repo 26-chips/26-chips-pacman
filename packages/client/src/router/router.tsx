@@ -24,9 +24,9 @@ const routes: RouteObject[] = [
     errorElement: <ErrorPage />,
     children: [
       { index: true, element: <MainPage /> },
-      { path: ROUTES.GAME, element: <GamePage /> },
       { path: ROUTES.SIGNIN, element: <SigninPage /> },
       { path: ROUTES.SIGNUP, element: <SignupPage /> },
+      { path: ROUTES.GAME, element: <GamePage /> },
       { path: ROUTES.PROFILE, element: <ProfilePage /> },
       { path: ROUTES.LEADERBOARD, element: <LeaderboardPage /> },
       { path: ROUTES.FORUM, element: <ForumPage /> },

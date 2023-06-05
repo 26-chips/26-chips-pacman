@@ -20,8 +20,10 @@ export default defineConfig({
       pages: path.resolve(__dirname, './src/pages'),
       router: path.resolve(__dirname, './src/router'),
       style_constants: path.resolve(__dirname, './src/_constants.scss'),
-      assets: path.resolve(__dirname, 'src', 'assets')
-    }
+      assets: path.resolve(__dirname, 'src', 'assets'),
+      axiosConfig: path.resolve(__dirname, 'src', 'axiosConfig'),
+      api: path.resolve(__dirname, 'src', 'api'),
+    },
   },
   css: {
     modules: {

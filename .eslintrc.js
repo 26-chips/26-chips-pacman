@@ -36,6 +36,7 @@ module.exports = {
             arrays: "always-multiline",
             objects: "always-multiline",
             imports: "always-multiline",
+            enums: "always-multiline",
           },
         ],
       },

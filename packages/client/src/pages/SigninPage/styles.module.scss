@@ -1,0 +1,37 @@
+@import 'style_constants';
+
+.title {
+  display: block;
+  margin: 57px 0 60px auto;
+}
+
+.authorization {
+  box-sizing: border-box;
+  width: 360px;
+  height: 388px;
+  border: 2px solid $blue;
+  border-radius: 12px;
+  margin: 0 auto;
+  padding: 50px 18px 40px;
+
+  .form {
+    display: flex;
+    flex-direction: column;
+    gap: 105px;
+    
+    div:first-child {
+      width: 304px;
+      display: flex;
+      flex-direction: column;
+      gap: 30px;
+      margin: 0 auto;
+    }
+  }
+
+  .buttons {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    align-items: center;
+  }
+}
