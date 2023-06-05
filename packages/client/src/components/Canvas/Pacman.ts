@@ -1,18 +1,11 @@
+/* eslint-disable no-fallthrough */
 import { DirectionsType, CellsType } from './Canvas';
-import { cellSize } from './Canvas';
-
-export class Pacman {
+import { Character } from './Character';
+import { icons } from './consts';
+export class Pacman extends Character {
   private isStill: boolean;
 
-  private step: number;
-
-  private centerPosition: { x: number; y: number };
-
   private fieldPosition: { x: number; y: number };
-
-  private currentDirection: DirectionsType;
-
-  private position: { x: number; y: number };
 
   private isBlocked: {
     up: boolean;
@@ -23,27 +16,23 @@ export class Pacman {
   };
 
   constructor(
-    private field: CellsType[][],
-    //позиция в координатах-пикселях
-    private startPosition: { x: number; y: number },
-    // позиция в матрице поля
+    field: CellsType[][],
+    startPosition: { x: number; y: number },
+    cellSize: number,
     private direction: DirectionsType = 'still'
   ) {
-    this.startPosition = startPosition;
-    this.step = 5;
-    this.position = { ...this.startPosition };
+    super(icons.pacmanIcon, field, startPosition, cellSize);
+
     this.direction = direction;
     this.currentDirection = direction;
-    this.field = field;
     this.isStill = true;
-    this.centerPosition = { x: 0, y: 0 };
     this.fieldPosition = { x: 0, y: 0 };
     this.isBlocked = {
       up: true,
       down: false,
-      left: true,
-      right: true,
-      still: true,
+      left: false,
+      right: false,
+      still: false,
     };
   }
 
@@ -63,74 +52,16 @@ export class Pacman {
   }
 
   updatePosition() {
-    switch (this.currentDirection) {
-      case 'up':
-        if (!this.isBlocked.up) {
-          if (this.position.y > this.step) {
-            this.position.y -= this.step;
-          } else {
-            this.position.y = this.field.length * cellSize - cellSize / 2;
-          }
-        } else {
-          this.isStill = true;
-        }
-        break;
-
-      case 'down':
-        if (!this.isBlocked.down) {
-          if (
-            this.position.y <
-            this.field.length * cellSize - cellSize / 2 - this.step
-          ) {
-            this.position.y += this.step;
-          } else {
-            this.position.y = 0;
-          }
-        } else {
-          this.isStill = true;
-        }
-        break;
-
-      case 'right':
-        if (!this.isBlocked.right) {
-          if (
-            this.position.x <
-            this.field[0].length * cellSize - cellSize / 2 - this.step
-          ) {
-            this.position.x += this.step;
-          } else {
-            this.position.x = 0;
-          }
-        } else {
-          this.isStill = true;
-        }
-        break;
-
-      case 'left':
-        if (!this.isBlocked.left) {
-          if (this.position.x > this.step) {
-            this.position.x -= this.step;
-          } else {
-            this.position.x = this.field[0].length * cellSize - cellSize / 2;
-          }
-        } else {
-          this.isStill = true;
-        }
-        break;
+    if (this.isBlocked[this.currentDirection]) {
+      this.isStill = true;
+    } else {
+      super.updatePosition(this.currentDirection);
     }
 
-    this.centerPosition = {
-      x: this.position.x + cellSize / 2,
-      y: this.position.y + cellSize / 2,
-    };
-
-    const fieldX = (this.centerPosition.x - cellSize / 2) / cellSize;
-    const fieldY = (this.centerPosition.y - cellSize / 2) / cellSize;
-
     //срабатывает когда пакман приходитв центр клетки
-    if (fieldX % 1 === 0 && fieldY % 1 === 0) {
-      this.fieldPosition.x = fieldX;
-      this.fieldPosition.y = fieldY;
+    if (this.fieldX % 1 === 0 && this.fieldY % 1 === 0) {
+      this.fieldPosition.x = this.fieldX;
+      this.fieldPosition.y = this.fieldY;
 
       this.isBlocked.up =
         this.field?.[this.fieldPosition.y - 1]?.[this.fieldPosition.x] ===
@@ -155,12 +86,8 @@ export class Pacman {
   }
 
   reset() {
-    this.position = { ...this.startPosition };
+    super.reset();
     this.updateDirection('still');
-  }
-
-  getPosition() {
-    return this.position;
   }
 
   getIfStill() {
