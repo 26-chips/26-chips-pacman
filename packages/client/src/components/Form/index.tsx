@@ -10,12 +10,12 @@ import {
 } from 'formik';
 import { Input } from 'components/Input';
 
-enum Types {
+enum FieldComponent {
   INPUT = 'INPUT',
 }
 
 interface IField {
-  component: keyof typeof Types;
+  component: keyof typeof FieldComponent;
   name: string;
   props: Record<string, unknown>;
 }

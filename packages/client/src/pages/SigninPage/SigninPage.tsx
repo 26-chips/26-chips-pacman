@@ -2,8 +2,8 @@ import { FunctionComponent } from 'react';
 import Authorization from 'assets/img/Authorization.png';
 import styles from './styles.module.scss';
 import { Button, Form, Link } from 'components';
-import { auth } from './api';
 import { ROUTES } from 'router';
+import { auth } from 'api';
 
 interface IData {
   login: string;
