@@ -8,3 +8,5 @@ export * from './Textarea';
 export * from './Switch';
 export * from './Form';
 export * from './Link';
+export * from './Loader';
+export * from './EndGameScreen';
