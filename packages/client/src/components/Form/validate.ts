@@ -1,6 +1,9 @@
 import { ValidationTypes } from './types';
 
-export const validate = (name?: keyof typeof ValidationTypes) => {
+export const validate = <Data>(
+  values: Data,
+  name?: keyof typeof ValidationTypes
+) => {
   const REQUIRED = 'Поле обязательно для заполнения';
   const INCORRECT_SYMBOLS = 'Недопустимые символы';
   const LENGTH_FIELD = (to: number, from: number) =>

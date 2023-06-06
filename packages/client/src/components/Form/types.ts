@@ -10,11 +10,11 @@ export enum ValidationTypes {
   password = 'password',
 }
 
-export interface IField {
+export interface IField<Data> {
   component: keyof typeof FieldComponent;
   name: string;
   validationType?: keyof typeof ValidationTypes;
-  customValidation?: () => void;
+  customValidation?: (values: Data, value: string) => void;
   props?: Record<string, unknown>;
 }
 
@@ -23,5 +23,5 @@ export interface FormProps<T> extends FormikConfig<T> {
   children: ReactNode;
   initialValues: T;
   onSubmit: (data: T) => Promise<void>;
-  fields: IField[];
+  fields: IField<T>[];
 }

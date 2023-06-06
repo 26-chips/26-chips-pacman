@@ -10,23 +10,23 @@ import { Input } from 'components/Input';
 import { FormProps, IField } from './types';
 import { validate } from './validate';
 
-const renderField = (
-  { component = 'INPUT', props }: IField,
+function renderField<Data>(
+  { component = 'INPUT', props }: IField<Data>,
   field: FieldInputProps<any>,
   error?: string
-) => {
+) {
   switch (component) {
     case 'INPUT':
       return <Input {...props} {...field} errorMessage={error} />;
   }
-};
+}
 
 export function Form<T extends FormikValues>(props: FormProps<T>) {
   const { children, className, fields, ...restProps } = props;
 
   return (
-    <Formik {...restProps}>
-      {({ errors, touched }) => (
+    <Formik validateOnChange={false} {...restProps}>
+      {({ values, errors, touched }) => (
         <FormikForm className={className}>
           <div>
             {fields.map(item => {
@@ -38,11 +38,11 @@ export function Form<T extends FormikValues>(props: FormProps<T>) {
                   name={name}
                   validate={
                     customValidation
-                      ? customValidation
-                      : validate(validationType)
+                      ? (value: string) => customValidation(values, value)
+                      : validate<T>(values, validationType)
                   }>
                   {({ field }: FieldProps) =>
-                    renderField(item, field, error as string)
+                    renderField<T>(item, field, error as string)
                   }
                 </Field>
               );
