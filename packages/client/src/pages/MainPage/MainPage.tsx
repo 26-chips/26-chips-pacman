@@ -6,19 +6,18 @@ import { ROUTES } from 'router';
 import { Link } from 'react-router-dom';
 
 const MainPage = () => {
-  const [theme, toggleTheme] = useState(false);
+  const [isDark, toggleTheme] = useState(false);
+  const toggle = () => {
+    toggleTheme(!isDark);
+  };
 
   return (
     <div className={styles.container}>
       <div className={styles.header}>
-        <span>{theme ? 'Светлая тема' : 'Темная тема'}</span>
-        <Switch
-          checked={theme}
-          onChange={() => {
-            toggleTheme(!theme);
-          }}></Switch>
-        <div className={styles.menu}></div>
+        <span>{isDark ? 'Темная тема' : 'Светлая тема'}</span>
+        <Switch checked={isDark} onChange={toggle} />
       </div>
+
       <div className={styles.imageContainer}>
         <img
           src={Logo}
