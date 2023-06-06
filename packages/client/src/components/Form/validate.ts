@@ -35,8 +35,8 @@ export const validate = <Data>(
         break;
       case 'phone':
         if (!value) return REQUIRED;
+        if (/[^0-9+]/g.test(value)) return 'Номер телефона, только цифры';
         if (value.length < 10 || value.length > 15) return LENGTH_FIELD(10, 15);
-        if (!/(?:\+|\d)\d+/.test(value)) return 'Номер телефона, только цифры';
     }
     return '';
   };

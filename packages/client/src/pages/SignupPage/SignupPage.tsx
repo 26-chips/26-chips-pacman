@@ -4,8 +4,8 @@ import Registration from 'assets/img/Registration.svg';
 import styles from './styles.module.scss';
 import { Button, Form, Link } from 'components';
 import { ROUTES } from 'router';
-import { REQUIRED } from 'components/Form/validate';
 import { registration } from 'api';
+import { registrationConfig } from '../configs';
 
 interface IData {
   email: string;
@@ -26,7 +26,7 @@ const SignupPage: FunctionComponent = () => {
     try {
       const response = await registration(data);
       console.log(response);
-      navigate('/');
+      navigate(ROUTES.MAIN);
     } catch (e) {
       alert(e);
     } finally {
@@ -54,70 +54,7 @@ const SignupPage: FunctionComponent = () => {
           }}
           onSubmit={onSubmit}
           className={styles.form}
-          fields={[
-            {
-              component: 'INPUT',
-              name: 'email',
-              validationType: 'email',
-              props: {
-                title: 'Почта',
-              },
-            },
-            {
-              component: 'INPUT',
-              name: 'first_name',
-              validationType: 'name',
-              props: {
-                title: 'Имя',
-              },
-            },
-            {
-              component: 'INPUT',
-              name: 'second_name',
-              validationType: 'name',
-              props: {
-                title: 'Фамилия',
-              },
-            },
-            {
-              component: 'INPUT',
-              name: 'phone',
-              validationType: 'phone',
-              props: {
-                title: 'Телефон',
-              },
-            },
-            {
-              component: 'INPUT',
-              name: 'login',
-              validationType: 'login',
-              props: {
-                title: 'Логин',
-              },
-            },
-            {
-              component: 'INPUT',
-              name: 'password',
-              validationType: 'password',
-              props: {
-                title: 'Пароль',
-                type: 'password',
-              },
-            },
-            {
-              component: 'INPUT',
-              name: 'repeat_password',
-              customValidation: ({ password }, value) => {
-                if (!value) return REQUIRED;
-                if (password !== value) return 'Пароли не совпадают';
-                return '';
-              },
-              props: {
-                title: 'Повторите пароль',
-                type: 'password',
-              },
-            },
-          ]}>
+          fields={registrationConfig}>
           <div className={styles.buttons}>
             <Button type="submit" loading={loading}>
               Зарегистрироваться

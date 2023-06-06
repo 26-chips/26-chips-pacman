@@ -29,6 +29,7 @@ const routes: RouteObject[] = [
       { path: ROUTES.SIGNUP, element: <SignupPage /> },
       { path: ROUTES.GAME, element: <GamePage /> },
       { path: ROUTES.PROFILE, element: <ProfilePage /> },
+      { path: `${ROUTES.PROFILE}/:id`, element: <ProfilePage /> },
       { path: ROUTES.LEADERBOARD, element: <LeaderboardPage /> },
       { path: ROUTES.FORUM, element: <ForumPage /> },
       { path: ROUTES.FORUM_TOPIC, element: <ForumChatPage /> },
