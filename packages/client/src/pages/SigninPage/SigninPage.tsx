@@ -10,7 +10,7 @@ interface IData {
   password: string;
 }
 
-const SigninPage = () => {
+const SigninPage: FunctionComponent = () => {
   const onSubmit = async (data: IData) => {
     const response = await auth(data);
     console.log(response);
@@ -35,6 +35,7 @@ const SigninPage = () => {
             {
               component: 'INPUT',
               name: 'login',
+              validationType: 'login',
               props: {
                 title: 'Логин',
                 showDeleteSymbol: true,
@@ -43,6 +44,7 @@ const SigninPage = () => {
             {
               component: 'INPUT',
               name: 'password',
+              validationType: 'password',
               props: {
                 title: 'Пароль',
                 type: 'password',
@@ -60,4 +62,4 @@ const SigninPage = () => {
   );
 };
 
-export default SigninPage as FunctionComponent;
+export default SigninPage;
