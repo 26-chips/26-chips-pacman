@@ -1,6 +1,5 @@
 import { createBrowserRouter } from 'react-router-dom';
 import type { RouteObject } from 'react-router-dom';
-
 import {
   Layout,
   ErrorPage,
@@ -14,7 +13,6 @@ import {
   UIPage,
   ForumChatPage,
 } from 'pages';
-
 import { ROUTES } from './routes';
 
 const routes: RouteObject[] = [

@@ -8,6 +8,9 @@ enum FieldComponent {
 export enum ValidationTypes {
   login = 'login',
   password = 'password',
+  email = 'email',
+  name = 'name',
+  phone = 'phone',
 }
 
 export interface IField<Data> {

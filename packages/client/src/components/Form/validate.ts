@@ -1,14 +1,16 @@
 import { ValidationTypes } from './types';
 
+export const REQUIRED = 'Поле обязательно для заполнения';
+const INCORRECT_SYMBOLS = 'Недопустимые символы';
+const LENGTH_FIELD = (to: number, from: number) =>
+  `Длина поля от ${to} до ${from} символов`;
+
 export const validate = <Data>(
   values: Data,
   name?: keyof typeof ValidationTypes
 ) => {
-  const REQUIRED = 'Поле обязательно для заполнения';
-  const INCORRECT_SYMBOLS = 'Недопустимые символы';
-  const LENGTH_FIELD = (to: number, from: number) =>
-    `Длина поля от ${to} до ${from} символов`;
   return (value: string) => {
+    return '';
     switch (name) {
       case 'login':
         if (!value) return REQUIRED;
@@ -19,8 +21,23 @@ export const validate = <Data>(
         if (!value) return REQUIRED;
         if (value.length < 8 || value.length > 40) return LENGTH_FIELD(8, 40);
         if (!/(?=.*[A-ZА-Я])(?=.*\d).+/.test(value))
-          return 'Пароль должен содержать хотя бы одну цифру и одну заглавную букву';
+          return 'Не хватает хотя бы однй цифры или одной заглавной буквы';
         break;
+      case 'email':
+        if (!value) return REQUIRED;
+        if (!/^[A-Z0-9._%+-]+@[A-Z0-9-]+.+.[A-Z]{2,4}$/i.test(value))
+          return 'Неккоректный формат поля email';
+        break;
+      case 'name':
+        if (!value) return REQUIRED;
+        if (!/^[A-ZА-Я]/.test(value)) return 'Первая буква заглавная';
+        if (!/^[A-ZА-Яa-zа-я-]+$/.test(value))
+          return 'Только буквы, допустим дефис';
+        break;
+      case 'phone':
+        if (!value) return REQUIRED;
+        if (value.length < 10 || value.length > 15) return LENGTH_FIELD(10, 15);
+        if (!/(?:\+|\d)\d+/.test(value)) return 'Номер телефона, только цифры';
     }
     return '';
   };

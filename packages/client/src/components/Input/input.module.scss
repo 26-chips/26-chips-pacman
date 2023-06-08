@@ -1,15 +1,15 @@
 @import "style_constants";
 
 .container {
-  width: 99%;
+  width: 100%;
   position: relative;
 }
 
 .error-message {
   display: none;
   position: absolute;
-  font-size: 0.8em;
-  margin: 5px 10px;
+  font-size: 0.6em;
+  margin: 5px 0;
   letter-spacing: 0.05em;
   color: $white;
 }
@@ -28,11 +28,12 @@
 }
 
 .title {
-  left: 10px;
+  left: 0;
   top: 20px;
   position: absolute;
   transition: top .5s;
   color: $white;
+  font-size: 14px;
 }
 
 .input {
@@ -41,8 +42,7 @@
   border: none;
   font-size: 1rem;
   line-height: 90%;
-  padding-top: 23px;
-  padding-bottom: 4px;
+  padding: 20px 0 4px;
   color: $white;
   background-color: transparent;
   border-bottom: 1px solid $blue;
