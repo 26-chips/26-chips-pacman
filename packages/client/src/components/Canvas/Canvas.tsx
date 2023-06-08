@@ -1,10 +1,8 @@
 import { useRef, useEffect, useState } from 'react';
-import { resourcesHandler } from './resources';
-import { imagesConfig } from './consts';
 import { Map } from './Map';
 import { mapString } from './lvl1';
 import { Pill, BigPill } from './blocks';
-import { smallPillPoints, bigPillPoints } from './consts';
+import { smallPillPoints, bigPillPoints, imagesConfig } from './consts';
 
 export type DirectionsType = 'up' | 'down' | 'left' | 'right' | 'still';
 export type CellsType =
@@ -28,7 +26,10 @@ type Props = {
 const ticksPerSecond = 50;
 
 export function CanvasComponent({ setPoints, reduceLives, setTime }: Props) {
-  const [canvasSize, setCanvasSize] = useState({ width: 0, height: 0 });
+  const [canvasSize, setCanvasSize] = useState<{
+    width: number;
+    height: number;
+  } | null>(null);
 
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
   const requestIdRef = useRef<number | null>(null);
@@ -86,11 +87,10 @@ export function CanvasComponent({ setPoints, reduceLives, setTime }: Props) {
     for (const row of mapAsBlocks) {
       for (const block of row) {
         if (block) {
-          block.setPacmanPosition(x, y);
           block.draw(ctx);
 
           // TODO возможно заменить на dispatch евента внутри класса
-          if (block.checkCollisions()) {
+          if (block.checkCollisions(x, y)) {
             if (block instanceof Pill) {
               setPoints((prev: number) => prev + smallPillPoints);
             }
@@ -143,21 +143,25 @@ export function CanvasComponent({ setPoints, reduceLives, setTime }: Props) {
   };
 
   useEffect(() => {
-    document.addEventListener('keydown', handleKeyboard);
-
     setCanvasSize(map.getCanvasSize());
-    resourcesHandler.load(Object.values(imagesConfig));
-    resourcesHandler.onReady(() => {
-      renderFrame();
-    });
-
-    requestIdRef.current = requestAnimationFrame(tick);
-
-    return () => {
-      cancelAnimationFrame(requestIdRef.current!);
-      document.removeEventListener('keydown', handleKeyboard);
-    };
   }, []);
+
+  useEffect(() => {
+    if (canvasSize) {
+      document.addEventListener('keydown', handleKeyboard);
+
+      Promise.all(Object.values(imagesConfig)).then(() => {
+        renderFrame();
+      });
+
+      requestIdRef.current = requestAnimationFrame(tick);
+
+      return () => {
+        cancelAnimationFrame(requestIdRef.current!);
+        document.removeEventListener('keydown', handleKeyboard);
+      };
+    }
+  }, [canvasSize]);
 
   return <canvas {...canvasSize} ref={canvasRef} />;
 }
