@@ -1,4 +1,4 @@
-import { ReactNode, InputHTMLAttributes, useRef } from 'react';
+import type { InputHTMLAttributes } from 'react';
 import cn from 'classnames';
 import styles from './input.module.scss';
 
@@ -6,24 +6,22 @@ export interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
   inlineTitle?: boolean;
   errorMessage?: string;
   showDeleteSymbol?: boolean;
-  deleteSymbol?: string | ReactNode;
+  name: string;
+  setValue?: (field: string, value: unknown) => Promise<void>;
 }
 
-export const Input = (props: InputProps) => {
-  const {
-    title,
-    showDeleteSymbol = true,
-    deleteSymbol = ' × ',
-    errorMessage,
-    inlineTitle,
-    ...otherProps
-  } = props;
-
-  const inputRef = useRef<HTMLInputElement>(null);
-
+export const Input = ({
+  title,
+  showDeleteSymbol = true,
+  errorMessage,
+  inlineTitle,
+  setValue,
+  name,
+  ...otherProps
+}: InputProps) => {
   const handleClear = () => {
-    if (inputRef.current) {
-      inputRef.current.value = '';
+    if (setValue) {
+      setValue(name, '');
     }
   };
 
@@ -32,9 +30,9 @@ export const Input = (props: InputProps) => {
       <label className={cn({ [styles.warning]: errorMessage })}>
         <input
           {...otherProps}
+          name={name}
           title={title}
           className={cn(styles.input, { [styles.textRight]: inlineTitle })}
-          ref={inputRef}
         />
         <span className={cn(styles.title, { [styles.labelUp]: !inlineTitle })}>
           {title}
@@ -44,7 +42,7 @@ export const Input = (props: InputProps) => {
         )}
         {showDeleteSymbol && (
           <button onClick={handleClear} className={styles.clear} type="button">
-            {deleteSymbol}
+            <div className={styles.cross} />
           </button>
         )}
       </label>

@@ -1,9 +1,5 @@
-import { ReactNode } from 'react';
-import { FormikConfig } from 'formik';
-
-enum FieldComponent {
-  INPUT = 'INPUT',
-}
+import type { ReactNode } from 'react';
+import type { FormikConfig } from 'formik';
 
 export enum ValidationTypes {
   login = 'login',
@@ -11,13 +7,12 @@ export enum ValidationTypes {
 }
 
 export interface IField<Data> {
-  component: keyof typeof FieldComponent;
   name: string;
   validationType?: keyof typeof ValidationTypes;
   customValidation?: (values: Data, value: string) => void;
-  props?: Record<string, unknown>;
+  title: string;
+  type: string;
 }
-
 export interface FormProps<T> extends FormikConfig<T> {
   className?: string;
   children: ReactNode;
