@@ -1,16 +1,7 @@
 import { PathType } from './Enemy';
 import { DirectionsType } from './consts';
 
-export const requestAnimFrame = (function () {
-  return (
-    window.requestAnimationFrame ||
-    function (callback) {
-      window.setTimeout(callback, 1000 / 60);
-    }
-  );
-})();
-
-export const collidesSquare = (
+export const isCollidesSquare = (
   x1: number,
   y1: number,
   size1: number,

@@ -1,5 +1,5 @@
 import { pacmanSize } from './consts';
-import { collidesSquare } from './helpers';
+import { isCollidesSquare } from './helpers';
 
 export abstract class Block {
   public pacmanPosition: { x: number; y: number };
@@ -24,7 +24,7 @@ export abstract class Block {
   }
 
   checkCollisions(x: number, y: number) {
-    return collidesSquare(
+    return isCollidesSquare(
       this.position.x * this.cellSize + this.cellSize / 2,
       this.position.y * this.cellSize + this.cellSize / 2,
       this.elementSize || this.cellSize,

@@ -97,7 +97,7 @@ export class Pacman extends Character {
     this.updateDirection(DirectionsType.still);
   }
 
-  getIfStill() {
+  getIsStill() {
     return this.isStill;
   }
 }

@@ -1,7 +1,7 @@
 import { CellsType } from './consts';
 import { DirectionsType } from './consts';
 import { Character } from './Character';
-import { collidesSquare } from './helpers';
+import { isCollidesSquare } from './helpers';
 import { pacmanSize, enemiesSize } from './consts';
 
 export type PathType = {
@@ -69,7 +69,7 @@ export class Enemy extends Character {
   }
 
   getCollisionWithPacman(x: number, y: number) {
-    return collidesSquare(
+    return isCollidesSquare(
       x,
       y,
       pacmanSize - 1,
