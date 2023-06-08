@@ -1,4 +1,5 @@
-import { DirectionsType, CellsType } from './Canvas';
+import { CellsType } from './consts';
+import { DirectionsType } from './consts';
 import { Character } from './Character';
 import { collidesSquare } from './helpers';
 import { pacmanSize, enemiesSize } from './consts';

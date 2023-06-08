@@ -1,4 +1,5 @@
 import { PathType } from './Enemy';
+import { DirectionsType } from './consts';
 
 export const requestAnimFrame = (function () {
   return (
@@ -41,14 +42,14 @@ export const makePathCycle = (arr: PathType) => {
   [...arr].reverse().forEach(item => {
     const direction = () => {
       switch (item.direction) {
-        case 'down':
-          return 'up';
-        case 'up':
-          return 'down';
-        case 'left':
-          return 'right';
+        case DirectionsType.down:
+          return DirectionsType.up;
+        case DirectionsType.up:
+          return DirectionsType.down;
+        case DirectionsType.left:
+          return DirectionsType.right;
         default:
-          return 'left';
+          return DirectionsType.left;
       }
     };
     cycleArray.push({ direction: direction(), steps: item.steps });

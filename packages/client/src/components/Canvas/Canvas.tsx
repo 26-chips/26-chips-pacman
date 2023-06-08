@@ -3,19 +3,8 @@ import { Map } from './Map';
 import { mapString } from './lvl1';
 import { Pill, BigPill } from './blocks';
 import { smallPillPoints, bigPillPoints, imagesConfig } from './consts';
-
-export type DirectionsType = 'up' | 'down' | 'left' | 'right' | 'still';
-export type CellsType =
-  | 'wall'
-  | 'empty'
-  | 'pacman'
-  | 'pinky'
-  | 'blinky'
-  | 'inky'
-  | 'clyde'
-  | 'smallPill'
-  | 'bigPill'
-  | 'pill+pacman';
+import { DirectionsType } from './consts';
+import { loadImage } from './resources';
 
 type Props = {
   setTime: (value: number) => void;
@@ -52,16 +41,16 @@ export function CanvasComponent({ setPoints, reduceLives, setTime }: Props) {
   const handleKeyboard = (e: KeyboardEvent) => {
     switch (e.code) {
       case 'ArrowUp':
-        pacman.updateDirection('up');
+        pacman.updateDirection(DirectionsType.up);
         break;
       case 'ArrowRight':
-        pacman.updateDirection('right');
+        pacman.updateDirection(DirectionsType.right);
         break;
       case 'ArrowDown':
-        pacman.updateDirection('down');
+        pacman.updateDirection(DirectionsType.down);
         break;
       case 'ArrowLeft':
-        pacman.updateDirection('left');
+        pacman.updateDirection(DirectionsType.left);
         break;
       case 'Space':
         refGameIsPaused.current = !refGameIsPaused.current;
@@ -150,7 +139,11 @@ export function CanvasComponent({ setPoints, reduceLives, setTime }: Props) {
     if (canvasSize) {
       document.addEventListener('keydown', handleKeyboard);
 
-      Promise.all(Object.values(imagesConfig)).then(() => {
+      Promise.all(
+        Object.values(imagesConfig).map(item => {
+          return loadImage(item);
+        })
+      ).then(() => {
         renderFrame();
       });
 

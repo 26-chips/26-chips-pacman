@@ -1,5 +1,6 @@
 /* eslint-disable no-fallthrough */
-import { DirectionsType, CellsType } from './Canvas';
+import { CellsType } from './consts';
+import { DirectionsType } from './consts';
 import { Character } from './Character';
 import { icons } from './consts';
 export class Pacman extends Character {
@@ -19,7 +20,7 @@ export class Pacman extends Character {
     field: CellsType[][],
     startPosition: { x: number; y: number },
     cellSize: number,
-    private direction: DirectionsType = 'still'
+    private direction: DirectionsType = DirectionsType.still
   ) {
     super(icons.pacmanIcon, field, startPosition, cellSize);
 
@@ -28,11 +29,11 @@ export class Pacman extends Character {
     this.isStill = true;
     this.fieldPosition = { x: 0, y: 0 };
     this.isBlocked = {
-      up: true,
-      down: false,
-      left: false,
-      right: false,
-      still: false,
+      [DirectionsType.up]: true,
+      [DirectionsType.down]: false,
+      [DirectionsType.left]: false,
+      [DirectionsType.right]: false,
+      [DirectionsType.still]: false,
     };
   }
 
@@ -41,11 +42,15 @@ export class Pacman extends Character {
     this.isStill = false;
 
     if (
-      newDirection === 'still' ||
-      (this.currentDirection === 'down' && newDirection === 'up') ||
-      (this.currentDirection === 'up' && newDirection === 'down') ||
-      (this.currentDirection === 'left' && newDirection === 'right') ||
-      (this.currentDirection === 'right' && newDirection === 'left')
+      newDirection === DirectionsType.still ||
+      (this.currentDirection === DirectionsType.down &&
+        newDirection === DirectionsType.up) ||
+      (this.currentDirection === DirectionsType.up &&
+        newDirection === DirectionsType.down) ||
+      (this.currentDirection === DirectionsType.left &&
+        newDirection === DirectionsType.right) ||
+      (this.currentDirection === DirectionsType.right &&
+        newDirection === DirectionsType.left)
     ) {
       this.currentDirection = newDirection;
     }
@@ -63,31 +68,33 @@ export class Pacman extends Character {
       this.fieldPosition.x = this.fieldX;
       this.fieldPosition.y = this.fieldY;
 
-      this.isBlocked.up =
+      this.isBlocked[DirectionsType.up] =
         this.field?.[this.fieldPosition.y - 1]?.[this.fieldPosition.x] ===
-        'wall';
-      this.isBlocked.down =
+        CellsType.wall;
+      this.isBlocked[DirectionsType.down] =
         this.field?.[this.fieldPosition.y + 1]?.[this.fieldPosition.x] ===
-        'wall';
-      this.isBlocked.right =
-        this.field?.[this.fieldPosition.y][this.fieldPosition.x + 1] === 'wall';
-      this.isBlocked.left =
-        this.field?.[this.fieldPosition.y][this.fieldPosition.x - 1] === 'wall';
+        CellsType.wall;
+      this.isBlocked[DirectionsType.right] =
+        this.field?.[this.fieldPosition.y][this.fieldPosition.x + 1] ===
+        CellsType.wall;
+      this.isBlocked[DirectionsType.left] =
+        this.field?.[this.fieldPosition.y][this.fieldPosition.x - 1] ===
+        CellsType.wall;
 
       if (!this.isBlocked[this.direction]) {
         this.currentDirection = this.direction;
       }
     } else {
-      this.isBlocked.up = false;
-      this.isBlocked.down = false;
-      this.isBlocked.right = false;
-      this.isBlocked.left = false;
+      this.isBlocked[DirectionsType.up] = false;
+      this.isBlocked[DirectionsType.down] = false;
+      this.isBlocked[DirectionsType.right] = false;
+      this.isBlocked[DirectionsType.left] = false;
     }
   }
 
   reset() {
     super.reset();
-    this.updateDirection('still');
+    this.updateDirection(DirectionsType.still);
   }
 
   getIfStill() {

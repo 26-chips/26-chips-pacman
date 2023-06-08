@@ -7,6 +7,10 @@ import bigPillImg from 'assets/pill2.png';
 import { formIcons } from './helpers';
 import type { EnemiesNamesType } from './Map';
 import { PathType } from './Enemy';
+// prettier-ignore
+export enum DirectionsType {up = 'up', down = 'down', left = 'left', right = 'right', still = 'still'}
+// prettier-ignore
+export enum CellsType {wall, empty, pacman, pinky, blinky, inky, clyde, smallPill, bigPill, PillPacman}
 
 export const imagesConfig = {
   wallIcon: wallImg,
@@ -25,14 +29,14 @@ export const smallPillPoints = 4;
 export const bigPillPoints = 8;
 
 export const pinkyPath = makePathCycle([
-  { direction: 'up', steps: 3 },
-  { direction: 'right', steps: 5 },
-  { direction: 'up', steps: 2 },
-  { direction: 'down', steps: 2 },
-  { direction: 'left', steps: 10 },
-  { direction: 'right', steps: 7 },
-  { direction: 'up', steps: 2 },
-  { direction: 'left', steps: 1 },
+  { direction: DirectionsType.up, steps: 3 },
+  { direction: DirectionsType.right, steps: 5 },
+  { direction: DirectionsType.up, steps: 2 },
+  { direction: DirectionsType.down, steps: 2 },
+  { direction: DirectionsType.left, steps: 10 },
+  { direction: DirectionsType.right, steps: 7 },
+  { direction: DirectionsType.up, steps: 2 },
+  { direction: DirectionsType.left, steps: 1 },
 ]);
 
 export const enemiesConfig: {
@@ -43,7 +47,7 @@ export const enemiesConfig: {
   };
 }[] = [
   {
-    pinky: {
+    [CellsType.pinky]: {
       path: pinkyPath,
       icon: icons.pinkyIcon,
       activationTime: 2,

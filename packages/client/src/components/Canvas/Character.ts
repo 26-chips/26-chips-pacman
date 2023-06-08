@@ -1,4 +1,5 @@
-import { DirectionsType, CellsType } from './Canvas';
+import { CellsType } from './consts';
+import { DirectionsType } from './consts';
 
 export type PathType = {
   direction: DirectionsType;
@@ -34,19 +35,19 @@ export abstract class Character {
     this.centerPosition = { x: 0, y: 0 };
     this.fieldX = 0;
     this.fieldY = 0;
-    this.currentDirection = 'still';
+    this.currentDirection = DirectionsType.still;
   }
 
   updatePosition(direction: DirectionsType) {
     switch (direction) {
-      case 'up':
+      case DirectionsType.up:
         this.position.y =
           this.position.y > this.step
             ? this.position.y - this.step
             : this.field.length * this.cellSize - this.cellSize / 2;
         break;
 
-      case 'down':
+      case DirectionsType.down:
         this.position.y =
           this.position.y <
           this.field.length * this.cellSize - this.cellSize / 2 - this.step
@@ -54,7 +55,7 @@ export abstract class Character {
             : 0;
         break;
 
-      case 'right':
+      case DirectionsType.right:
         this.position.x =
           this.position.x <
           this.field[0].length * this.cellSize - this.cellSize / 2 - this.step
@@ -62,7 +63,7 @@ export abstract class Character {
             : 0;
         break;
 
-      case 'left':
+      case DirectionsType.left:
         this.position.x =
           this.position.x > this.step
             ? this.position.x - this.step

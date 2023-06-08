@@ -1,6 +1,6 @@
 //import { mapString } from './lvl1';
 import { Wall, Pill, Empty, BigPill } from './blocks';
-import { CellsType } from './Canvas';
+import { CellsType } from './consts';
 import { Pacman } from './Pacman';
 import { Enemy } from './Enemy';
 import { enemiesConfig } from './consts';
@@ -23,7 +23,7 @@ export type CellsClassType =
 export type CellsClassInstances = Wall | Pill | Empty | BigPill;
 //TODO разрешить разногласия prettier и eslint
 // prettier-ignore
-export type EnemiesNamesType = Extract<CellsType, 'pinky' | 'blinky' | 'inky' | 'clyde'>;
+export type EnemiesNamesType = Extract<CellsType, CellsType.pinky | CellsType.blinky | CellsType.inky | CellsType.clyde>;
 
 const symbolsToString: Record<StringMapSymbols, CellsClassType> = {
   '#': Wall,
@@ -38,18 +38,23 @@ const symbolsToString: Record<StringMapSymbols, CellsClassType> = {
 };
 
 const symbolsToInstances: Record<StringMapSymbols, CellsType> = {
-  '#': 'wall',
-  '.': 'smallPill',
-  ' ': 'empty',
-  '*': 'bigPill',
-  G: 'pacman',
-  P: 'pinky',
-  B: 'blinky',
-  I: 'inky',
-  C: 'clyde',
+  '#': CellsType.wall,
+  '.': CellsType.smallPill,
+  ' ': CellsType.empty,
+  '*': CellsType.bigPill,
+  G: CellsType.pacman,
+  P: CellsType.pinky,
+  B: CellsType.blinky,
+  I: CellsType.inky,
+  C: CellsType.clyde,
 };
 
-const enemiesNames: EnemiesNamesType[] = ['pinky', 'blinky', 'inky', 'clyde'];
+const enemiesNames: EnemiesNamesType[] = [
+  CellsType.pinky,
+  CellsType.blinky,
+  CellsType.inky,
+  CellsType.clyde,
+];
 
 export class Map {
   private cellSize: number;
@@ -132,7 +137,7 @@ export class Map {
   }
 
   getPacman() {
-    const coordinates = this.getCoordinates('pacman');
+    const coordinates = this.getCoordinates(CellsType.pacman);
     const pacman = new Pacman(
       this.getMapAsStrings(),
       {
