@@ -1,4 +1,4 @@
-import { pacmanSize, smallPillSize } from './consts';
+import { pacmanSize } from './consts';
 import { collidesSquare } from './helpers';
 
 export abstract class Block {
@@ -8,26 +8,28 @@ export abstract class Block {
     public clearCell: () => void,
     public cellSize: number,
     public position: { x: number; y: number },
-    public image: HTMLImageElement | null
+    public image: HTMLImageElement | null,
+    public elementSize?: number
   ) {
     this.image = image;
     this.cellSize = cellSize;
     this.position = position;
     this.clearCell = clearCell;
     this.pacmanPosition = { x: 0, y: 0 };
+    this.elementSize = elementSize;
   }
 
   setPacmanPosition(x: number, y: number) {
     this.pacmanPosition = { x, y };
   }
 
-  checkCollisions() {
+  checkCollisions(x: number, y: number) {
     return collidesSquare(
       this.position.x * this.cellSize + this.cellSize / 2,
       this.position.y * this.cellSize + this.cellSize / 2,
-      smallPillSize,
-      this.pacmanPosition.x,
-      this.pacmanPosition.y,
+      this.elementSize || this.cellSize,
+      x,
+      y,
       pacmanSize
     );
   }

@@ -1,5 +1,6 @@
 import { Block } from './Block';
 import { icons } from './consts';
+import { smallPillSize, bigPillSize } from './consts';
 
 export class Wall extends Block {
   constructor(
@@ -17,11 +18,11 @@ export class Pill extends Block {
     cellSize: number,
     position: { x: number; y: number }
   ) {
-    super(clearCell, cellSize, position, icons.smallPillIcon);
+    super(clearCell, cellSize, position, icons.smallPillIcon, smallPillSize);
   }
 
-  checkCollisions() {
-    if (super.checkCollisions()) {
+  checkCollisions(x: number, y: number) {
+    if (super.checkCollisions(x, y)) {
       this.clearCell();
       return true;
     }
@@ -35,11 +36,11 @@ export class BigPill extends Block {
     cellSize: number,
     position: { x: number; y: number }
   ) {
-    super(clearCell, cellSize, position, icons.bigPillIcon);
+    super(clearCell, cellSize, position, icons.bigPillIcon, bigPillSize);
   }
 
-  checkCollisions() {
-    if (super.checkCollisions()) {
+  checkCollisions(x: number, y: number) {
+    if (super.checkCollisions(x, y)) {
       this.clearCell();
       return true;
     }
