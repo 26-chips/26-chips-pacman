@@ -31,19 +31,18 @@ export const makePathCycle = (arr: PathType) => {
   const cycleArray = arr;
 
   [...arr].reverse().forEach(item => {
-    const direction = () => {
-      switch (item.direction) {
-        case DirectionsType.down:
-          return DirectionsType.up;
-        case DirectionsType.up:
-          return DirectionsType.down;
-        case DirectionsType.left:
-          return DirectionsType.right;
-        default:
-          return DirectionsType.left;
-      }
+    const directions = {
+      [DirectionsType.down]: DirectionsType.up,
+      [DirectionsType.up]: DirectionsType.down,
+      [DirectionsType.left]: DirectionsType.right,
+      [DirectionsType.right]: DirectionsType.left,
+      [DirectionsType.still]: DirectionsType.still,
     };
-    cycleArray.push({ direction: direction(), steps: item.steps });
+
+    cycleArray.push({
+      direction: directions[item.direction],
+      steps: item.steps,
+    });
   });
 
   return cycleArray;
