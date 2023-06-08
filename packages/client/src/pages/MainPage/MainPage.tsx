@@ -2,7 +2,7 @@ import { FunctionComponent } from 'react';
 import styles from './mainPage.module.scss';
 import { Button } from '../../components';
 import { Link } from 'react-router-dom';
-import { ROUTES } from '../../router';
+import { ROUTES } from 'router';
 import welcomeToPacman from 'assets/img/welcome-to-pacman.png';
 import { Developer } from './components';
 import avatar1 from 'assets/img/developersAvatars/avatar1.png';
@@ -59,25 +59,44 @@ const MainPage = () => {
           <Button>Зарегистрироваться</Button>
         </Link>
       </div>
-      <img className={styles.welcome} src={welcomeToPacman} alt="welcome to pacman"/>
+      <img
+        className={styles.welcome}
+        src={welcomeToPacman}
+        alt="welcome to pacman"
+      />
       <p className={styles.welcomeDescription}>
-        Данная игра была разработана в рамках курса <span className={styles.span}>Миддл фронтенд разработчик</span> от Я.Практикум.
+        Данная игра была разработана в рамках курса{' '}
+        <span className={styles.span}>Миддл фронтенд разработчик</span> от
+        Я.Практикум.
       </p>
-      <a href="https://github.com/26-chips/26-chips-pacman"
-         target="_blank"
-         className={styles.repositoryLink}>
+      <a
+        href="https://github.com/26-chips/26-chips-pacman"
+        target="_blank"
+        className={styles.repositoryLink}>
         Наш github репозиторий
       </a>
       <p className={styles.developersTitle}>Разработчики игры:</p>
       <ul className={styles.developers}>
-        {developersList.map(({ avatar, name, githubName, githubLink }) =>
-          <Developer avatar={avatar} name={name} githubName={githubName} githubLink={githubLink} />
+        {developersList.map(
+          ({ avatar, name, githubName, githubLink }, index) => (
+            <Developer
+              key={index}
+              avatar={avatar}
+              name={name}
+              githubName={githubName}
+              githubLink={githubLink}
+            />
+          )
         )}
       </ul>
       <div className={styles.gameRules}>
         <h4 className={styles.rulesTitle}>Правила игры</h4>
-        <p className={styles.rulesDescription}>Ваша задача — управляя Пакманом, съесть все точки в лабиринте, избегая встречи с привидениями, которые гоняются за вами.
-          Зарегистрировавшись, вы сможете не только следить за своим рейтингом, но и за рейтингом других игроков, участвовать в форумах и создавать свои форумы на интересующие вас темы!
+        <p className={styles.rulesDescription}>
+          Ваша задача — управляя Пакманом, съесть все точки в лабиринте, избегая
+          встречи с привидениями, которые гоняются за вами. Зарегистрировавшись,
+          вы сможете не только следить за своим рейтингом, но и за рейтингом
+          других игроков, участвовать в форумах и создавать свои форумы на
+          интересующие вас темы!
         </p>
       </div>
     </section>
