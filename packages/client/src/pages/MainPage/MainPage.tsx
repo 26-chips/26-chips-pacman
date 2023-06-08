@@ -45,7 +45,7 @@ const developersList: DeveloperType[] = [
   },
 ];
 
-const MainPage = () => {
+const MainPage: FunctionComponent = () => {
   return (
     <section className={styles.container}>
       <div className={styles.header}>
@@ -103,4 +103,4 @@ const MainPage = () => {
   );
 };
 
-export default MainPage as FunctionComponent;
+export default MainPage;
