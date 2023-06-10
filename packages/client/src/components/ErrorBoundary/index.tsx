@@ -4,16 +4,18 @@ import { useRouteError, isRouteErrorResponse } from 'react-router-dom';
 export const ErrorBoundary = () => {
   const error = useRouteError();
 
+  const internalErrorProps = {
+    statusCode: '500',
+    errorText: 'Внутренняя ошибка сервера :(',
+    image: 'Blue',
+  };
+
   if (isRouteErrorResponse(error)) {
     return <ErrorPage />;
   } else {
-    // @ts-ignore
     return (
-      <ErrorPage
-        statusCode="500"
-        errorText="Внутренняя ошибка сервера :("
-        image="Blue"
-      />
+      //@ts-ignore
+      <ErrorPage {...internalErrorProps} />
     );
   }
 };
