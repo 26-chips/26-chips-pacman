@@ -10,7 +10,6 @@ export const validate = <Data>(
   name?: keyof typeof ValidationTypes
 ) => {
   return (value: string) => {
-    return '';
     switch (name) {
       case 'login':
         if (!value) return REQUIRED;
@@ -21,12 +20,12 @@ export const validate = <Data>(
         if (!value) return REQUIRED;
         if (value.length < 8 || value.length > 40) return LENGTH_FIELD(8, 40);
         if (!/(?=.*[A-ZА-Я])(?=.*\d).+/.test(value))
-          return 'Не хватает хотя бы однй цифры или одной заглавной буквы';
+          return 'Не хватает хотя бы одной цифры или одной заглавной буквы';
         break;
       case 'email':
         if (!value) return REQUIRED;
         if (!/^[A-Z0-9._%+-]+@[A-Z0-9-]+.+.[A-Z]{2,4}$/i.test(value))
-          return 'Неккоректный формат поля email';
+          return 'Некорректный формат поля email';
         break;
       case 'name':
         if (!value) return REQUIRED;
