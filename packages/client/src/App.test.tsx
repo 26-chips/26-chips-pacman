@@ -1,9 +1,7 @@
 import App from './App';
-import { render, waitFor } from '@testing-library/react';
-import '@testing-library/jest-dom/extend-expect';
-import { screen } from '@testing-library/dom';
+import { render, screen, waitFor } from '@testing-library/react';
 
-const appContent = 'Начнем?';
+const appContent = 'Main Page';
 
 // @ts-ignore
 global.fetch = jest.fn(() =>
@@ -12,7 +10,5 @@ global.fetch = jest.fn(() =>
 
 test('Example test', async () => {
   render(<App />);
-  await waitFor(() => {
-    expect(screen.getByText(appContent)).toBeInTheDocument();
-  });
+  await waitFor(() => expect(screen.getByText(appContent)).toBeDefined());
 });
