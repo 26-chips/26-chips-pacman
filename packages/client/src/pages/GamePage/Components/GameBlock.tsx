@@ -7,12 +7,14 @@ import { EndGameScreen } from 'components';
 import cn from 'classnames';
 
 const START_COUNT = 3;
+const LIVES = 3;
+const MOCK_USER_NAME = 'User';
 
 export function GameBlock(): JSX.Element {
   const navigate = useNavigate();
 
   const [points, setPoints] = useState(0);
-  const [lives, setLives] = useState<number>(3);
+  const [lives, setLives] = useState<number>(LIVES);
   const [time, setTime] = useState<number>(0);
   const [count, setCount] = useState(START_COUNT);
   const [isPaused, setIsPaused] = useState(true);
@@ -48,7 +50,6 @@ export function GameBlock(): JSX.Element {
   }, [points, lives, time]);
 
   useEffect(() => {
-    console.log(lives, allPillsCollected);
     if (lives && !allPillsCollected) {
       const timer = count > 0 && setInterval(() => setCount(count - 1), 1000);
       return () => {
@@ -74,9 +75,6 @@ export function GameBlock(): JSX.Element {
   return (
     <>
       <div>
-        <div>
-          {maximumPoints},{points}
-        </div>
         <p className={styles.text}>{`Current points ${points}`}</p>
         <p className={styles.text}>{`Current lives ${lives}`}</p>
         <p className={styles.text}>{`Time ${time}`}</p>
@@ -99,7 +97,7 @@ export function GameBlock(): JSX.Element {
       </div>
 
       <EndGameScreen
-        username="Vlad"
+        username={MOCK_USER_NAME}
         show={gameIsOver}
         onClose={handleModalClose}
         score={totalScore}

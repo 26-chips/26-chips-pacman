@@ -10,14 +10,14 @@ import { Enemy } from './Enemy';
 
 type Props = {
   setTime: (value: number) => void;
-  setPoints: React.Dispatch<React.SetStateAction<number>>;
   reduceLives: () => void;
   resetCounter: () => void;
   isPaused: boolean;
-  setIsPaused: React.Dispatch<React.SetStateAction<boolean>>;
   isCountDown: boolean;
   setMaximumPoints: (value: number) => void;
   allPillsCollected: boolean;
+  setIsPaused: React.Dispatch<React.SetStateAction<boolean>>;
+  setPoints: React.Dispatch<React.SetStateAction<number>>;
 };
 
 const ticksPerSecond = 50;
@@ -43,8 +43,7 @@ export function CanvasComponent({
   const requestIdRef = useRef<number | null>(null);
   const totalGameTimeRef = useRef<number>(0);
   const ticksCounter = useRef<number>(0);
-
-  const timeoutRef = useRef<any>();
+  const timeoutRef = useRef<number | null>();
   const mapRef = useRef<Map>(new Map(mapString));
   const mapAsBlocksRef = useRef<CellsClassInstances[][]>(
     mapRef.current.getMapAsBlocks()
@@ -141,8 +140,12 @@ export function CanvasComponent({
     }
 
     if (!canvasRef.current) return;
-    clearTimeout(timeoutRef.current);
-    timeoutRef.current = setTimeout(() => {
+
+    if (timeoutRef.current) {
+      clearTimeout(timeoutRef.current);
+    }
+
+    timeoutRef.current = window.setTimeout(() => {
       if (!isPaused) {
         // дергаем пропсы только раз в секунду
         if (ticksCounter.current === ticksPerSecond) {
