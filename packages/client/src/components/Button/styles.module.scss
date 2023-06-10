@@ -10,6 +10,7 @@
   background: $blue;
   cursor: pointer;
   transition: .4s;
+  margin: 0;
 
   &:hover {
     background: $blue-hover;
@@ -33,7 +34,7 @@
 
 .transparent {
   border: 1px solid $blue;
-  background: $black;
+  background: transparent;
 }
 
 .loading {

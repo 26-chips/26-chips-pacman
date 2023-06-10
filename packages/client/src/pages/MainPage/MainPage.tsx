@@ -1,15 +1,15 @@
 import { FunctionComponent } from 'react';
 import styles from './mainPage.module.scss';
-import { Button } from '../../components';
+import { Button } from 'components';
 import { Link } from 'react-router-dom';
 import { ROUTES } from 'router';
-import welcomeToPacman from 'assets/img/welcome-to-pacman.png';
+import welcomeToPacman from 'assets/img/welcome-to-pacman.svg';
 import { Developer } from './components';
-import avatar1 from 'assets/img/developersAvatars/avatar1.png';
-import avatar2 from 'assets/img/developersAvatars/avatar2.png';
-import avatar3 from 'assets/img/developersAvatars/avatar3.png';
-import avatar4 from 'assets/img/developersAvatars/avatar4.png';
-import avatar5 from 'assets/img/developersAvatars/avatar5.png';
+import avatar1 from 'assets/img/developersAvatars/avatar1.svg';
+import avatar2 from 'assets/img/developersAvatars/avatar2.svg';
+import avatar3 from 'assets/img/developersAvatars/avatar3.svg';
+import avatar4 from 'assets/img/developersAvatars/avatar4.svg';
+import avatar5 from 'assets/img/developersAvatars/avatar5.svg';
 import { DeveloperType } from './types';
 
 const developersList: DeveloperType[] = [
