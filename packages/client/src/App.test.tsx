@@ -1,7 +1,7 @@
 import App from './App';
 import { render, screen, waitFor } from '@testing-library/react';
 
-const appContent = 'Main Page';
+const appContent = 'Наш github репозиторий';
 
 // @ts-ignore
 global.fetch = jest.fn(() =>
