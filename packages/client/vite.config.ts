@@ -8,8 +8,7 @@ dotenv.config();
 // https://vitejs.dev/config/
 export default defineConfig({
   server: {
-    port: Number(process.env.CLIENT_PORT) || 3000,
-    host: '0.0.0.0',
+    port: Number(process.env.CLIENT_PORT) || 3000
   },
   define: {
     __SERVER_PORT__: process.env.SERVER_PORT
@@ -21,8 +20,10 @@ export default defineConfig({
       pages: path.resolve(__dirname, './src/pages'),
       router: path.resolve(__dirname, './src/router'),
       style_constants: path.resolve(__dirname, './src/_constants.scss'),
-      assets: path.resolve(__dirname, 'src', 'assets')
-    }
+      assets: path.resolve(__dirname, 'src', 'assets'),
+      axiosConfig: path.resolve(__dirname, 'src', 'axiosConfig'),
+      api: path.resolve(__dirname, 'src', 'api'),
+    },
   },
   css: {
     modules: {

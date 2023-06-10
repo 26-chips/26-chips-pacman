@@ -1,5 +1,5 @@
 import { FunctionComponent } from 'react';
 
-const SignupPage = () => <h1>Signup Page</h1>;
+const SignupPage: FunctionComponent = () => <h1>Signup Page</h1>;
 
-export default SignupPage as FunctionComponent;
+export default SignupPage;

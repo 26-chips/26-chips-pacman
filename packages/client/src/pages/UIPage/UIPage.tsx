@@ -39,16 +39,11 @@ const UIPage = () => {
       <div className={styles.block}>
         <div style={{ width: '350px' }}>
           <h3>Error input 1</h3>
-          <Input
-            title="Input 1"
-            inlineTitle={false}
-            deleteSymbol=" × "
-            errorMessage="Error"
-          />
+          <Input title="Input 1" showDeleteSymbol errorMessage="Error" />
         </div>
         <div style={{ width: '350px' }}>
           <h3>Valid input 1</h3>
-          <Input title="Input 1" inlineTitle={false} deleteSymbol=" × " />
+          <Input title="Input 1" showDeleteSymbol />
         </div>
         <div style={{ width: '350px' }}>
           <h3>Valid input 2</h3>
