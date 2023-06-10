@@ -1,5 +1,6 @@
 export const ROUTES = {
   MAIN: '/',
+  START: '/start',
   GAME: '/game',
   SIGNIN: '/signin',
   SIGNUP: '/signup',

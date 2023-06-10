@@ -16,6 +16,11 @@ export const Menu = () => (
         </NavLink>
       </li>
       <li>
+        <NavLink to={ROUTES.START} className={getActiveStyles}>
+          Начало игры
+        </NavLink>
+      </li>
+      <li>
         <NavLink to={ROUTES.GAME} className={getActiveStyles}>
           Игра
         </NavLink>
