@@ -75,6 +75,9 @@ export function GameBlock(): JSX.Element {
   return (
     <>
       <div>
+        <div>
+          {maximumPoints},{points}
+        </div>
         <p className={styles.text}>{`Current points ${points}`}</p>
         <p className={styles.text}>{`Current lives ${lives}`}</p>
         <p className={styles.text}>{`Time ${time}`}</p>
