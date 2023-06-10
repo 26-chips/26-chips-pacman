@@ -1,20 +1,39 @@
-import { useRef, useEffect, useState } from 'react';
-import { Map } from './Map';
+import { useRef, useEffect, useState, useCallback } from 'react';
+import { CellsClassInstances, Map } from './Map';
 import { mapString } from './lvl1';
 import { Pill, BigPill } from './blocks';
 import { smallPillPoints, bigPillPoints, imagesConfig } from './consts';
 import { DirectionsType } from './consts';
 import { loadImage } from './resources';
+import { Pacman } from './Pacman';
+import { Enemy } from './Enemy';
 
 type Props = {
   setTime: (value: number) => void;
   setPoints: React.Dispatch<React.SetStateAction<number>>;
   reduceLives: () => void;
+  resetCounter: () => void;
+  isPaused: boolean;
+  setIsPaused: React.Dispatch<React.SetStateAction<boolean>>;
+  isCountDown: boolean;
+  setMaximumPoints: (value: number) => void;
+  allPillsCollected: boolean;
 };
 
 const ticksPerSecond = 50;
 
-export function CanvasComponent({ setPoints, reduceLives, setTime }: Props) {
+export function CanvasComponent({
+  setPoints,
+  reduceLives,
+  setTime,
+  isPaused,
+  isCountDown,
+  setIsPaused,
+  resetCounter,
+  setMaximumPoints,
+  allPillsCollected,
+}: Props) {
+  console.log(isCountDown);
   const [canvasSize, setCanvasSize] = useState<{
     width: number;
     height: number;
@@ -22,45 +41,57 @@ export function CanvasComponent({ setPoints, reduceLives, setTime }: Props) {
 
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
   const requestIdRef = useRef<number | null>(null);
-  const refGameIsPaused = useRef<boolean>(true);
   const totalGameTimeRef = useRef<number>(0);
   const ticksCounter = useRef<number>(0);
 
-  const map = new Map(mapString);
-  const mapAsBlocks = map.getMapAsBlocks();
-  const pacman = map.getPacman();
-  const enemies = map.getEnemies();
+  const timeoutRef = useRef<any>();
+  const mapRef = useRef<Map>(new Map(mapString));
+  const mapAsBlocksRef = useRef<CellsClassInstances[][]>(
+    mapRef.current.getMapAsBlocks()
+  );
+  const pacmanRef = useRef<Pacman>(mapRef.current.getPacman());
+  const enemiesRef = useRef<Enemy[]>(mapRef.current.getEnemies());
 
   const handleDeath = () => {
     reduceLives();
-    refGameIsPaused.current = true;
-    pacman.reset();
-    enemies.forEach(item => item.reset());
+    pacmanRef.current.reset();
+    enemiesRef.current.forEach(item => item.reset());
+    setIsPaused(true);
+    resetCounter();
   };
 
-  const handleKeyboard = (e: KeyboardEvent) => {
-    switch (e.code) {
-      case 'ArrowUp':
-        pacman.updateDirection(DirectionsType.up);
-        break;
-      case 'ArrowRight':
-        pacman.updateDirection(DirectionsType.right);
-        break;
-      case 'ArrowDown':
-        pacman.updateDirection(DirectionsType.down);
-        break;
-      case 'ArrowLeft':
-        pacman.updateDirection(DirectionsType.left);
-        break;
-      case 'Space':
-        refGameIsPaused.current = !refGameIsPaused.current;
-        break;
-    }
-  };
+  const handleKeyboard = useCallback(
+    (e: KeyboardEvent) => {
+      console.log(isCountDown);
+      switch (e.code) {
+        case 'ArrowUp':
+          console.log('UPp');
+          pacmanRef.current.updateDirection(DirectionsType.up);
+          break;
+        case 'ArrowRight':
+          console.log(pacmanRef.current);
+          pacmanRef.current.updateDirection(DirectionsType.right);
+          break;
+        case 'ArrowDown':
+          pacmanRef.current.updateDirection(DirectionsType.down);
+          break;
+        case 'ArrowLeft':
+          pacmanRef.current.updateDirection(DirectionsType.left);
+          break;
+        case 'Space':
+          if (!isCountDown) {
+            //isPaused.current = !isPaused.current;
+            setIsPaused(current => !current);
+          }
+          break;
+      }
+    },
+    [isCountDown]
+  );
 
   const updateFieldAfterPacman = () => {
-    pacman.updatePosition();
-    enemies.forEach(item => {
+    pacmanRef.current.updatePosition();
+    enemiesRef.current.forEach(item => {
       item.updatePosition();
     });
   };
@@ -71,9 +102,9 @@ export function CanvasComponent({ setPoints, reduceLives, setTime }: Props) {
 
     if (!ctx) return;
 
-    const { x, y } = pacman.getPosition();
+    const { x, y } = pacmanRef.current.getPosition();
 
-    for (const row of mapAsBlocks) {
+    for (const row of mapAsBlocksRef.current) {
       for (const block of row) {
         if (block) {
           block.draw(ctx);
@@ -91,33 +122,33 @@ export function CanvasComponent({ setPoints, reduceLives, setTime }: Props) {
       }
     }
 
-    enemies.forEach(item => {
+    enemiesRef.current.forEach(item => {
       if (item.getCollisionWithPacman(x, y)) {
         handleDeath();
       }
     });
 
-    pacman.paint(ctx);
-    enemies.forEach(item => {
+    pacmanRef.current.paint(ctx);
+    enemiesRef.current.forEach(item => {
       item.paint(ctx);
     });
     updateFieldAfterPacman();
   };
 
-  const tick = () => {
-    if (!refGameIsPaused.current) {
+  const tick = useCallback(() => {
+    if (!isPaused) {
       renderFrame();
     }
 
     if (!canvasRef.current) return;
-
-    setTimeout(() => {
-      if (!refGameIsPaused.current) {
+    clearTimeout(timeoutRef.current);
+    timeoutRef.current = setTimeout(() => {
+      if (!isPaused) {
         // дергаем пропсы только раз в секунду
         if (ticksCounter.current === ticksPerSecond) {
           setTime((totalGameTimeRef.current += 1));
 
-          enemies.forEach(item => {
+          enemiesRef.current.forEach(item => {
             item.updateTime();
           });
 
@@ -129,16 +160,15 @@ export function CanvasComponent({ setPoints, reduceLives, setTime }: Props) {
 
       requestIdRef.current = requestAnimationFrame(tick);
     }, 1000 / ticksPerSecond);
-  };
+  }, [isPaused]);
 
   useEffect(() => {
-    setCanvasSize(map.getCanvasSize());
+    setCanvasSize(mapRef.current.getCanvasSize());
+    setMaximumPoints(mapRef.current.getTotalPoints());
   }, []);
 
   useEffect(() => {
     if (canvasSize) {
-      document.addEventListener('keydown', handleKeyboard);
-
       Promise.all(
         Object.values(imagesConfig).map(item => {
           return loadImage(item);
@@ -151,10 +181,25 @@ export function CanvasComponent({ setPoints, reduceLives, setTime }: Props) {
 
       return () => {
         cancelAnimationFrame(requestIdRef.current!);
-        document.removeEventListener('keydown', handleKeyboard);
       };
     }
   }, [canvasSize]);
+
+  useEffect(() => {
+    cancelAnimationFrame(requestIdRef.current!);
+    requestIdRef.current = requestAnimationFrame(tick);
+  }, [isPaused]);
+
+  useEffect(() => {
+    document.addEventListener('keydown', handleKeyboard);
+    return () => {
+      document.removeEventListener('keydown', handleKeyboard);
+    };
+  }, [isCountDown]);
+
+  useEffect(() => {
+    document.removeEventListener('keydown', handleKeyboard);
+  }, [allPillsCollected]);
 
   return <canvas {...canvasSize} ref={canvasRef} />;
 }
