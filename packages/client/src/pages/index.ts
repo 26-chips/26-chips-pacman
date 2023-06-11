@@ -9,3 +9,4 @@ export * from './LeaderboardPage';
 export * from './ForumPage';
 export * from './ForumChatPage';
 export * from './UIPage';
+export * from './StartPage';

@@ -8,6 +8,7 @@ import { auth } from 'api';
 interface IData {
   login: string;
   password: string;
+  type?: string;
 }
 
 const SigninPage: FunctionComponent = () => {
@@ -33,21 +34,16 @@ const SigninPage: FunctionComponent = () => {
           className={styles.form}
           fields={[
             {
-              component: 'INPUT',
               name: 'login',
               validationType: 'login',
-              props: {
-                title: 'Логин',
-              },
+              title: 'Логин',
+              type: 'text',
             },
             {
-              component: 'INPUT',
               name: 'password',
               validationType: 'password',
-              props: {
-                title: 'Пароль',
-                type: 'password',
-              },
+              title: 'Пароль',
+              type: 'password',
             },
           ]}>
           <div className={styles.buttons}>

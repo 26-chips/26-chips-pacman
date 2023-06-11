@@ -1,9 +1,11 @@
-import { Modal, ModalProps } from '../Modal';
+import { Modal } from '../Modal';
 import { EndGameComponent } from './EndGameComponent';
 
 export interface EndGameComponentProps {
   username: string;
   score: string;
+  show: boolean;
+  onClose: () => void;
   className?: string;
   elapsedTimeSec: number | string;
 }
@@ -15,14 +17,14 @@ export const EndGameScreen = ({
   show,
   onClose,
   ...otherProps
-}: EndGameComponentProps & Omit<ModalProps, 'children'>) => {
-  return (
-    <Modal {...otherProps} onClose={onClose} show={show}>
+}: EndGameComponentProps) => {
+  return show ? (
+    <Modal {...otherProps} onClose={onClose}>
       <EndGameComponent
         username={username}
         elapsedTimeSec={elapsedTimeSec}
         score={score}
       />
     </Modal>
-  );
+  ) : null;
 };

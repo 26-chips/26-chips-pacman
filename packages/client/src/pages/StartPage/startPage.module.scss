@@ -1,0 +1,34 @@
+@import 'style_constants';
+
+.header {
+  display: flex;
+  width: 90%;
+  align-items: end;
+  justify-content: end;
+}
+
+.container {
+  display: flex;
+  height: 100%;
+  flex-direction: column;
+}
+
+.image-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  flex-grow: 1;
+
+  .buttons {
+    width: 335px;
+
+    button {
+      margin: 10px 0;
+    }
+  }
+
+  .image {
+    max-width: 800px;
+  }
+}

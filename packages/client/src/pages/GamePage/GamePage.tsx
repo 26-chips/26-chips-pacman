@@ -1,5 +1,6 @@
 import { FunctionComponent } from 'react';
+import { GameBlock } from './Components/GameBlock';
 
-const GamePage = () => <h1>Game Page</h1>;
+const GamePage = () => <GameBlock />;
 
 export default GamePage as FunctionComponent;

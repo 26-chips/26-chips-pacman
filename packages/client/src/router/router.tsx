@@ -12,6 +12,7 @@ import {
   ForumPage,
   UIPage,
   ForumChatPage,
+  StartPage,
 } from 'pages';
 import { ROUTES } from './routes';
 
@@ -22,6 +23,7 @@ const routes: RouteObject[] = [
     errorElement: <ErrorPage />,
     children: [
       { index: true, element: <MainPage /> },
+      { path: ROUTES.START, element: <StartPage /> },
       { path: ROUTES.SIGNIN, element: <SigninPage /> },
       { path: ROUTES.SIGNUP, element: <SignupPage /> },
       { path: ROUTES.GAME, element: <GamePage /> },
@@ -33,5 +35,9 @@ const routes: RouteObject[] = [
     ],
   },
 ];
+
+routes[0].children?.map(child => {
+  child.errorElement = <ErrorPage />;
+});
 
 export default createBrowserRouter(routes);

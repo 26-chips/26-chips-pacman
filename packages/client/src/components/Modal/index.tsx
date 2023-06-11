@@ -1,26 +1,28 @@
 import { MouseEvent, ReactNode } from 'react';
-import styles from './styles.module.scss';
+import cn from 'classnames';
 import CloseIcon from 'assets/icons/CloseIcon.svg';
 
-export interface ModalProps {
+import styles from './styles.module.scss';
+
+interface ModalProps {
   children: ReactNode;
+  className?: string;
   onClose: () => void;
-  show: boolean;
 }
 
-export const Modal = (props: ModalProps) => {
-  const { onClose, children, show } = props;
-
-  return show ? (
-    <div className={styles.modal} onClick={onClose}>
-      <div
-        className={styles.content}
-        onClick={(e: MouseEvent) => e.stopPropagation()}>
-        {children}
-        <button className={styles.close} onClick={onClose}>
-          <img src={CloseIcon} alt="close icon" />
-        </button>
-      </div>
+export const Modal = ({
+  onClose,
+  children,
+  className,
+}: ModalProps): JSX.Element => (
+  <div className={styles.modal} onClick={onClose}>
+    <div
+      className={cn(styles.content, className)}
+      onClick={(e: MouseEvent) => e.stopPropagation()}>
+      {children}
+      <button className={styles.close} onClick={onClose}>
+        <img src={CloseIcon} alt="close icon" />
+      </button>
     </div>
-  ) : null;
-};
+  </div>
+);
