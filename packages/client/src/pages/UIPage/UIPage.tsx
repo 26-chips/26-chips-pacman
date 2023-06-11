@@ -7,11 +7,12 @@ import {
   Switch,
   Textarea,
   EndGameScreen,
+  Dropdown,
 } from 'components';
 import { FunctionComponent, useState, ChangeEvent } from 'react';
 import styles from './styles.module.scss';
 
-const UIPage = () => {
+const UIPage: FunctionComponent = () => {
   const [showModal, setShowModal] = useState(false);
   const [showEndGame, toggleEndGame] = useState(false);
 
@@ -138,8 +139,23 @@ const UIPage = () => {
           <Switch defaultChecked />
         </div>
       </div>
+
+      <h2>Dropdown</h2>
+      <div className={styles.block}>
+        <Dropdown
+          title="Меню"
+          variants={[
+            'Страница игры',
+            'Таблица рейтинга',
+            'Форум',
+            'Личный кабинет',
+            { label: 'Выход', style: { color: 'red' } },
+          ]}
+          defaultActiveItem="Страница игры"
+        />
+      </div>
     </>
   );
 };
 
-export default UIPage as FunctionComponent;
+export default UIPage;
