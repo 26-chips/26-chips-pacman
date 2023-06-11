@@ -131,8 +131,8 @@ export function CanvasComponent({
     updateFieldAfterPacman();
   };
 
-  const tick = useCallback(() => {
-    if (!isPaused) {
+  const tick = (pause: boolean) => {
+    if (!pause) {
       renderFrame();
     }
 
@@ -143,7 +143,7 @@ export function CanvasComponent({
     }
 
     timeoutRef.current = window.setTimeout(() => {
-      if (!isPaused) {
+      if (!pause) {
         // дергаем пропсы только раз в секунду
         if (ticksCounter.current === ticksPerSecond) {
           setTime((totalGameTimeRef.current += 1));
@@ -158,9 +158,9 @@ export function CanvasComponent({
         }
       }
 
-      requestIdRef.current = requestAnimationFrame(tick);
+      requestIdRef.current = requestAnimationFrame(() => tick(pause));
     }, 1000 / ticksPerSecond);
-  }, [isPaused]);
+  };
 
   useEffect(() => {
     setCanvasSize(mapRef.current.getCanvasSize());
@@ -177,8 +177,6 @@ export function CanvasComponent({
         renderFrame();
       });
 
-      requestIdRef.current = requestAnimationFrame(tick);
-
       return () => {
         cancelAnimationFrame(requestIdRef.current!);
       };
@@ -187,7 +185,7 @@ export function CanvasComponent({
 
   useEffect(() => {
     cancelAnimationFrame(requestIdRef.current!);
-    requestIdRef.current = requestAnimationFrame(tick);
+    requestIdRef.current = requestAnimationFrame(() => tick(isPaused));
   }, [isPaused]);
 
   useEffect(() => {
