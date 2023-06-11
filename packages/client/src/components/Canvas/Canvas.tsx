@@ -33,7 +33,6 @@ export function CanvasComponent({
   setMaximumPoints,
   allPillsCollected,
 }: Props) {
-  console.log(isCountDown);
   const [canvasSize, setCanvasSize] = useState<{
     width: number;
     height: number;
@@ -61,7 +60,6 @@ export function CanvasComponent({
 
   const handleKeyboard = useCallback(
     (e: KeyboardEvent) => {
-      console.log(isCountDown);
       switch (e.code) {
         case 'ArrowUp':
           console.log('UPp');
@@ -79,7 +77,6 @@ export function CanvasComponent({
           break;
         case 'Space':
           if (!isCountDown) {
-            //isPaused.current = !isPaused.current;
             setIsPaused(current => !current);
           }
           break;

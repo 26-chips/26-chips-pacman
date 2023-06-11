@@ -1,4 +1,3 @@
-//import { mapString } from './lvl1';
 import { Wall, Pill, Empty, BigPill } from './blocks';
 import { CellsType, bigPillPoints, smallPillPoints } from './consts';
 import { Pacman } from './Pacman';
