@@ -61,13 +61,15 @@
       border-top: 1px solid $blue;
       border-bottom: 1px solid $blue;
     }
+
+    & > * {
+      width: max-content;
+      display: block;
+      margin-left: auto;
+      font-size: 16px;
+      line-height: 24px;
+      cursor: pointer;
+    }
   }
 
-  li {
-    width: max-content;
-    margin-left: auto;
-    font-size: 16px;
-    line-height: 24px;
-    cursor: pointer;
-  }
 }

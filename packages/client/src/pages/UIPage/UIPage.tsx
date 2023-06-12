@@ -144,14 +144,23 @@ const UIPage: FunctionComponent = () => {
       <div className={styles.block}>
         <Dropdown
           title="Меню"
+          hideAfterSelect={false}
           variants={[
-            'Страница игры',
-            'Таблица рейтинга',
-            'Форум',
-            'Личный кабинет',
-            { label: 'Выход', style: { color: 'red' } },
+            <span onClick={() => console.log('Страница игры')}>
+              Страница игры
+            </span>,
+            <span onClick={() => console.log('Таблица рейтинга')}>
+              Таблица рейтинга
+            </span>,
+            <span onClick={() => console.log('Форум')}>Форум</span>,
+            <span onClick={() => console.log('Личный кабинет')}>
+              Личный кабинет
+            </span>,
+            <span style={{ color: 'red' }} onClick={() => console.log('Выход')}>
+              Выход
+            </span>,
           ]}
-          defaultActiveItem="Страница игры"
+          defaultActiveItem={0}
         />
       </div>
     </>
