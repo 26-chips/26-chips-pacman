@@ -85,12 +85,12 @@ export function CanvasComponent({
   );
 
   const updateFieldAfterPacman = () => {
-    console.log(totalGameTimeRef.current);
+    //console.log(totalGameTimeRef.current);
     pacmanRef.current.updatePosition();
-    pacmanRef.current.updateSprite(totalGameTimeRef.current);
+    pacmanRef.current.updateSprite();
     enemiesRef.current.forEach(item => {
       item.updatePosition();
-      item.updateSprite(totalGameTimeRef.current);
+      item.updateSprite();
     });
   };
 
@@ -134,6 +134,7 @@ export function CanvasComponent({
   };
 
   const tick = (pause: boolean) => {
+    console.log(pause);
     if (!pause) {
       renderFrame();
     }
@@ -187,6 +188,7 @@ export function CanvasComponent({
   }, [canvasSize]);
 
   useEffect(() => {
+    console.log(isPaused);
     cancelAnimationFrame(requestIdRef.current!);
     for (let i = 0; i < timeoutsArrayRef.current.length; i++) {
       clearTimeout(timeoutsArrayRef.current[i]);

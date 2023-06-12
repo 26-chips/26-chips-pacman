@@ -72,6 +72,10 @@ export function GameBlock(): JSX.Element {
     }
   }, [allPillsCollected]);
 
+  useEffect(() => {
+    console.log('GAME_IS_OVER', gameIsOver);
+  }, [gameIsOver]);
+
   return (
     <>
       <div>

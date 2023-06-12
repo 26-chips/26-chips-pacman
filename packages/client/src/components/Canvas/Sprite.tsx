@@ -1,46 +1,42 @@
+import { CoordinatesType } from './consts';
+
 export class Sprite {
   private _index: number;
-
-  private canvasPos: [number, number];
 
   public done: boolean;
 
   constructor(
     private image: CanvasImageSource,
-    private pos: [number, number],
-    //private canvasPos: [number, number],
-    private size: [number, number],
+    private canvasPos: CoordinatesType,
+    private pos: CoordinatesType,
+    private size: CoordinatesType,
     private speed: number,
     private frames: number[],
-    private dir?: 'horizontal' | 'vertical',
     private once?: boolean
   ) {
     this.pos = pos;
     this.size = size;
-    this.speed = typeof speed === 'number' ? speed : 1;
+    this.speed = speed || 1;
     this.frames = frames;
     this._index = 0;
     this.image = image;
-    this.dir = dir || 'horizontal';
     this.once = once || false;
     this.done = false;
-    this.canvasPos = [0, 0];
+    this.canvasPos = canvasPos;
   }
 
   public update(): void {
-    //console.log('update', dt);
-    this._index += 0.125;
+    this._index += 1 / this.speed;
   }
 
-  public updatePos(value: [number, number]) {
+  public updatePos(value: CoordinatesType) {
     this.canvasPos = value;
   }
 
-  public render(ctx: CanvasRenderingContext2D): void {
+  public render(ctx: CanvasRenderingContext2D, angle: number): void {
     let frame;
 
     if (this.speed > 0) {
-      //console.log('this._index', this._index);
       const max = this.frames.length; //2
       const idx = Math.floor(this._index);
       frame = this.frames[idx % max];
@@ -53,27 +49,94 @@ export class Sprite {
       frame = 0;
     }
 
-    let x = this.pos[0];
-    let y = this.pos[1];
+    let x = this.pos.x;
+    const y = this.pos.y;
 
-    //console.log(this.dir, this.size, frame);
-    if (this.dir == 'vertical') {
-      y += frame * this.size[1];
-    } else {
-      x += frame * this.size[0];
+    x += frame * this.size.x;
+
+    switch (angle) {
+      case 90:
+        ctx.translate(
+          this.canvasPos.x + this.size.x / 2,
+          this.canvasPos.y + this.size.y / 2
+        );
+        ctx.rotate(Math.PI / 2);
+        ctx.drawImage(
+          this.image,
+          x,
+          y,
+          this.size.x,
+          this.size.y,
+          -this.size.y / 2,
+          -this.size.x / 2,
+          this.size.y,
+          this.size.x
+        );
+        ctx.rotate(-Math.PI / 2);
+        ctx.translate(
+          -(this.canvasPos.x + this.size.x / 2),
+          -(this.canvasPos.y + this.size.y / 2)
+        );
+        break;
+      case 180:
+        ctx.translate(
+          this.canvasPos.x + this.size.x / 2,
+          this.canvasPos.y + this.size.y / 2
+        );
+        ctx.rotate(Math.PI);
+        ctx.drawImage(
+          this.image,
+          x,
+          y,
+          this.size.x,
+          this.size.y,
+          -this.size.x / 2,
+          -this.size.y / 2,
+          this.size.x,
+          this.size.y
+        );
+        ctx.rotate(-Math.PI);
+        ctx.translate(
+          -(this.canvasPos.x + this.size.x / 2),
+          -(this.canvasPos.y + this.size.y / 2)
+        );
+        break;
+      case 270:
+        ctx.translate(
+          this.canvasPos.x + this.size.x / 2,
+          this.canvasPos.y + this.size.y / 2
+        );
+        ctx.rotate(-Math.PI / 2);
+        ctx.drawImage(
+          this.image,
+          x,
+          y,
+          this.size.x,
+          this.size.y,
+          -this.size.y / 2,
+          -this.size.x / 2,
+          this.size.y,
+          this.size.x
+        );
+        ctx.rotate(Math.PI / 2);
+        ctx.translate(
+          -(this.canvasPos.x + this.size.x / 2),
+          -(this.canvasPos.y + this.size.y / 2)
+        );
+        break;
+      default:
+        ctx.drawImage(
+          this.image,
+          x,
+          y,
+          this.size.x,
+          this.size.y,
+          this.canvasPos.x,
+          this.canvasPos.y,
+          this.size.x,
+          this.size.y
+        );
+        break;
     }
-
-    console.log(x, y);
-    ctx.drawImage(
-      this.image,
-      x,
-      y,
-      this.size[0],
-      this.size[1],
-      this.canvasPos[0],
-      this.canvasPos[1],
-      this.size[0],
-      this.size[1]
-    );
   }
 }

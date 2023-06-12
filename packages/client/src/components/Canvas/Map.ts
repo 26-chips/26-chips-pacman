@@ -162,7 +162,17 @@ export class Map {
         y: coordinates?.i || 0,
       },
       this.cellSize,
-      new Sprite(icons.sprite, [0, 0], [39, 39], 16, [0, 1])
+      new Sprite(
+        icons.sprite,
+        {
+          x: (coordinates?.j || 0) * this.cellSize,
+          y: (coordinates?.i || 0) * this.cellSize,
+        },
+        { x: 0, y: 0 },
+        { x: 39, y: 39 },
+        1,
+        [0, 1]
+      )
     );
 
     return pacman;
@@ -176,7 +186,7 @@ export class Map {
       const obj = enemiesConfig.find(el => {
         return el[item];
       });
-
+      //console.log(coordinates);
       if (obj?.[item]) {
         const enemieConfig = obj?.[item];
         const enemy = new Enemy(
@@ -187,7 +197,17 @@ export class Map {
             y: coordinates?.i || 0,
           },
           this.cellSize,
-          new Sprite(icons.sprite, [0, 0], [39, 39], 16, [0, 1]),
+          new Sprite(
+            icons.sprite,
+            {
+              x: (coordinates?.j || 0) * this.cellSize,
+              y: (coordinates?.i || 0) * this.cellSize,
+            },
+            { x: 0, y: 0 },
+            { x: 39, y: 39 },
+            1,
+            [0, 1]
+          ),
           enemieConfig!.path,
           enemieConfig!.activationTime
         );

@@ -1,4 +1,4 @@
-import { CellsType } from './consts';
+import { CellsType, CoordinatesType } from './consts';
 import { DirectionsType } from './consts';
 import { Character } from './Character';
 import { isCollidesSquare } from './helpers';
@@ -26,7 +26,7 @@ export class Enemy extends Character {
   constructor(
     image: HTMLImageElement,
     field: CellsType[][],
-    startPosition: { x: number; y: number },
+    startPosition: CoordinatesType,
     cellSize: number,
     sprite: Sprite,
     private path: PathType,

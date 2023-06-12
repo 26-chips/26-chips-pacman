@@ -1,5 +1,5 @@
 /* eslint-disable no-fallthrough */
-import { CellsType } from './consts';
+import { CellsType, CoordinatesType } from './consts';
 import { DirectionsType } from './consts';
 import { Character } from './Character';
 import { icons } from './consts';
@@ -7,7 +7,7 @@ import { Sprite } from './Sprite';
 export class Pacman extends Character {
   private isStill: boolean;
 
-  private fieldPosition: { x: number; y: number };
+  private fieldPosition: CoordinatesType;
 
   private isBlocked: {
     up: boolean;
@@ -19,7 +19,7 @@ export class Pacman extends Character {
 
   constructor(
     field: CellsType[][],
-    startPosition: { x: number; y: number },
+    startPosition: CoordinatesType,
     cellSize: number,
     sprite: Sprite,
     private direction: DirectionsType = DirectionsType.still
@@ -91,6 +91,17 @@ export class Pacman extends Character {
       this.isBlocked[DirectionsType.right] = false;
       this.isBlocked[DirectionsType.left] = false;
     }
+  }
+
+  paint(ctx: CanvasRenderingContext2D) {
+    const angles = {
+      [DirectionsType.right]: 0,
+      [DirectionsType.down]: 90,
+      [DirectionsType.left]: 180,
+      [DirectionsType.up]: 270,
+      [DirectionsType.still]: 0,
+    };
+    super.paint(ctx, angles[this.currentDirection]);
   }
 
   reset() {

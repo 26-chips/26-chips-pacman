@@ -13,6 +13,11 @@ export enum DirectionsType {up = 'up', down = 'down', left = 'left', right = 'ri
 // prettier-ignore
 export enum CellsType {wall, empty, pacman, pinky, blinky, inky, clyde, smallPill, bigPill, PillPacman}
 
+export type CoordinatesType = {
+  x: number;
+  y: number;
+};
+
 export const imagesConfig = {
   sprite: spriteImg,
   wallIcon: wallImg,
