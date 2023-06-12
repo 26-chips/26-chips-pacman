@@ -1,5 +1,5 @@
 import { FunctionComponent } from 'react';
-import Authorization from 'assets/img/Authorization.png';
+import Authorization from 'assets/img/Authorization.svg';
 import styles from './styles.module.scss';
 import { Button, Form, Link } from 'components';
 import { ROUTES } from 'router';

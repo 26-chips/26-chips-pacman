@@ -15,7 +15,6 @@ import {
   ForumChatPage,
   StartPage,
 } from 'pages';
-
 import { ROUTES } from './routes';
 
 const routes: RouteObject[] = [
