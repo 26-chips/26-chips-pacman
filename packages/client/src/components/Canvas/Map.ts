@@ -1,8 +1,9 @@
 import { Wall, Pill, Empty, BigPill } from './blocks';
-import { CellsType, bigPillPoints, smallPillPoints } from './consts';
+import { CellsType, bigPillPoints, icons, smallPillPoints } from './consts';
 import { Pacman } from './Pacman';
 import { Enemy } from './Enemy';
 import { enemiesConfig } from './consts';
+import { Sprite } from './Sprite';
 
 export type StringMapSymbols =
   | '#'
@@ -160,7 +161,8 @@ export class Map {
         x: coordinates?.j || 0,
         y: coordinates?.i || 0,
       },
-      this.cellSize
+      this.cellSize,
+      new Sprite(icons.sprite, [0, 0], [39, 39], 16, [0, 1])
     );
 
     return pacman;
@@ -185,6 +187,7 @@ export class Map {
             y: coordinates?.i || 0,
           },
           this.cellSize,
+          new Sprite(icons.sprite, [0, 0], [39, 39], 16, [0, 1]),
           enemieConfig!.path,
           enemieConfig!.activationTime
         );

@@ -6,7 +6,7 @@ import { useNavigate } from 'react-router-dom';
 import { EndGameScreen } from 'components';
 import cn from 'classnames';
 
-const START_COUNT = 3;
+const START_COUNT = 1;
 const LIVES = 3;
 const MOCK_USER_NAME = 'User';
 

@@ -1,5 +1,6 @@
 import { CellsType } from './consts';
 import { DirectionsType } from './consts';
+import { Sprite } from './Sprite';
 
 export type PathType = {
   direction: DirectionsType;
@@ -24,7 +25,8 @@ export abstract class Character {
     public image: HTMLImageElement,
     public field: CellsType[][],
     public startPosition: { x: number; y: number },
-    public cellSize: number
+    public cellSize: number,
+    public sprite: Sprite
   ) {
     this.cellSize = cellSize;
     this.step = 5;
@@ -70,7 +72,7 @@ export abstract class Character {
             : this.field[0].length * this.cellSize - this.cellSize / 2;
         break;
     }
-
+    this.sprite.updatePos([this.position.x, this.position.y]);
     this.centerPosition = {
       x: this.position.x + this.cellSize / 2,
       y: this.position.y + this.cellSize / 2,
@@ -84,6 +86,10 @@ export abstract class Character {
     return this.position;
   }
 
+  updateSprite(dt: number) {
+    this.sprite.update(dt);
+  }
+
   reset() {
     this.position = {
       x: this.startPosition.x * this.cellSize,
@@ -92,12 +98,13 @@ export abstract class Character {
   }
 
   paint(ctx: CanvasRenderingContext2D) {
-    ctx.drawImage(
-      this.image,
-      this.position.x,
-      this.position.y,
-      this.cellSize,
-      this.cellSize
-    );
+    // ctx.drawImage(
+    //   this.image,
+    //   this.position.x,
+    //   this.position.y,
+    //   this.cellSize,
+    //   this.cellSize
+    // );
+    this.sprite.render(ctx);
   }
 }

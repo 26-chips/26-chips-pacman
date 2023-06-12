@@ -1,5 +1,6 @@
 import { makePathCycle } from './helpers';
 import wallImg from 'assets/wall.jpg';
+import spriteImg from 'assets/sprites.png';
 import pinkyImg from 'assets/pinky.png';
 import pacmanImg from 'assets/pacman.png';
 import smallPillImg from 'assets/pill1.png';
@@ -13,6 +14,7 @@ export enum DirectionsType {up = 'up', down = 'down', left = 'left', right = 'ri
 export enum CellsType {wall, empty, pacman, pinky, blinky, inky, clyde, smallPill, bigPill, PillPacman}
 
 export const imagesConfig = {
+  sprite: spriteImg,
   wallIcon: wallImg,
   pacmanIcon: pacmanImg,
   pinkyIcon: pinkyImg,
@@ -50,7 +52,7 @@ export const enemiesConfig: {
     [CellsType.pinky]: {
       path: pinkyPath,
       icon: icons.pinkyIcon,
-      activationTime: 2,
+      activationTime: 222,
     },
   },
 ];

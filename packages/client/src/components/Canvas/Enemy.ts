@@ -3,6 +3,7 @@ import { DirectionsType } from './consts';
 import { Character } from './Character';
 import { isCollidesSquare } from './helpers';
 import { pacmanSize, enemiesSize } from './consts';
+import { Sprite } from './Sprite';
 
 export type PathType = {
   direction: DirectionsType;
@@ -27,10 +28,11 @@ export class Enemy extends Character {
     field: CellsType[][],
     startPosition: { x: number; y: number },
     cellSize: number,
+    sprite: Sprite,
     private path: PathType,
     private activationTime: number
   ) {
-    super(image, field, startPosition, cellSize);
+    super(image, field, startPosition, cellSize, sprite);
 
     this.currentPathChunk = 0;
     this.currentDirection = this.path[0].direction;

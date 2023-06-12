@@ -85,9 +85,12 @@ export function CanvasComponent({
   );
 
   const updateFieldAfterPacman = () => {
+    console.log(totalGameTimeRef.current);
     pacmanRef.current.updatePosition();
+    pacmanRef.current.updateSprite(totalGameTimeRef.current);
     enemiesRef.current.forEach(item => {
       item.updatePosition();
+      item.updateSprite(totalGameTimeRef.current);
     });
   };
 
@@ -146,7 +149,6 @@ export function CanvasComponent({
         // дергаем пропсы только раз в секунду
         if (ticksCounter.current === ticksPerSecond) {
           setTime((totalGameTimeRef.current += 1));
-
           enemiesRef.current.forEach(item => {
             item.updateTime();
           });

@@ -3,6 +3,7 @@ import { CellsType } from './consts';
 import { DirectionsType } from './consts';
 import { Character } from './Character';
 import { icons } from './consts';
+import { Sprite } from './Sprite';
 export class Pacman extends Character {
   private isStill: boolean;
 
@@ -20,10 +21,10 @@ export class Pacman extends Character {
     field: CellsType[][],
     startPosition: { x: number; y: number },
     cellSize: number,
+    sprite: Sprite,
     private direction: DirectionsType = DirectionsType.still
   ) {
-    super(icons.pacmanIcon, field, startPosition, cellSize);
-
+    super(icons.pacmanIcon, field, startPosition, cellSize, sprite);
     this.direction = direction;
     this.currentDirection = direction;
     this.isStill = true;
