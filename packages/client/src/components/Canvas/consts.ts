@@ -31,7 +31,7 @@ export const icons = formIcons(imagesConfig);
 export const bigPillSize = 20;
 export const smallPillSize = 10;
 export const enemiesSize = 10;
-export const pacmanSize = 50;
+export const pacmanSize = 30;
 export const smallPillPoints = 4;
 export const bigPillPoints = 8;
 
@@ -46,6 +46,19 @@ export const pinkyPath = makePathCycle([
   { direction: DirectionsType.left, steps: 1 },
 ]);
 
+export const blinkyPath = makePathCycle([
+  { direction: DirectionsType.down, steps: 1 },
+  { direction: DirectionsType.up, steps: 3 },
+]);
+
+export const inkyPath = makePathCycle([
+  { direction: DirectionsType.down, steps: 3 },
+]);
+
+export const clydePath = makePathCycle([
+  { direction: DirectionsType.down, steps: 2 },
+]);
+
 export const enemiesConfig: {
   [key in EnemiesNamesType]?: {
     path: PathType;
@@ -56,8 +69,29 @@ export const enemiesConfig: {
   {
     [CellsType.pinky]: {
       path: pinkyPath,
-      icon: icons.pinkyIcon,
-      activationTime: 222,
+      icon: icons.sprite,
+      activationTime: 3,
+    },
+  },
+  {
+    [CellsType.blinky]: {
+      path: blinkyPath,
+      icon: icons.sprite,
+      activationTime: 3,
+    },
+  },
+  {
+    [CellsType.inky]: {
+      path: inkyPath,
+      icon: icons.sprite,
+      activationTime: 3,
+    },
+  },
+  {
+    [CellsType.clyde]: {
+      path: clydePath,
+      icon: icons.sprite,
+      activationTime: 3,
     },
   },
 ];
