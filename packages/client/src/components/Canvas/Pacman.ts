@@ -2,7 +2,6 @@
 import { CellsType, CoordinatesType } from './consts';
 import { DirectionsType } from './consts';
 import { Character } from './Character';
-import { icons } from './consts';
 import { Sprite } from './Sprite';
 export class Pacman extends Character {
   private isStill: boolean;
@@ -24,7 +23,7 @@ export class Pacman extends Character {
     sprite: Sprite,
     private direction: DirectionsType = DirectionsType.still
   ) {
-    super(icons.pacmanIcon, field, startPosition, cellSize, sprite);
+    super(field, startPosition, cellSize, sprite);
     this.direction = direction;
     this.currentDirection = direction;
     this.isStill = true;
@@ -94,14 +93,7 @@ export class Pacman extends Character {
   }
 
   paint(ctx: CanvasRenderingContext2D) {
-    const angles = {
-      [DirectionsType.right]: 0,
-      [DirectionsType.down]: 90,
-      [DirectionsType.left]: 180,
-      [DirectionsType.up]: 270,
-      [DirectionsType.still]: 0,
-    };
-    super.paint(ctx, angles[this.currentDirection]);
+    super.paint(ctx, this.currentDirection);
   }
 
   reset() {

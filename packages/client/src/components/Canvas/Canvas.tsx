@@ -2,11 +2,12 @@ import { useRef, useEffect, useState, useCallback } from 'react';
 import { CellsClassInstances, Map } from './Map';
 import { mapString } from './lvl1';
 import { Pill, BigPill } from './blocks';
-import { smallPillPoints, bigPillPoints, imagesConfig } from './consts';
+import { smallPillPoints, bigPillPoints, imagesConfig, icons } from './consts';
 import { DirectionsType } from './consts';
 import { loadImage } from './resources';
 import { Pacman } from './Pacman';
 import { Enemy } from './Enemy';
+import { Sprite } from './Sprite';
 
 type Props = {
   setTime: (value: number) => void;
@@ -52,11 +53,30 @@ export function CanvasComponent({
   const enemiesRef = useRef<Enemy[]>(mapRef.current.getEnemies());
 
   const handleDeath = () => {
-    reduceLives();
-    pacmanRef.current.reset();
-    enemiesRef.current.forEach(item => item.reset());
-    setIsPaused(true);
-    resetCounter();
+    const { x, y } = pacmanRef.current.getPosition();
+
+    const sprite = new Sprite(
+      icons.sprite,
+      {
+        x: x,
+        y: y,
+      },
+      { x: 0, y: 3 * 39 },
+      { x: 39, y: 39 },
+      1,
+      [0, 1, 2, 3, 4, 5, 6, 7, 8]
+    );
+    pacmanRef.current.setNewSprite(sprite);
+    pacmanRef.current.stop();
+    enemiesRef.current.forEach(item => item.stop());
+
+    setTimeout(() => {
+      reduceLives();
+      pacmanRef.current.reset();
+      enemiesRef.current.forEach(item => item.reset());
+      setIsPaused(true);
+      resetCounter();
+    }, 2000);
   };
 
   const handleKeyboard = useCallback(
@@ -85,7 +105,6 @@ export function CanvasComponent({
   );
 
   const updateFieldAfterPacman = () => {
-    //console.log(totalGameTimeRef.current);
     pacmanRef.current.updatePosition();
     pacmanRef.current.updateSprite();
     enemiesRef.current.forEach(item => {
@@ -134,7 +153,6 @@ export function CanvasComponent({
   };
 
   const tick = (pause: boolean) => {
-    console.log(pause);
     if (!pause) {
       renderFrame();
     }
@@ -188,7 +206,6 @@ export function CanvasComponent({
   }, [canvasSize]);
 
   useEffect(() => {
-    console.log(isPaused);
     cancelAnimationFrame(requestIdRef.current!);
     for (let i = 0; i < timeoutsArrayRef.current.length; i++) {
       clearTimeout(timeoutsArrayRef.current[i]);

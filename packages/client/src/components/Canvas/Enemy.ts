@@ -24,7 +24,6 @@ export class Enemy extends Character {
   private time: number;
 
   constructor(
-    image: HTMLImageElement,
     field: CellsType[][],
     startPosition: CoordinatesType,
     cellSize: number,
@@ -32,7 +31,7 @@ export class Enemy extends Character {
     private path: PathType,
     private activationTime: number
   ) {
-    super(image, field, startPosition, cellSize, sprite);
+    super(field, startPosition, cellSize, sprite);
 
     this.currentPathChunk = 0;
     this.currentDirection = this.path[0].direction;
@@ -45,6 +44,9 @@ export class Enemy extends Character {
   }
 
   updatePosition() {
+    if (this.isStopped) {
+      return;
+    }
     if (this.time >= this.activationTime) {
       super.updatePosition(this.currentDirection);
 
@@ -70,7 +72,15 @@ export class Enemy extends Character {
     }
   }
 
+  paint(ctx: CanvasRenderingContext2D) {
+    super.paint(ctx, this.currentDirection);
+  }
+
   getCollisionWithPacman(x: number, y: number) {
+    if (this.isStopped) {
+      return false;
+    }
+
     return isCollidesSquare(
       x,
       y,

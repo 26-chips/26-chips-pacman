@@ -119,7 +119,15 @@ export abstract class Character {
     this.sprite.updatePos({ x: this.position.x, y: this.position.y });
   }
 
-  paint(ctx: CanvasRenderingContext2D, angle = 0) {
-    this.sprite.render(ctx, angle);
+  paint(ctx: CanvasRenderingContext2D, direction: DirectionsType) {
+    const angles = {
+      [DirectionsType.right]: 0,
+      [DirectionsType.down]: 90,
+      [DirectionsType.left]: 180,
+      [DirectionsType.up]: 270,
+      [DirectionsType.still]: 0,
+    };
+
+    this.sprite.render(ctx, angles[direction]);
   }
 }
