@@ -21,8 +21,11 @@ export abstract class Character {
 
   public position: CoordinatesType;
 
+  public initialSprite: Sprite;
+
+  public isStopped: boolean;
+
   constructor(
-    public image: HTMLImageElement,
     public field: CellsType[][],
     public startPosition: CoordinatesType,
     public cellSize: number,
@@ -38,9 +41,14 @@ export abstract class Character {
     this.fieldX = 0;
     this.fieldY = 0;
     this.currentDirection = DirectionsType.still;
+    this.initialSprite = sprite;
+    this.isStopped = false;
   }
 
   updatePosition(direction: DirectionsType) {
+    if (this.isStopped) {
+      return;
+    }
     switch (direction) {
       case DirectionsType.up:
         this.position.y =
@@ -72,7 +80,9 @@ export abstract class Character {
             : this.field[0].length * this.cellSize - this.cellSize / 2;
         break;
     }
+
     this.sprite.updatePos({ x: this.position.x, y: this.position.y });
+
     this.centerPosition = {
       x: this.position.x + this.cellSize / 2,
       y: this.position.y + this.cellSize / 2,
@@ -80,6 +90,10 @@ export abstract class Character {
 
     this.fieldX = (this.centerPosition.x - this.cellSize / 2) / this.cellSize;
     this.fieldY = (this.centerPosition.y - this.cellSize / 2) / this.cellSize;
+  }
+
+  stop() {
+    this.isStopped = true;
   }
 
   getPosition() {
@@ -90,11 +104,19 @@ export abstract class Character {
     this.sprite.update();
   }
 
+  setNewSprite(newSprite: Sprite) {
+    this.sprite = newSprite;
+  }
+
   reset() {
+    this.setNewSprite(this.initialSprite);
+    this.updateSprite();
+    this.isStopped = false;
     this.position = {
       x: this.startPosition.x * this.cellSize,
       y: this.startPosition.y * this.cellSize,
     };
+    this.sprite.updatePos({ x: this.position.x, y: this.position.y });
   }
 
   paint(ctx: CanvasRenderingContext2D, angle = 0) {
