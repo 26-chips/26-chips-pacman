@@ -1,4 +1,4 @@
-@import "style_constants";
+@import 'style_constants';
 
 .container {
   width: 99%;
@@ -15,7 +15,7 @@
 }
 
 .clear {
-  left: 96%;
+  right: -10px;
   top: 20px;
   margin: 0;
   padding: 0;
@@ -30,8 +30,10 @@
 .title {
   left: 10px;
   top: 20px;
+  font-size: 14px;
+  line-height: 14px;
   position: absolute;
-  transition: top .5s;
+  transition: top 0.5s;
   color: $white;
 }
 
@@ -39,8 +41,8 @@
   width: 100%;
   height: 1rem;
   border: none;
-  font-size: 1rem;
-  line-height: 90%;
+  font-size: 16px;
+  line-height: 16px;
   padding-top: 23px;
   padding-bottom: 4px;
   color: $white;
@@ -73,4 +75,39 @@
 
 .text-right {
   text-align: right;
+}
+
+.cross {
+  position: relative;
+  width: 12px;
+  height: 12px;
+  right: 9px;
+  text-align: center;
+  background-color: transparent;
+  cursor: pointer;
+  margin-left: auto;
+
+  &::after {
+    transform: rotate(-45deg);
+  }
+
+  &::before {
+    transform: rotate(45deg);
+  }
+
+  &::after,
+  &::before {
+    position: absolute;
+    width: 1px;
+    height: 12px;
+    background-color: $white;
+    content: ' ';
+  }
+
+  &:hover {
+    &::after,
+    &::before {
+      background-color: $grey;
+    }
+  }
 }

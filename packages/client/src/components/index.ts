@@ -11,3 +11,4 @@ export * from './Link';
 export * from './Loader';
 export * from './EndGameScreen';
 export * from './Dropdown';
+export * from './ErrorBoundary';

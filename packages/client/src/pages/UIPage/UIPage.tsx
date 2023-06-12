@@ -40,19 +40,29 @@ const UIPage: FunctionComponent = () => {
       <div className={styles.block}>
         <div style={{ width: '350px' }}>
           <h3>Error input 1</h3>
-          <Input title="Input 1" showDeleteSymbol errorMessage="Error" />
+          <Input
+            title="Input 1"
+            name="Input 1"
+            showDeleteSymbol
+            errorMessage="Error"
+          />
         </div>
         <div style={{ width: '350px' }}>
           <h3>Valid input 1</h3>
-          <Input title="Input 1" showDeleteSymbol />
+          <Input title="Input 1" name="Input 1" showDeleteSymbol />
         </div>
         <div style={{ width: '350px' }}>
           <h3>Valid input 2</h3>
-          <Input title="Input 2" inlineTitle />
+          <Input title="Input 2" name="Input 2" inlineTitle />
         </div>
         <div style={{ width: '350px' }}>
           <h3>Error input 2</h3>
-          <Input title="Input 2" inlineTitle errorMessage="Error" />
+          <Input
+            title="Input 2"
+            name="Input 2"
+            inlineTitle
+            errorMessage="Error"
+          />
         </div>
       </div>
 
@@ -97,13 +107,15 @@ const UIPage: FunctionComponent = () => {
       <h2>Modal</h2>
       <div className={styles.block} style={{ width: '350px' }}>
         <Button onClick={() => setShowModal(true)}>Open Modal</Button>
-        <Modal show={showModal} onClose={() => setShowModal(false)}>
-          <div
-            className={styles.block}
-            style={{ width: '400px', height: '200px' }}>
-            Hello World
-          </div>
-        </Modal>
+        {showModal && (
+          <Modal onClose={() => setShowModal(false)}>
+            <div
+              className={styles.block}
+              style={{ width: '400px', height: '200px' }}>
+              Hello World
+            </div>
+          </Modal>
+        )}
       </div>
 
       <h2>End Game Screen</h2>
