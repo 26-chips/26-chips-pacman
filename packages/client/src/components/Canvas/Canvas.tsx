@@ -38,6 +38,7 @@ export function CanvasComponent({
     height: number;
   } | null>(null);
 
+  const timeoutsArrayRef = useRef<number[]>([]);
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
   const requestIdRef = useRef<number | null>(null);
   const totalGameTimeRef = useRef<number>(0);
@@ -62,11 +63,9 @@ export function CanvasComponent({
     (e: KeyboardEvent) => {
       switch (e.code) {
         case 'ArrowUp':
-          console.log('UPp');
           pacmanRef.current.updateDirection(DirectionsType.up);
           break;
         case 'ArrowRight':
-          console.log(pacmanRef.current);
           pacmanRef.current.updateDirection(DirectionsType.right);
           break;
         case 'ArrowDown':
@@ -160,6 +159,8 @@ export function CanvasComponent({
 
       requestIdRef.current = requestAnimationFrame(() => tick(pause));
     }, 1000 / ticksPerSecond);
+
+    timeoutsArrayRef.current.push(timeoutRef.current);
   };
 
   useEffect(() => {
@@ -185,6 +186,9 @@ export function CanvasComponent({
 
   useEffect(() => {
     cancelAnimationFrame(requestIdRef.current!);
+    for (let i = 0; i < timeoutsArrayRef.current.length; i++) {
+      clearTimeout(timeoutsArrayRef.current[i]);
+    }
     requestIdRef.current = requestAnimationFrame(() => tick(isPaused));
   }, [isPaused]);
 

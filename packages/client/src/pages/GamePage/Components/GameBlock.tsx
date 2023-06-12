@@ -29,7 +29,7 @@ export function GameBlock(): JSX.Element {
   }, [count]);
 
   const allPillsCollected = useMemo(() => {
-    return points === maximumPoints;
+    return points > 0 && points === maximumPoints;
   }, [points, maximumPoints]);
 
   const gameIsOver = useMemo(() => {
