@@ -1,8 +1,9 @@
 import { FunctionComponent } from 'react';
 import styles from './errorPage.module.scss';
-import { Button } from 'components';
+import { Button, Link } from 'components';
 import { Images } from 'assets/img';
 import { useNavigate } from 'react-router-dom';
+import { ROUTES } from 'router';
 
 export interface ErrorPageProps {
   statusCode: string;
@@ -33,6 +34,7 @@ const ErrorPage = ({
         <Button className={styles.button} onClick={() => nav(-1)}>
           Назад
         </Button>
+        <Link to={ROUTES.MAIN}>На главную</Link>
       </div>
     </div>
   );
