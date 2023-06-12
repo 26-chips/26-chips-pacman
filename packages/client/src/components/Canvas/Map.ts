@@ -186,11 +186,9 @@ export class Map {
       const obj = enemiesConfig.find(el => {
         return el[item];
       });
-      //console.log(coordinates);
       if (obj?.[item]) {
         const enemieConfig = obj?.[item];
         const enemy = new Enemy(
-          enemieConfig!.icon,
           this.getMapAsStrings(),
           {
             x: coordinates?.j || 0,
@@ -198,7 +196,7 @@ export class Map {
           },
           this.cellSize,
           new Sprite(
-            icons.sprite,
+            enemieConfig!.icon,
             {
               x: (coordinates?.j || 0) * this.cellSize,
               y: (coordinates?.i || 0) * this.cellSize,
