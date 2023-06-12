@@ -1,8 +1,9 @@
 import { createBrowserRouter } from 'react-router-dom';
 import type { RouteObject } from 'react-router-dom';
+import { ErrorBoundary } from 'components';
+
 import {
   Layout,
-  ErrorPage,
   MainPage,
   GamePage,
   SigninPage,
@@ -20,7 +21,7 @@ const routes: RouteObject[] = [
   {
     path: ROUTES.MAIN,
     element: <Layout />,
-    errorElement: <ErrorPage />,
+    errorElement: <ErrorBoundary />,
     children: [
       { index: true, element: <MainPage /> },
       { path: ROUTES.START, element: <StartPage /> },
@@ -35,9 +36,5 @@ const routes: RouteObject[] = [
     ],
   },
 ];
-
-routes[0].children?.map(child => {
-  child.errorElement = <ErrorPage />;
-});
 
 export default createBrowserRouter(routes);
