@@ -1,7 +1,7 @@
 import { ROUTES } from 'router';
 import { CanvasComponent } from 'components/Canvas/Canvas';
 import styles from './gameBlock.module.scss';
-import { useState, useEffect, useCallback, useMemo } from 'react';
+import { useState, useEffect, useMemo } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { EndGameScreen } from 'components';
 import cn from 'classnames';
@@ -20,9 +20,9 @@ export function GameBlock(): JSX.Element {
   const [isPaused, setIsPaused] = useState(true);
   const [maximumPoints, setMaximumPoints] = useState(0);
 
-  const reduceLives = useCallback(() => {
+  const reduceLives = () => {
     setLives(prev => prev - 1);
-  }, []);
+  };
 
   const isCountDown = useMemo(() => {
     return count > 0;
