@@ -1,0 +1,75 @@
+@import 'style_constants';
+
+.dropdown {
+  position: relative;
+}
+
+.title {
+  cursor: pointer;
+  color: $white;
+  display: flex;
+  align-items: center;
+  gap: 11px;
+  font-weight: 700;
+
+  img {
+    transition: .5s;
+
+    &.isUp {
+      rotate: 180deg;
+    }
+  }
+}
+
+.menu {
+  display: none;
+  position: absolute;
+  background: $black;
+  top: 28px;
+  z-index: 2;
+  width: 262px;
+  border: 1px solid $blue;
+  border-radius: 8px;
+  padding: 20px 0;
+
+  &.isOpen {
+    display: block;
+  }
+
+  &.left {
+    right: 0;
+  }
+
+  &.right {
+    left: 0;
+  }
+}
+
+.list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+
+  div {
+    padding: 0 10px 0 0;
+    border: 1px solid transparent;
+
+    &.isActive {
+      border-top: 1px solid $blue;
+      border-bottom: 1px solid $blue;
+    }
+
+    & > * {
+      width: max-content;
+      display: block;
+      margin-left: auto;
+      font-size: 16px;
+      line-height: 24px;
+      cursor: pointer;
+    }
+  }
+
+}
