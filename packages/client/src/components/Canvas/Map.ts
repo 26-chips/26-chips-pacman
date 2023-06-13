@@ -1,6 +1,5 @@
-//import { mapString } from './lvl1';
 import { Wall, Pill, Empty, BigPill } from './blocks';
-import { CellsType } from './consts';
+import { CellsType, bigPillPoints, smallPillPoints } from './consts';
 import { Pacman } from './Pacman';
 import { Enemy } from './Enemy';
 import { enemiesConfig } from './consts';
@@ -96,6 +95,23 @@ export class Map {
     });
 
     return result;
+  }
+
+  getTotalPoints() {
+    let total = 0;
+
+    for (const row of this.mapAsStrings) {
+      for (const item of row) {
+        if (item === CellsType.smallPill) {
+          total += smallPillPoints;
+        }
+        if (item === CellsType.bigPill) {
+          total += bigPillPoints;
+        }
+      }
+    }
+
+    return total;
   }
 
   fillMapAsStrings(str: string) {

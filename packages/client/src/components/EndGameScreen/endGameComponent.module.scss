@@ -17,6 +17,10 @@
   color: $blue;
 }
 
-a > button {
-  margin: 10px 0;
+.link {
+  display: block;
+
+  & + & {
+    margin-top: 14px;
+  }
 }

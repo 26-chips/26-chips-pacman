@@ -28,11 +28,10 @@ export const EndGameComponent = ({
           .substring(11, 19)}
       </h3>
       <div className={styles.buttonContainer}>
-        <Link to={ROUTES.GAME}>
+        <a className={styles.link} href={ROUTES.GAME}>
           <Button>Начать сначала</Button>
-        </Link>
-
-        <Link to={ROUTES.MAIN}>
+        </a>
+        <Link className={styles.link} to={ROUTES.MAIN}>
           <Button thema="transparent">На главную</Button>
         </Link>
       </div>
