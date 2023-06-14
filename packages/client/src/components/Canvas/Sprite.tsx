@@ -33,7 +33,7 @@ export class Sprite {
     this.canvasPos = value;
   }
 
-  public render(ctx: CanvasRenderingContext2D, angle: number): void {
+  public render(ctx: CanvasRenderingContext2D): void {
     let frame;
 
     if (this.speed > 0) {
@@ -54,89 +54,16 @@ export class Sprite {
 
     x += frame * this.size.x;
 
-    switch (angle) {
-      case 90:
-        ctx.translate(
-          this.canvasPos.x + this.size.x / 2,
-          this.canvasPos.y + this.size.y / 2
-        );
-        ctx.rotate(Math.PI / 2);
-        ctx.drawImage(
-          this.image,
-          x,
-          y,
-          this.size.x,
-          this.size.y,
-          -this.size.y / 2,
-          -this.size.x / 2,
-          this.size.y,
-          this.size.x
-        );
-        ctx.rotate(-Math.PI / 2);
-        ctx.translate(
-          -(this.canvasPos.x + this.size.x / 2),
-          -(this.canvasPos.y + this.size.y / 2)
-        );
-        break;
-      case 180:
-        ctx.translate(
-          this.canvasPos.x + this.size.x / 2,
-          this.canvasPos.y + this.size.y / 2
-        );
-        ctx.rotate(Math.PI);
-        ctx.drawImage(
-          this.image,
-          x,
-          y,
-          this.size.x,
-          this.size.y,
-          -this.size.x / 2,
-          -this.size.y / 2,
-          this.size.x,
-          this.size.y
-        );
-        ctx.rotate(-Math.PI);
-        ctx.translate(
-          -(this.canvasPos.x + this.size.x / 2),
-          -(this.canvasPos.y + this.size.y / 2)
-        );
-        break;
-      case 270:
-        ctx.translate(
-          this.canvasPos.x + this.size.x / 2,
-          this.canvasPos.y + this.size.y / 2
-        );
-        ctx.rotate(-Math.PI / 2);
-        ctx.drawImage(
-          this.image,
-          x,
-          y,
-          this.size.x,
-          this.size.y,
-          -this.size.y / 2,
-          -this.size.x / 2,
-          this.size.y,
-          this.size.x
-        );
-        ctx.rotate(Math.PI / 2);
-        ctx.translate(
-          -(this.canvasPos.x + this.size.x / 2),
-          -(this.canvasPos.y + this.size.y / 2)
-        );
-        break;
-      default:
-        ctx.drawImage(
-          this.image,
-          x,
-          y,
-          this.size.x,
-          this.size.y,
-          this.canvasPos.x,
-          this.canvasPos.y,
-          this.size.x,
-          this.size.y
-        );
-        break;
-    }
+    ctx.drawImage(
+      this.image,
+      x,
+      y,
+      this.size.x,
+      this.size.y,
+      this.canvasPos.x,
+      this.canvasPos.y,
+      this.size.x,
+      this.size.y
+    );
   }
 }
