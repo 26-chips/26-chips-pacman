@@ -3,7 +3,7 @@ import { DirectionsType } from './consts';
 import { Character } from './Character';
 import { isCollidesSquare } from './helpers';
 import { pacmanSize, enemiesSize } from './consts';
-import { Sprite } from './Sprite';
+import { SpritesType } from './Character';
 
 export type PathType = {
   direction: DirectionsType;
@@ -27,7 +27,7 @@ export class Enemy extends Character {
     field: CellsType[][],
     startPosition: CoordinatesType,
     cellSize: number,
-    sprite: Sprite,
+    sprite: SpritesType,
     private path: PathType,
     private activationTime: number
   ) {
@@ -73,7 +73,7 @@ export class Enemy extends Character {
   }
 
   paint(ctx: CanvasRenderingContext2D) {
-    super.paint(ctx, this.currentDirection);
+    super.paint(ctx);
   }
 
   getCollisionWithPacman(x: number, y: number) {

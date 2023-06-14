@@ -7,6 +7,10 @@ export type PathType = {
   steps: number;
 }[];
 
+export type SpritesType = {
+  [key in DirectionsType]: Sprite;
+};
+
 export abstract class Character {
   public centerPosition: CoordinatesType;
 
@@ -23,13 +27,15 @@ export abstract class Character {
 
   public initialSprite: Sprite;
 
+  public sprite: Sprite;
+
   public isStopped: boolean;
 
   constructor(
     public field: CellsType[][],
     public startPosition: CoordinatesType,
     public cellSize: number,
-    public sprite: Sprite
+    public sprites: SpritesType
   ) {
     this.cellSize = cellSize;
     this.step = 5;
@@ -41,14 +47,22 @@ export abstract class Character {
     this.fieldX = 0;
     this.fieldY = 0;
     this.currentDirection = DirectionsType.still;
-    this.initialSprite = sprite;
+    this.initialSprite = sprites[this.currentDirection];
     this.isStopped = false;
+    this.sprite = this.initialSprite;
+  }
+
+  changeSprite(direction: DirectionsType) {
+    this.sprite = this.sprites[direction];
   }
 
   updatePosition(direction: DirectionsType) {
     if (this.isStopped) {
       return;
     }
+
+    this.changeSprite(direction);
+
     switch (direction) {
       case DirectionsType.up:
         this.position.y =
@@ -119,15 +133,7 @@ export abstract class Character {
     this.sprite.updatePos({ x: this.position.x, y: this.position.y });
   }
 
-  paint(ctx: CanvasRenderingContext2D, direction: DirectionsType) {
-    const angles = {
-      [DirectionsType.right]: 0,
-      [DirectionsType.down]: 90,
-      [DirectionsType.left]: 180,
-      [DirectionsType.up]: 270,
-      [DirectionsType.still]: 0,
-    };
-
-    this.sprite.render(ctx, angles[direction]);
+  paint(ctx: CanvasRenderingContext2D) {
+    this.sprite.render(ctx);
   }
 }
