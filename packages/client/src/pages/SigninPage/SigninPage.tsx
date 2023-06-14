@@ -1,26 +1,27 @@
 import { FunctionComponent } from 'react';
 import Authorization from 'assets/img/Authorization.svg';
-import { Button, Form, Link } from 'components';
+import { Button, Form, Link, Loader } from 'components';
 import { ROUTES } from 'router';
-import { auth } from 'api';
+import { useSigninMutation } from 'api';
+import type { SigninData } from 'app/types';
 
 import { loginConfig } from '../configs';
 import styles from './styles.module.scss';
 
-interface IData {
-  login: string;
-  password: string;
-  type?: string;
-}
-
 const SigninPage: FunctionComponent = () => {
-  const onSubmit = async (data: IData) => {
-    const response = await auth(data);
-    console.log(response);
+  const [signin, { isLoading }] = useSigninMutation();
+
+  const onSubmit = async (data: SigninData) => {
+    try {
+      await signin(data).unwrap();
+    } catch (e) {
+      throw new Error((e as Error).message);
+    }
   };
 
   return (
     <>
+      {isLoading && <Loader />}
       <img
         src={Authorization}
         alt="authorization title"

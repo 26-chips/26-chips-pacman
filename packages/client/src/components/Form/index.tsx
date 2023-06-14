@@ -10,14 +10,14 @@ export function Form<T extends FormikValues>(props: FormProps<T>) {
     <Formik validateOnChange={false} {...restProps}>
       {({ values, errors, touched, setFieldValue }) => (
         <FormikForm className={className}>
-          {fields.map(item => {
-            const { name, customValidation, validationType } = item;
+          {fields.map(({ name, validationType, customValidation, ...rest }) => {
             const error = touched[name] ? errors[name] : '';
 
             return (
               <Field
                 key={name}
-                {...item}
+                {...rest}
+                name={name}
                 validate={
                   customValidation
                     ? (value: string) => customValidation(values, value)

@@ -1,6 +1,11 @@
 import { REQUIRED } from 'components/Form/validate';
 
-type FieldConfig = {
+type Password = {
+  password: string;
+  newPassword: string;
+};
+
+export type FieldConfig<T = unknown> = {
   name: string;
   title: string;
   type: string;
@@ -8,7 +13,7 @@ type FieldConfig = {
   inlineTitle?: boolean;
   showDeleteSymbol?: boolean;
   customValidation?: (
-    { password }: { password: string },
+    values: T,
     value: string
   ) => 'Поле обязательно для заполнения' | 'Пароли не совпадают' | '';
 };
@@ -85,7 +90,7 @@ export const profileConfig: FieldConfig[] = [
   },
 ];
 
-export const passwordConfig = [
+export const passwordConfig: FieldConfig<Pick<Password, 'newPassword'>>[] = [
   {
     name: 'oldPassword',
     title: 'Старый пароль',
@@ -108,14 +113,12 @@ export const passwordConfig = [
     type: 'password',
     inlineTitle: true,
     showDeleteSymbol: false,
-    customValidation: (
-      { newPassword }: { newPassword: string },
-      value: string
-    ) => customValidation(newPassword, value),
+    customValidation: ({ newPassword }, value) =>
+      customValidation(newPassword, value),
   },
 ];
 
-export const registrationConfig: FieldConfig[] = [
+export const registrationConfig: FieldConfig<Pick<Password, 'password'>>[] = [
   {
     name: 'email',
     validationType: 'email',
@@ -154,7 +157,7 @@ export const registrationConfig: FieldConfig[] = [
   },
   {
     name: 'repeat_password',
-    customValidation: ({ password }: { password: string }, value: string) =>
+    customValidation: ({ password }, value) =>
       customValidation(password, value),
     title: 'Повторите пароль',
     type: 'password',
