@@ -1,5 +1,8 @@
 import { PathType } from './Enemy';
 import { DirectionsType } from './consts';
+import { CoordinatesType } from './consts';
+import { SpritesType } from './Character';
+import { Sprite } from './Sprite';
 
 export const isCollidesSquare = (
   x1: number,
@@ -60,4 +63,39 @@ export const formIcons = <T extends Record<string, string>>(
     icon[key] = img;
   }
   return icon;
+};
+
+export type SpritesData = {
+  [key in DirectionsType]: {
+    sprite: HTMLImageElement;
+    canvasPos: CoordinatesType;
+    frameSize: CoordinatesType;
+    speed: number;
+    frames: number[];
+    mapPos?: CoordinatesType;
+  };
+};
+
+export const formSpritesConfig = (
+  config: SpritesData,
+  coordinates: CoordinatesType
+): SpritesType => {
+  let key: keyof typeof config;
+  const result: SpritesType = {} as SpritesType;
+
+  for (key in config) {
+    config[key].mapPos = coordinates;
+
+    const item = config[key];
+    result[key] = new Sprite(
+      item.sprite,
+      item.mapPos!,
+      item.canvasPos,
+      item.frameSize,
+      item.speed,
+      item.frames
+    );
+  }
+
+  return result;
 };
