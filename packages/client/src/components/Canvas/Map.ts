@@ -1,9 +1,11 @@
 import { Wall, Pill, Empty, BigPill } from './blocks';
-import { CellsType, bigPillPoints, icons, smallPillPoints } from './consts';
+import { CellsType, bigPillPoints, smallPillPoints } from './consts';
 import { Pacman } from './Pacman';
 import { Enemy } from './Enemy';
 import { enemiesConfig } from './consts';
-import { Sprite } from './Sprite';
+
+import { pacmanSpritesConfig } from './consts';
+import { formSpritesConfig } from './helpers';
 
 export type StringMapSymbols =
   | '#'
@@ -162,17 +164,10 @@ export class Map {
         y: coordinates?.i || 0,
       },
       this.cellSize,
-      new Sprite(
-        icons.sprite,
-        {
-          x: (coordinates?.j || 0) * this.cellSize,
-          y: (coordinates?.i || 0) * this.cellSize,
-        },
-        { x: 0, y: 0 },
-        { x: 39, y: 39 },
-        1,
-        [0, 1]
-      )
+      formSpritesConfig(pacmanSpritesConfig, {
+        x: (coordinates?.j || 0) * this.cellSize,
+        y: (coordinates?.i || 0) * this.cellSize,
+      })
     );
 
     return pacman;
@@ -195,17 +190,10 @@ export class Map {
             y: coordinates?.i || 0,
           },
           this.cellSize,
-          new Sprite(
-            enemieConfig!.icon,
-            {
-              x: (coordinates?.j || 0) * this.cellSize,
-              y: (coordinates?.i || 0) * this.cellSize,
-            },
-            { x: 0, y: 0 },
-            { x: 39, y: 39 },
-            1,
-            [0, 1]
-          ),
+          formSpritesConfig(enemieConfig!.icon, {
+            x: (coordinates?.j || 0) * this.cellSize,
+            y: (coordinates?.i || 0) * this.cellSize,
+          }),
           enemieConfig!.path,
           enemieConfig!.activationTime
         );

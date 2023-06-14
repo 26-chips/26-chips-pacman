@@ -8,6 +8,8 @@ import bigPillImg from 'assets/pill2.png';
 import { formIcons } from './helpers';
 import type { EnemiesNamesType } from './Map';
 import { PathType } from './Enemy';
+import { SpritesData } from './helpers';
+
 // prettier-ignore
 export enum DirectionsType {up = 'up', down = 'down', left = 'left', right = 'right', still = 'still'}
 // prettier-ignore
@@ -59,38 +61,76 @@ export const clydePath = makePathCycle([
   { direction: DirectionsType.down, steps: 2 },
 ]);
 
+export const pacmanSpritesConfig: SpritesData = {
+  [DirectionsType.down]: {
+    sprite: icons.sprite,
+    canvasPos: { x: 0, y: 39 * 3 },
+    frameSize: { x: 39, y: 39 },
+    speed: 1,
+    frames: [0, 1, 2, 3, 4, 5, 6, 7],
+  },
+  [DirectionsType.up]: {
+    sprite: icons.sprite,
+    canvasPos: { x: 0, y: 0 },
+    frameSize: { x: 39, y: 39 },
+    speed: 1,
+    frames: [0, 1],
+  },
+  [DirectionsType.left]: {
+    sprite: icons.sprite,
+    canvasPos: { x: 0, y: 0 },
+    frameSize: { x: 39, y: 39 },
+    speed: 1,
+    frames: [0, 1],
+  },
+  [DirectionsType.right]: {
+    sprite: icons.sprite,
+    canvasPos: { x: 0, y: 0 },
+    frameSize: { x: 39, y: 39 },
+    speed: 1,
+    frames: [0, 1],
+  },
+  [DirectionsType.still]: {
+    sprite: icons.sprite,
+    canvasPos: { x: 0, y: 0 },
+    frameSize: { x: 39, y: 39 },
+    speed: 1,
+    frames: [0, 1],
+  },
+};
+
 export const enemiesConfig: {
   [key in EnemiesNamesType]?: {
     path: PathType;
-    icon: HTMLImageElement;
+    icon: SpritesData;
     activationTime: number;
   };
 }[] = [
   {
     [CellsType.pinky]: {
       path: pinkyPath,
-      icon: icons.sprite,
+      icon: pacmanSpritesConfig,
       activationTime: 3,
     },
   },
   {
     [CellsType.blinky]: {
       path: blinkyPath,
-      icon: icons.sprite,
+      icon: pacmanSpritesConfig,
       activationTime: 3,
     },
   },
   {
     [CellsType.inky]: {
       path: inkyPath,
-      icon: icons.sprite,
+      icon: pacmanSpritesConfig,
       activationTime: 3,
     },
   },
   {
     [CellsType.clyde]: {
       path: clydePath,
-      icon: icons.sprite,
+      icon: pacmanSpritesConfig,
       activationTime: 3,
     },
   },
