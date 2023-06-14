@@ -7,3 +7,5 @@ export const auth = async <T>(data: T) => {
     console.error(e);
   }
 };
+
+export const fetchUser = async () => axiosConfig.get('auth/user');

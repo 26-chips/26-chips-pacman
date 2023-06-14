@@ -17,8 +17,8 @@ export const EndGameScreen = ({
   show,
   onClose,
   ...otherProps
-}: EndGameComponentProps) => {
-  return show ? (
+}: EndGameComponentProps) =>
+  show ? (
     <Modal {...otherProps} onClose={onClose}>
       <EndGameComponent
         username={username}
@@ -27,4 +27,3 @@ export const EndGameScreen = ({
       />
     </Modal>
   ) : null;
-};

@@ -1,13 +1,14 @@
 @import 'style_constants';
 
 .modal {
-  display:flex;
+  display: flex;
   align-items: center;
   justify-content: center;
   position: fixed;
   z-index: 10000;
   background-color: #282828cc;
   top: 0;
+  left: 0;
   width: 100vw;
   height: 100vh;
 }

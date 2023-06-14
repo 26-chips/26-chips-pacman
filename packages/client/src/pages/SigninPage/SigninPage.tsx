@@ -1,9 +1,11 @@
 import { FunctionComponent } from 'react';
 import Authorization from 'assets/img/Authorization.svg';
-import styles from './styles.module.scss';
 import { Button, Form, Link } from 'components';
 import { ROUTES } from 'router';
 import { auth } from 'api';
+
+import { loginConfig } from '../configs';
+import styles from './styles.module.scss';
 
 interface IData {
   login: string;
@@ -32,20 +34,7 @@ const SigninPage: FunctionComponent = () => {
           }}
           onSubmit={onSubmit}
           className={styles.form}
-          fields={[
-            {
-              name: 'login',
-              validationType: 'login',
-              title: 'Логин',
-              type: 'text',
-            },
-            {
-              name: 'password',
-              validationType: 'password',
-              title: 'Пароль',
-              type: 'password',
-            },
-          ]}>
+          fields={loginConfig}>
           <div className={styles.buttons}>
             <Button type="submit">Войти</Button>
             <Link to={ROUTES.SIGNUP}>Зарегистрироваться</Link>

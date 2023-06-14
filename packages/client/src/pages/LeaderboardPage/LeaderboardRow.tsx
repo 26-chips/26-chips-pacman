@@ -1,4 +1,5 @@
 import defaultAvatar from 'assets/icons/default_avatar.svg';
+import styles from './leaderboard.module.scss';
 import type { LeaderboardData } from './types';
 
 interface LeaderboardRowProps extends LeaderboardData {
@@ -15,7 +16,11 @@ export function LeaderboardRow({
     <tr>
       <td>{place}</td>
       <td>
-        <img src={avatar || defaultAvatar} alt="default avatar" />
+        <img
+          src={avatar || defaultAvatar}
+          alt="default avatar"
+          className={styles.avatar}
+        />
       </td>
       <td>{name}</td>
       <td>{score}</td>

@@ -15,6 +15,7 @@ export const Button = (props: ButtonProps) => {
     thema = 'default',
     children,
     loading,
+    type = 'button',
     ...restProps
   } = props;
 
@@ -23,6 +24,7 @@ export const Button = (props: ButtonProps) => {
       className={cn(`${styles.button} ${className} ${styles[thema]}`, {
         [styles.loading]: loading,
       })}
+      type={type}
       {...restProps}>
       {loading ? 'Loading...' : children}
     </button>

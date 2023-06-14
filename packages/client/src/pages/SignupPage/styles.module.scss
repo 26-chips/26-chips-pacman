@@ -8,7 +8,7 @@
 .registration {
   box-sizing: border-box;
   width: 360px;
-  height: 600px;
+  height: 620px;
   border: 2px solid $blue;
   border-radius: 12px;
   margin: 0 auto;
@@ -17,15 +17,8 @@
   .form {
     display: flex;
     flex-direction: column;
-    gap: 25px;
-    
-    div:first-child {
-      width: 304px;
-      display: flex;
-      flex-direction: column;
-      gap: 25px;
-      margin: 0 auto;
-    }
+    gap: 43px;
+    margin: 18px 8px 0;
   }
 
   .buttons {

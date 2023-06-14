@@ -24,7 +24,8 @@ export default defineConfig({
       assets: path.resolve(__dirname, 'src', 'assets'),
       axiosConfig: path.resolve(__dirname, 'src', 'axiosConfig'),
       api: path.resolve(__dirname, 'src', 'api'),
-    },
+      hooks: path.resolve(__dirname, 'src', 'hooks')
+    }
   },
   css: {
     modules: {
