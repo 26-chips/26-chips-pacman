@@ -1,7 +1,7 @@
-import { isCollidesSquare, makePathCycle } from './helpers';
+import { isCollidesSquare, makePathCycle } from 'components/Canvas/helpers';
 
 // todo fix consts nested import/export (jest fail)
-jest.mock('./consts', () => {
+jest.mock('components/Canvas/consts', () => {
   return {
     DirectionsType: {
       up: 'up',

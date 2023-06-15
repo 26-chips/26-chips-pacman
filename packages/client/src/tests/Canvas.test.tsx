@@ -1,5 +1,6 @@
-import { CanvasComponent } from './Canvas';
+import { CanvasComponent } from 'components';
 import { render } from '@testing-library/react';
+import { create } from 'react-test-renderer';
 
 const CanvasProps = {
   setPoints: jest.fn(),
@@ -15,6 +16,12 @@ const CanvasProps = {
 
 describe('<CanvasComponent />', () => {
   it('Should render', () => {
-    render(<CanvasComponent {...CanvasProps} />);
+    const canvas = render(<CanvasComponent {...CanvasProps} />);
+    expect(canvas.container).toBeInTheDocument();
+  });
+
+  it('Should match snapshot', () => {
+    const tree = create(<CanvasComponent {...CanvasProps} />).toJSON();
+    expect(tree).toMatchSnapshot();
   });
 });

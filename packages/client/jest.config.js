@@ -14,4 +14,5 @@ export default {
     '^router(.*)$': '<rootDir>/src/router$1',
     '^pages(.*)$': '<rootDir>/src/pages$1',
   },
+  setupFilesAfterEnv: ['./tests.config.ts'],
 };

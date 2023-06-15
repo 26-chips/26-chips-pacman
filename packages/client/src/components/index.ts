@@ -13,3 +13,4 @@ export * from './EndGameScreen';
 export * from './Dropdown';
 export * from './ErrorBoundary';
 export * from './Avatar';
+export * from './Canvas';

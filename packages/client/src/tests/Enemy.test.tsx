@@ -1,4 +1,4 @@
-import { Enemy } from './Enemy';
+import { Enemy } from 'components/Canvas/Enemy';
 import { mapStrStub } from './Map.test';
 import { pathCycleStub } from './helpers.test';
 
@@ -8,7 +8,7 @@ const startPosition = {
 };
 
 const enemy = new Enemy(
-  '' as unknown as HTMLImageElement,
+  new Image(),
   mapStrStub,
   startPosition,
   1,
@@ -20,6 +20,7 @@ describe('Enemy', () => {
   it('Should update position', async () => {
     enemy.updateTime();
     enemy.updatePosition();
+
     const newPosition = enemy.getPosition();
     expect(newPosition).not.toEqual(startPosition);
   });

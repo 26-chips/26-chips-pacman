@@ -1,7 +1,7 @@
 import { render, act } from '@testing-library/react';
-import '@testing-library/jest-dom';
-import { GamePage } from './index';
+import { GamePage } from 'pages';
 import { BrowserRouter } from 'react-router-dom';
+import { create } from 'react-test-renderer';
 
 const mockComponent = (
   <BrowserRouter>
@@ -25,8 +25,12 @@ describe('<GamePage />', () => {
   });
 
   it('Should contain canvas', async () => {
-    const container = await render(mockComponent);
-    const canvas = container.getByTestId('game-canvas');
-    expect(canvas).toBeDefined();
+    const { container } = await render(mockComponent);
+    expect(container.querySelector('canvas')).toBeInTheDocument();
+  });
+
+  it('Should match snapshot', () => {
+    const tree = create(mockComponent).toJSON();
+    expect(tree).toMatchSnapshot();
   });
 });

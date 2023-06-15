@@ -1,0 +1,29 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<GameBlock /> Should match snapshot 1`] = `
+Array [
+  <div>
+    <p>
+      Current points 0
+    </p>
+    <p>
+      Current lives 3
+    </p>
+    <p>
+      Time 0
+    </p>
+  </div>,
+  <div
+    className=""
+  >
+    <canvas />
+  </div>,
+  <div>
+    <div
+      className=""
+    >
+      3
+    </div>
+  </div>,
+]
+`;

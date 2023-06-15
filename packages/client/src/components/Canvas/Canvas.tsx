@@ -203,5 +203,5 @@ export function CanvasComponent({
     document.removeEventListener('keydown', handleKeyboard);
   }, [allPillsCollected]);
 
-  return <canvas data-testid="game-canvas" {...canvasSize} ref={canvasRef} />;
+  return <canvas {...canvasSize} ref={canvasRef} />;
 }
