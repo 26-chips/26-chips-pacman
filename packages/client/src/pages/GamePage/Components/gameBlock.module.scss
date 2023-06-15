@@ -1,23 +1,26 @@
 @import 'style_constants';
 
+.game-wrapper {
+  zoom: 80%;
+}
+
 .canvas-container {
   margin-top: -200px;
   width:100%;
   text-align: center;
 
-  &.paused { 
+  &.paused {
     filter: blur(3px);
   }
 }
 
-.text {
-  font-size: 30px;
-}
-
 .overlay {
-  position: absolute;
+  font-family: LexendPeta, sans-serif;
+  font-weight: 300;
+  position: fixed;
   inset: 0;
   display: flex;
+  background-color: rgba(10 7 8 / 50%);
 }
 
 .overlay-content {
@@ -31,4 +34,27 @@
 
 .pause {
   font-size: 140px;
+}
+
+.info-container {
+  display: flex;
+  flex-direction: column;
+  row-gap: 15px;
+  border: 1px solid $blue;
+  padding: 27px;
+  border-radius: 8px;
+  max-width: 250px;
+  margin-top: 80px;
+  margin-left: 60px;
+}
+
+.game-info {
+  font-size: 20px;
+  margin: 0;
+
+  &-count {
+    font-family: LexendPeta, sans-serif;
+    font-weight: 700;
+    margin-left: 10px;
+  }
 }

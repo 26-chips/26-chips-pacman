@@ -56,15 +56,15 @@ export function CanvasComponent({
     const { x, y } = pacmanRef.current.getPosition();
 
     const sprite = new Sprite(
-      icons.sprite,
+      icons.pacmanSprite,
       {
         x: x,
         y: y,
       },
-      { x: 0, y: 3 * 39 },
-      { x: 39, y: 39 },
-      1,
-      [0, 1, 2, 3, 4, 5, 6, 7, 8]
+      { x: 0, y: 48 * 5 },
+      { x: 48, y: 48 },
+      5,
+      [0, 1, 2, 3, 4, 5, 6]
     );
     pacmanRef.current.setNewSprite(sprite);
     pacmanRef.current.stop();
