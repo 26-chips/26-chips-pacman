@@ -110,8 +110,6 @@ export function CanvasComponent({
   };
 
   const updateFieldAfterPacman = () => {
-    pacmanRef.current.updatePosition();
-    pacmanRef.current.updateSprite();
     enemiesRef.current.forEach(item => {
       item.updatePosition();
       item.updateSprite();
