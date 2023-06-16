@@ -1,4 +1,5 @@
 import { isCollidesSquare, makePathCycle } from 'components/Canvas/helpers';
+import { PathType } from 'components/Canvas/Enemy';
 
 // todo fix consts nested import/export (jest fail)
 jest.mock('components/Canvas/consts', () => {
@@ -27,18 +28,42 @@ export const pathCycleStub = makePathCycle([
 describe('Helpers', () => {
   describe('isCollidesSquare()', () => {
     it('Should collides', () => {
-      const isCollides = isCollidesSquare(0, 0, 0, 0, 0, 0);
+      const isCollides = isCollidesSquare(0, 0, 10, 5, 5, 10);
       expect(isCollides).toEqual(true);
     });
     it('Should not collides', () => {
-      const isCollides = isCollidesSquare(0, 0, 0, 1, 1, 0);
+      const isCollides = isCollidesSquare(0, 0, 10, 20, 20, 10);
       expect(isCollides).toEqual(false);
     });
   });
 
   describe('makePathCycle()', () => {
-    it('Should return path', () => {
-      expect(pathCycleStub).toBeDefined();
+    it('Used path must be cycled', () => {
+      if (pathCycleStub.length === 0) {
+        fail('Path length must be greater than 0');
+      }
+
+      const isPathCycled = (arr: PathType) => {
+        let counter = 0;
+        const dirQueue = [];
+
+        for (let i = 0; i < arr.length; i++) {
+          const { steps, direction } = arr[i];
+          if (i < arr.length / 2) {
+            counter += steps;
+            dirQueue.push(direction);
+          } else {
+            counter -= steps;
+            if (dirQueue.shift() !== direction) {
+              throw new Error('Wrong direction in cycle');
+            }
+          }
+        }
+
+        return counter;
+      };
+
+      expect(isPathCycled(pathCycleStub)).toBe(0);
     });
   });
 });
