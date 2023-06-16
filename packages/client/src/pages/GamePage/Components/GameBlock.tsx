@@ -74,61 +74,60 @@ export function GameBlock(): JSX.Element {
 
   return (
     <>
-      <div className={styles.gameWrapper}>
-        <div className={styles.infoContainer}>
-          <p className={styles.gameInfo}>
-            Очки:
-            <span className={styles.gameInfoCount}>{points}</span>
-          </p>
-          <p className={styles.gameInfo}>
-            Оставшиеся жизни:
-            <span className={styles.gameInfoCount}>{lives}</span>
-          </p>
-          <p className={styles.gameInfo}>
-            Время:
-            <span className={styles.gameInfoCount}>{time}</span>
-          </p>
-        </div>
-        <div
-          className={cn(styles['canvas-container'], isPaused && styles.paused)}>
-          {
-            <CanvasComponent
-              setPoints={setPoints}
-              reduceLives={reduceLives}
-              setTime={setTime}
-              isPaused={isPaused}
-              setIsPaused={setIsPaused}
-              isCountDown={isCountDown}
-              resetCounter={resetCounter}
-              setMaximumPoints={setMaximumPoints}
-              allPillsCollected={allPillsCollected}
-            />
-          }
-        </div>
-
-        <EndGameScreen
-          username={MOCK_USER_NAME}
-          show={gameIsOver}
-          onClose={handleModalClose}
-          score={totalScore}
-          elapsedTimeSec={time}
-        />
-
-        {isCountDown && (
-          <div className={styles.overlay}>
-            <div className={cn(styles.countdown, styles['overlay-content'])}>
-              {count}
-            </div>
-          </div>
-        )}
-        {isPaused && !isCountDown && (
-          <div className={styles.overlay}>
-            <div className={cn(styles.pause, styles['overlay-content'])}>
-              PAUSED
-            </div>
-          </div>
-        )}
+      <div className={styles.gameControl}>
+        <p className={styles.gameInfo}>
+          Очки:
+          <span className={styles.gameInfoCount}>{points}</span>
+        </p>
+        <p className={styles.gameInfo}>
+          Оставшиеся жизни:
+          <span className={styles.gameInfoCount}>{lives}</span>
+        </p>
+        <p className={styles.gameInfo}>
+          Время:
+          <span className={styles.gameInfoCount}>{time}</span>
+        </p>
       </div>
+      <div
+        className={cn(styles['canvas-container'], isPaused && styles.paused)}>
+        {
+          <CanvasComponent
+            setPoints={setPoints}
+            reduceLives={reduceLives}
+            setTime={setTime}
+            isPaused={isPaused}
+            setIsPaused={setIsPaused}
+            isCountDown={isCountDown}
+            resetCounter={resetCounter}
+            setMaximumPoints={setMaximumPoints}
+            allPillsCollected={allPillsCollected}
+          />
+        }
+      </div>
+
+      <EndGameScreen
+        className={styles.endGame}
+        username={MOCK_USER_NAME}
+        show={gameIsOver}
+        onClose={handleModalClose}
+        score={totalScore}
+        elapsedTimeSec={time}
+      />
+
+      {isCountDown && (
+        <div className={styles.overlay}>
+          <div className={cn(styles.countdown, styles['overlay-content'])}>
+            {count}
+          </div>
+        </div>
+      )}
+      {isPaused && !isCountDown && (
+        <div className={styles.overlay}>
+          <div className={cn(styles.pause, styles['overlay-content'])}>
+            PAUSED
+          </div>
+        </div>
+      )}
     </>
   );
 }

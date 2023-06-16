@@ -39,6 +39,7 @@ export function CanvasComponent({
     height: number;
   } | null>(null);
 
+  const deathIsProcessing = useRef(false);
   const timeoutsArrayRef = useRef<number[]>([]);
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
   const requestIdRef = useRef<number | null>(null);
@@ -51,33 +52,6 @@ export function CanvasComponent({
   );
   const pacmanRef = useRef<Pacman>(mapRef.current.getPacman());
   const enemiesRef = useRef<Enemy[]>(mapRef.current.getEnemies());
-
-  const handleDeath = () => {
-    const { x, y } = pacmanRef.current.getPosition();
-
-    const sprite = new Sprite(
-      icons.pacmanSprite,
-      {
-        x: x,
-        y: y,
-      },
-      { x: 0, y: 48 * 5 },
-      { x: 48, y: 48 },
-      5,
-      [0, 1, 2, 3, 4, 5, 6]
-    );
-    pacmanRef.current.setNewSprite(sprite);
-    pacmanRef.current.stop();
-    enemiesRef.current.forEach(item => item.stop());
-
-    setTimeout(() => {
-      reduceLives();
-      pacmanRef.current.reset();
-      enemiesRef.current.forEach(item => item.reset());
-      setIsPaused(true);
-      resetCounter();
-    }, 2000);
-  };
 
   const handleKeyboard = useCallback(
     (e: KeyboardEvent) => {
@@ -104,6 +78,37 @@ export function CanvasComponent({
     [isCountDown]
   );
 
+  const handleDeath = () => {
+    document.removeEventListener('keydown', handleKeyboard);
+    deathIsProcessing.current = true;
+    const { x, y } = pacmanRef.current.getPosition();
+
+    const sprite = new Sprite(
+      icons.pacmanSprite,
+      {
+        x: x,
+        y: y,
+      },
+      { x: 0, y: 48 * 5 },
+      { x: 48, y: 48 },
+      5,
+      [0, 1, 2, 3, 4, 5, 6]
+    );
+    pacmanRef.current.setNewSprite(sprite);
+    pacmanRef.current.stop();
+    enemiesRef.current.forEach(item => item.stop());
+
+    setTimeout(() => {
+      document.addEventListener('keydown', handleKeyboard);
+      deathIsProcessing.current = false;
+      reduceLives();
+      pacmanRef.current.reset();
+      enemiesRef.current.forEach(item => item.reset());
+      setIsPaused(true);
+      resetCounter();
+    }, 2000);
+  };
+
   const updateFieldAfterPacman = () => {
     pacmanRef.current.updatePosition();
     pacmanRef.current.updateSprite();
@@ -111,6 +116,8 @@ export function CanvasComponent({
       item.updatePosition();
       item.updateSprite();
     });
+    pacmanRef.current.updatePosition();
+    pacmanRef.current.updateSprite();
   };
 
   const renderFrame = () => {
@@ -145,10 +152,10 @@ export function CanvasComponent({
       }
     });
 
-    pacmanRef.current.paint(ctx);
     enemiesRef.current.forEach(item => {
       item.paint(ctx);
     });
+    pacmanRef.current.paint(ctx);
     updateFieldAfterPacman();
   };
 
@@ -164,7 +171,7 @@ export function CanvasComponent({
     }
 
     timeoutRef.current = window.setTimeout(() => {
-      if (!pause) {
+      if (!pause && !deathIsProcessing.current) {
         // дергаем пропсы только раз в секунду
         if (ticksCounter.current === ticksPerSecond) {
           setTime((totalGameTimeRef.current += 1));
