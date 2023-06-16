@@ -70,7 +70,7 @@ export class Map {
   private mapAsBlocks: CellsClassInstances[][];
 
   constructor(private mapUrl: string) {
-    this.cellSize = 48;
+    this.cellSize = 50;
     this.mapAsStrings = this.fillMapAsStrings(this.mapUrl);
     this.xSize = this.mapAsStrings.length * this.cellSize;
     this.ySize = this.mapAsStrings[0].length * this.cellSize;

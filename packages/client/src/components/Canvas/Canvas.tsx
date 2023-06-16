@@ -110,12 +110,12 @@ export function CanvasComponent({
   };
 
   const updateFieldAfterPacman = () => {
-    pacmanRef.current.updatePosition();
-    pacmanRef.current.updateSprite();
     enemiesRef.current.forEach(item => {
       item.updatePosition();
       item.updateSprite();
     });
+    pacmanRef.current.updatePosition();
+    pacmanRef.current.updateSprite();
   };
 
   const renderFrame = () => {
@@ -150,10 +150,10 @@ export function CanvasComponent({
       }
     });
 
-    pacmanRef.current.paint(ctx);
     enemiesRef.current.forEach(item => {
       item.paint(ctx);
     });
+    pacmanRef.current.paint(ctx);
     updateFieldAfterPacman();
   };
 
