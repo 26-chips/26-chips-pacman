@@ -4,6 +4,9 @@ import { Pacman } from './Pacman';
 import { Enemy } from './Enemy';
 import { enemiesConfig } from './consts';
 
+import { pacmanSpritesConfig } from './consts';
+import { formSpritesConfig } from './helpers';
+
 export type StringMapSymbols =
   | '#'
   | '.'
@@ -160,7 +163,11 @@ export class Map {
         x: coordinates?.j || 0,
         y: coordinates?.i || 0,
       },
-      this.cellSize
+      this.cellSize,
+      formSpritesConfig(pacmanSpritesConfig, {
+        x: (coordinates?.j || 0) * this.cellSize,
+        y: (coordinates?.i || 0) * this.cellSize,
+      })
     );
 
     return pacman;
@@ -174,17 +181,19 @@ export class Map {
       const obj = enemiesConfig.find(el => {
         return el[item];
       });
-
       if (obj?.[item]) {
         const enemieConfig = obj?.[item];
         const enemy = new Enemy(
-          enemieConfig!.icon,
           this.getMapAsStrings(),
           {
             x: coordinates?.j || 0,
             y: coordinates?.i || 0,
           },
           this.cellSize,
+          formSpritesConfig(enemieConfig!.icon, {
+            x: (coordinates?.j || 0) * this.cellSize,
+            y: (coordinates?.i || 0) * this.cellSize,
+          }),
           enemieConfig!.path,
           enemieConfig!.activationTime
         );

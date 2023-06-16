@@ -1,13 +1,18 @@
-import { CellsType } from './consts';
+import { CellsType, CoordinatesType } from './consts';
 import { DirectionsType } from './consts';
+import { Sprite } from './Sprite';
 
 export type PathType = {
   direction: DirectionsType;
   steps: number;
 }[];
 
+export type SpritesType = {
+  [key in DirectionsType]: Sprite;
+};
+
 export abstract class Character {
-  public centerPosition: { x: number; y: number };
+  public centerPosition: CoordinatesType;
 
   // шаг в пикселях за цикл
   public step: number;
@@ -18,13 +23,19 @@ export abstract class Character {
 
   public currentDirection: DirectionsType;
 
-  public position: { x: number; y: number };
+  public position: CoordinatesType;
+
+  public initialSprite: Sprite;
+
+  public sprite: Sprite;
+
+  public isStopped: boolean;
 
   constructor(
-    public image: HTMLImageElement,
     public field: CellsType[][],
-    public startPosition: { x: number; y: number },
-    public cellSize: number
+    public startPosition: CoordinatesType,
+    public cellSize: number,
+    public sprites: SpritesType
   ) {
     this.cellSize = cellSize;
     this.step = 5;
@@ -36,9 +47,22 @@ export abstract class Character {
     this.fieldX = 0;
     this.fieldY = 0;
     this.currentDirection = DirectionsType.still;
+    this.initialSprite = sprites[this.currentDirection];
+    this.isStopped = false;
+    this.sprite = this.initialSprite;
+  }
+
+  changeSprite(direction: DirectionsType) {
+    this.sprite = this.sprites[direction];
   }
 
   updatePosition(direction: DirectionsType) {
+    if (this.isStopped) {
+      return;
+    }
+
+    this.changeSprite(direction);
+
     switch (direction) {
       case DirectionsType.up:
         this.position.y =
@@ -71,6 +95,8 @@ export abstract class Character {
         break;
     }
 
+    this.sprite.updatePos({ x: this.position.x, y: this.position.y });
+
     this.centerPosition = {
       x: this.position.x + this.cellSize / 2,
       y: this.position.y + this.cellSize / 2,
@@ -80,24 +106,34 @@ export abstract class Character {
     this.fieldY = (this.centerPosition.y - this.cellSize / 2) / this.cellSize;
   }
 
+  stop() {
+    this.isStopped = true;
+  }
+
   getPosition() {
     return this.position;
   }
 
+  updateSprite() {
+    this.sprite.update();
+  }
+
+  setNewSprite(newSprite: Sprite) {
+    this.sprite = newSprite;
+  }
+
   reset() {
+    this.setNewSprite(this.initialSprite);
+    this.updateSprite();
+    this.isStopped = false;
     this.position = {
       x: this.startPosition.x * this.cellSize,
       y: this.startPosition.y * this.cellSize,
     };
+    this.sprite.updatePos({ x: this.position.x, y: this.position.y });
   }
 
   paint(ctx: CanvasRenderingContext2D) {
-    ctx.drawImage(
-      this.image,
-      this.position.x,
-      this.position.y,
-      this.cellSize,
-      this.cellSize
-    );
+    this.sprite.render(ctx);
   }
 }
