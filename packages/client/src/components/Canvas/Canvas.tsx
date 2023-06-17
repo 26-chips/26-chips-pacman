@@ -91,8 +91,9 @@ export function CanvasComponent({
       },
       { x: 0, y: 48 * 5 },
       { x: 48, y: 48 },
-      5,
-      [0, 1, 2, 3, 4, 5, 6]
+      6,
+      [0, 1, 2, 3, 4, 5, 6],
+      true
     );
     pacmanRef.current.setNewSprite(sprite);
     pacmanRef.current.stop();
@@ -106,7 +107,7 @@ export function CanvasComponent({
       enemiesRef.current.forEach(item => item.reset());
       setIsPaused(true);
       resetCounter();
-    }, 2000);
+    }, 1000);
   };
 
   const updateFieldAfterPacman = () => {
