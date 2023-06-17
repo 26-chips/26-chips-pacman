@@ -2,6 +2,21 @@ import { isCollidesSquare, makePathCycle } from 'components/Canvas/helpers';
 import { PathType } from 'components/Canvas/Enemy';
 
 // todo fix consts nested import/export (jest fail)
+enum DirectionsType {
+  up = 'up',
+  down = 'down',
+  left = 'left',
+  right = 'right',
+  still = 'still',
+}
+const directions = {
+  [DirectionsType.down]: DirectionsType.up,
+  [DirectionsType.up]: DirectionsType.down,
+  [DirectionsType.left]: DirectionsType.right,
+  [DirectionsType.right]: DirectionsType.left,
+  [DirectionsType.still]: DirectionsType.still,
+};
+
 jest.mock('components/Canvas/consts', () => {
   return {
     DirectionsType: {
@@ -13,16 +28,10 @@ jest.mock('components/Canvas/consts', () => {
     },
   };
 });
-enum DirectionsType {
-  up = 'up',
-  down = 'down',
-  left = 'left',
-  right = 'right',
-  still = 'still',
-}
+
 export const pathCycleStub = makePathCycle([
   { direction: DirectionsType.up, steps: 3 },
-  { direction: DirectionsType.down, steps: 3 },
+  { direction: DirectionsType.left, steps: 3 },
 ]);
 
 describe('Helpers', () => {
@@ -44,26 +53,41 @@ describe('Helpers', () => {
       }
 
       const isPathCycled = (arr: PathType) => {
-        let counter = 0;
-        const dirQueue = [];
+        const pathStack = [];
 
         for (let i = 0; i < arr.length; i++) {
           const { steps, direction } = arr[i];
           if (i < arr.length / 2) {
-            counter += steps;
-            dirQueue.push(direction);
+            pathStack.push(arr[i]);
           } else {
-            counter -= steps;
-            if (dirQueue.shift() !== direction) {
-              throw new Error('Wrong direction in cycle');
+            const stackPath = pathStack.pop();
+
+            if (stackPath?.steps !== steps) {
+              console.log(
+                'Wrong number of steps, expect',
+                stackPath?.steps,
+                'got',
+                steps
+              );
+              return false;
+            }
+
+            if (stackPath?.direction !== directions[direction]) {
+              console.log(
+                'Wrong direction, expect',
+                stackPath?.direction,
+                'got',
+                directions[direction]
+              );
+              return false;
             }
           }
         }
 
-        return counter;
+        return true;
       };
 
-      expect(isPathCycled(pathCycleStub)).toBe(0);
+      expect(isPathCycled(pathCycleStub)).toBe(true);
     });
   });
 });
