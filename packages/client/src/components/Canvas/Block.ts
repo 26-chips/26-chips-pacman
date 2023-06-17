@@ -1,13 +1,14 @@
 import { pacmanSize } from './consts';
 import { isCollidesSquare } from './helpers';
+import { CoordinatesType } from './consts';
 
 export abstract class Block {
-  public pacmanPosition: { x: number; y: number };
+  public pacmanPosition: CoordinatesType;
 
   constructor(
     public clearCell: () => void,
     public cellSize: number,
-    public position: { x: number; y: number },
+    public position: CoordinatesType,
     public image: HTMLImageElement | null,
     public elementSize?: number
   ) {

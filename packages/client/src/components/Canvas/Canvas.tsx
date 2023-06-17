@@ -2,11 +2,12 @@ import { useRef, useEffect, useState, useCallback } from 'react';
 import { CellsClassInstances, Map } from './Map';
 import { mapString } from './lvl1';
 import { Pill, BigPill } from './blocks';
-import { smallPillPoints, bigPillPoints, imagesConfig } from './consts';
+import { smallPillPoints, bigPillPoints, imagesConfig, icons } from './consts';
 import { DirectionsType } from './consts';
 import { loadImage } from './resources';
 import { Pacman } from './Pacman';
 import { Enemy } from './Enemy';
+import { Sprite } from './Sprite';
 
 type Props = {
   setTime: (value: number) => void;
@@ -38,6 +39,7 @@ export function CanvasComponent({
     height: number;
   } | null>(null);
 
+  const deathIsProcessing = useRef(false);
   const timeoutsArrayRef = useRef<number[]>([]);
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
   const requestIdRef = useRef<number | null>(null);
@@ -50,14 +52,6 @@ export function CanvasComponent({
   );
   const pacmanRef = useRef<Pacman>(mapRef.current.getPacman());
   const enemiesRef = useRef<Enemy[]>(mapRef.current.getEnemies());
-
-  const handleDeath = () => {
-    reduceLives();
-    pacmanRef.current.reset();
-    enemiesRef.current.forEach(item => item.reset());
-    setIsPaused(true);
-    resetCounter();
-  };
 
   const handleKeyboard = useCallback(
     (e: KeyboardEvent) => {
@@ -84,11 +78,44 @@ export function CanvasComponent({
     [isCountDown]
   );
 
+  const handleDeath = () => {
+    document.removeEventListener('keydown', handleKeyboard);
+    deathIsProcessing.current = true;
+    const { x, y } = pacmanRef.current.getPosition();
+
+    const sprite = new Sprite(
+      icons.sprite,
+      {
+        x: x,
+        y: y,
+      },
+      { x: 0, y: 3 * 39 },
+      { x: 39, y: 39 },
+      1,
+      [0, 1, 2, 3, 4, 5, 6, 7, 8]
+    );
+    pacmanRef.current.setNewSprite(sprite);
+    pacmanRef.current.stop();
+    enemiesRef.current.forEach(item => item.stop());
+
+    setTimeout(() => {
+      document.addEventListener('keydown', handleKeyboard);
+      deathIsProcessing.current = false;
+      reduceLives();
+      pacmanRef.current.reset();
+      enemiesRef.current.forEach(item => item.reset());
+      setIsPaused(true);
+      resetCounter();
+    }, 2000);
+  };
+
   const updateFieldAfterPacman = () => {
-    pacmanRef.current.updatePosition();
     enemiesRef.current.forEach(item => {
       item.updatePosition();
+      item.updateSprite();
     });
+    pacmanRef.current.updatePosition();
+    pacmanRef.current.updateSprite();
   };
 
   const renderFrame = () => {
@@ -123,10 +150,10 @@ export function CanvasComponent({
       }
     });
 
-    pacmanRef.current.paint(ctx);
     enemiesRef.current.forEach(item => {
       item.paint(ctx);
     });
+    pacmanRef.current.paint(ctx);
     updateFieldAfterPacman();
   };
 
@@ -142,11 +169,10 @@ export function CanvasComponent({
     }
 
     timeoutRef.current = window.setTimeout(() => {
-      if (!pause) {
+      if (!pause && !deathIsProcessing.current) {
         // дергаем пропсы только раз в секунду
         if (ticksCounter.current === ticksPerSecond) {
           setTime((totalGameTimeRef.current += 1));
-
           enemiesRef.current.forEach(item => {
             item.updateTime();
           });

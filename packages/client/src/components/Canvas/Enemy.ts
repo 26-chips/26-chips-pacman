@@ -1,8 +1,9 @@
-import { CellsType } from './consts';
+import { CellsType, CoordinatesType } from './consts';
 import { DirectionsType } from './consts';
 import { Character } from './Character';
 import { isCollidesSquare } from './helpers';
 import { pacmanSize, enemiesSize } from './consts';
+import { SpritesType } from './Character';
 
 export type PathType = {
   direction: DirectionsType;
@@ -23,14 +24,14 @@ export class Enemy extends Character {
   private time: number;
 
   constructor(
-    image: HTMLImageElement,
     field: CellsType[][],
-    startPosition: { x: number; y: number },
+    startPosition: CoordinatesType,
     cellSize: number,
+    sprite: SpritesType,
     private path: PathType,
     private activationTime: number
   ) {
-    super(image, field, startPosition, cellSize);
+    super(field, startPosition, cellSize, sprite);
 
     this.currentPathChunk = 0;
     this.currentDirection = this.path[0].direction;
@@ -43,6 +44,9 @@ export class Enemy extends Character {
   }
 
   updatePosition() {
+    if (this.isStopped) {
+      return;
+    }
     if (this.time >= this.activationTime) {
       super.updatePosition(this.currentDirection);
 
@@ -68,7 +72,15 @@ export class Enemy extends Character {
     }
   }
 
+  paint(ctx: CanvasRenderingContext2D) {
+    super.paint(ctx);
+  }
+
   getCollisionWithPacman(x: number, y: number) {
+    if (this.isStopped) {
+      return false;
+    }
+
     return isCollidesSquare(
       x,
       y,

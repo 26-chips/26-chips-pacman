@@ -1,12 +1,12 @@
 import { Block } from './Block';
-import { icons } from './consts';
+import { CoordinatesType, icons } from './consts';
 import { smallPillSize, bigPillSize } from './consts';
 
 export class Wall extends Block {
   constructor(
     clearCell: () => void,
     cellSize: number,
-    position: { x: number; y: number }
+    position: CoordinatesType
   ) {
     super(clearCell, cellSize, position, icons.wallIcon);
   }
@@ -16,7 +16,7 @@ export class Pill extends Block {
   constructor(
     clearCell: () => void,
     cellSize: number,
-    position: { x: number; y: number }
+    position: CoordinatesType
   ) {
     super(clearCell, cellSize, position, icons.smallPillIcon, smallPillSize);
   }
@@ -34,7 +34,7 @@ export class BigPill extends Block {
   constructor(
     clearCell: () => void,
     cellSize: number,
-    position: { x: number; y: number }
+    position: CoordinatesType
   ) {
     super(clearCell, cellSize, position, icons.bigPillIcon, bigPillSize);
   }
@@ -52,7 +52,7 @@ export class Empty extends Block {
   constructor(
     clearCell: () => void,
     cellSize: number,
-    position: { x: number; y: number }
+    position: CoordinatesType
   ) {
     super(clearCell, cellSize, position, null);
   }
