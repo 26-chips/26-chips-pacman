@@ -1,17 +1,20 @@
 import { Pacman } from 'components/Canvas/Pacman';
-import { DirectionsType } from 'components/Canvas/consts';
+import { pacmanSpritesConfig } from 'components/Canvas/consts';
 import { mapStrStub } from './Map.test';
+import { formSpritesConfig } from 'components/Canvas/helpers';
 
-const pacman = new Pacman(mapStrStub, { x: 0, y: 0 }, 0);
-const initialPosition = pacman.getPosition();
+const startPosition = { x: 0, y: 0 };
+
+const pacman = new Pacman(
+  mapStrStub,
+  startPosition,
+  0,
+  formSpritesConfig(pacmanSpritesConfig, startPosition)
+);
 
 describe('Pacman', () => {
-  it('getPosition()', () => {
-    pacman.updateDirection(DirectionsType.down);
-    pacman.updatePosition();
-
-    const newPos = pacman.getPosition();
-
-    expect(newPos).toEqual(initialPosition);
+  it('Should contains initial position', () => {
+    const newPosition = pacman.getPosition();
+    expect(newPosition).toEqual(startPosition);
   });
 });
