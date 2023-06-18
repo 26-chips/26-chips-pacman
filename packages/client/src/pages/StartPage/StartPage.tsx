@@ -1,23 +1,13 @@
-import React, { FunctionComponent, useState } from 'react';
+import React, { FunctionComponent } from 'react';
 import styles from './startPage.module.scss';
-import { Button, Switch } from 'components';
+import { Button } from 'components';
 import Logo from 'assets/img/Mainpage.svg';
 import { ROUTES } from 'router';
 import { Link } from 'react-router-dom';
 
 const StartPage = () => {
-  const [isDark, toggleTheme] = useState(false);
-  const toggle = () => {
-    toggleTheme(!isDark);
-  };
-
   return (
     <div className={styles.container}>
-      <div className={styles.header}>
-        <span>{isDark ? 'Темная тема' : 'Светлая тема'}</span>
-        <Switch checked={isDark} onChange={toggle} />
-      </div>
-
       <div className={styles.imageContainer}>
         <img
           src={Logo}
