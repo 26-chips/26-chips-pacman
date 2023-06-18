@@ -15,5 +15,6 @@ export default {
     '^pages(.*)$': '<rootDir>/src/pages$1',
     '^api(.*)$': '<rootDir>/src/api$1',
     '^app(.*)$': '<rootDir>/src/app$1',
+    '^hocs(.*)$': '<rootDir>/src/hocs$1',
   },
 };
