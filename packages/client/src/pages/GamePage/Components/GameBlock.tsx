@@ -74,10 +74,19 @@ export function GameBlock(): JSX.Element {
 
   return (
     <>
-      <div>
-        <p className={styles.text}>{`Current points ${points}`}</p>
-        <p className={styles.text}>{`Current lives ${lives}`}</p>
-        <p className={styles.text}>{`Time ${time}`}</p>
+      <div className={styles.gameControl}>
+        <p className={styles.gameInfo}>
+          Очки:
+          <span className={styles.gameInfoCount}>{points}</span>
+        </p>
+        <p className={styles.gameInfo}>
+          Оставшиеся жизни:
+          <span className={styles.gameInfoCount}>{lives}</span>
+        </p>
+        <p className={styles.gameInfo}>
+          Время:
+          <span className={styles.gameInfoCount}>{time}</span>
+        </p>
       </div>
       <div
         className={cn(styles['canvas-container'], isPaused && styles.paused)}>
@@ -97,6 +106,7 @@ export function GameBlock(): JSX.Element {
       </div>
 
       <EndGameScreen
+        className={styles.endGame}
         username={MOCK_USER_NAME}
         show={gameIsOver}
         onClose={handleModalClose}
