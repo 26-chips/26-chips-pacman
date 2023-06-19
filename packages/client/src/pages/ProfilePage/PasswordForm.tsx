@@ -1,35 +1,23 @@
-import { useNavigate } from 'react-router';
-import { Form, Button, Link } from 'components';
+import { useNavigate } from 'react-router-dom';
+import { Form, Button, Link, Loader } from 'components';
 import { ROUTES } from 'router';
-import { updatePassword } from 'api';
+import { useUpdatePasswordMutation } from 'api';
+import { PasswordData } from 'app/types';
 
 import { passwordConfig } from '../configs';
 
 import styles from './profile.module.scss';
-import type { WithLoadingProps } from './withLoading';
 
-interface IPassword {
-  oldPassword: string;
-  newPassword: string;
-  repeatPassword: string;
-}
-
-export const PasswordForm = ({
-  setIsLoading,
-}: Omit<WithLoadingProps, 'isLoading'>): JSX.Element => {
+export const PasswordForm = (): JSX.Element => {
   const navigate = useNavigate();
+  const [updatePassword, { isLoading }] = useUpdatePasswordMutation();
 
-  const onSubmit = async (data: IPassword) => {
+  const onSubmit = async (data: PasswordData) => {
     try {
-      setIsLoading(true);
-
-      await updatePassword(data);
+      await updatePassword(data).unwrap();
       navigate(ROUTES.PROFILE);
-
-      setIsLoading(false);
     } catch (e) {
-      setIsLoading(false);
-      console.log(e);
+      throw new Error((e as Error).message);
     }
   };
 
@@ -40,15 +28,18 @@ export const PasswordForm = ({
   };
 
   return (
-    <Form
-      initialValues={initialValues}
-      className={styles.form}
-      fields={passwordConfig}
-      onSubmit={onSubmit}>
-      <div className={styles.buttons}>
-        <Button type="submit">Сохранить</Button>
-        <Link to={ROUTES.PROFILE}>Назад в профиль</Link>
-      </div>
-    </Form>
+    <>
+      {isLoading && <Loader />}
+      <Form
+        initialValues={initialValues}
+        className={styles.form}
+        fields={passwordConfig}
+        onSubmit={onSubmit}>
+        <div className={styles.buttons}>
+          <Button type="submit">Сохранить</Button>
+          <Link to={ROUTES.PROFILE}>Назад в профиль</Link>
+        </div>
+      </Form>
+    </>
   );
 };

@@ -13,5 +13,7 @@ export default {
     '^components(.*)$': '<rootDir>/src/components$1',
     '^router(.*)$': '<rootDir>/src/router$1',
     '^pages(.*)$': '<rootDir>/src/pages$1',
+    '^api(.*)$': '<rootDir>/src/api$1',
+    '^app(.*)$': '<rootDir>/src/app$1',
   },
 };

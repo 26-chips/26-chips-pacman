@@ -1,18 +1,33 @@
-import { NavLink, useLocation } from 'react-router-dom';
+import { NavLink, useLocation, useNavigate } from 'react-router-dom';
 import { ROUTES } from 'router';
 import styles from './header.module.scss';
 import arrowLeft from 'assets/icons/arrow-left.svg';
 import { Dropdown } from '../Dropdown';
 import { ThemeSwitcher } from '../ThemeSwitcher/ThemeSwitcher';
+import { useLogoutMutation, apiSlice } from 'api';
+import { useAppDispatch } from 'app/hooks';
 
 export const Header = () => {
+  const dispatch = useAppDispatch();
+  const [logout] = useLogoutMutation();
+  const navigate = useNavigate();
+  const location = useLocation();
+
   const getActiveStyles = ({ isActive }: { isActive: boolean }) =>
     isActive ? styles.linkActive : styles.link;
 
-  const location = useLocation();
-
   const showToGameButton = () =>
     location.pathname === ROUTES.GAME || location.pathname === ROUTES.START;
+
+  const handleQuitClick = async () => {
+    try {
+      await logout().unwrap();
+      dispatch(apiSlice.util.resetApiState());
+      navigate(ROUTES.SIGNIN);
+    } catch (e) {
+      throw new Error((e as Error).message);
+    }
+  };
 
   return (
     <header className={styles.header}>
@@ -46,9 +61,7 @@ export const Header = () => {
               <NavLink to={ROUTES.PROFILE} className={getActiveStyles}>
                 Личный кабинет
               </NavLink>,
-              <span
-                style={{ color: 'red' }}
-                onClick={() => console.log('Выход')}>
+              <span style={{ color: 'red' }} onClick={handleQuitClick}>
                 Выход
               </span>,
             ]}

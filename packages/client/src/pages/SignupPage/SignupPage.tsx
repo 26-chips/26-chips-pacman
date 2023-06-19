@@ -1,36 +1,22 @@
-import { FunctionComponent, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Registration from 'assets/img/Registration.svg';
 import styles from './styles.module.scss';
 import { Button, Form, Link } from 'components';
 import { ROUTES } from 'router';
-import { registration } from 'api';
+import { SignupData } from 'app/types';
+import { useSignupMutation } from 'api';
 import { registrationConfig } from '../configs';
 
-interface IData {
-  email: string;
-  first_name: string;
-  second_name: string;
-  phone: string;
-  login: string;
-  password: string;
-  repeat_password: string;
-}
-
-const SignupPage: FunctionComponent = () => {
+const SignupPage = (): JSX.Element => {
   const navigate = useNavigate();
-  const [loading, setLoading] = useState(false);
+  const [signup, { isLoading }] = useSignupMutation();
 
-  const onSubmit = async (data: IData) => {
-    setLoading(true);
+  const onSubmit = async (data: SignupData) => {
     try {
-      const response = await registration(data);
-      console.log(response);
+      await signup(data).unwrap();
       navigate(ROUTES.MAIN);
     } catch (e) {
-      alert(e);
-    } finally {
-      setLoading(false);
+      throw new Error((e as Error).message);
     }
   };
 
@@ -56,7 +42,7 @@ const SignupPage: FunctionComponent = () => {
           className={styles.form}
           fields={registrationConfig}>
           <div className={styles.buttons}>
-            <Button type="submit" loading={loading}>
+            <Button type="submit" loading={isLoading}>
               Зарегистрироваться
             </Button>
             <Link to={ROUTES.SIGNIN}>Войти</Link>

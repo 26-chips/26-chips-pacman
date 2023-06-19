@@ -1,11 +1,14 @@
-import React, { FunctionComponent } from 'react';
+import { FunctionComponent } from 'react';
 import styles from './startPage.module.scss';
 import { Button } from 'components';
 import Logo from 'assets/img/Mainpage.svg';
 import { ROUTES } from 'router';
 import { Link } from 'react-router-dom';
+import { useFetchUserQuery } from 'api';
 
 const StartPage = () => {
+  const { data: user } = useFetchUserQuery();
+
   return (
     <div className={styles.container}>
       <div className={styles.imageContainer}>
@@ -16,7 +19,7 @@ const StartPage = () => {
           className={styles.image}
         />
 
-        <h1>IvanovI</h1>
+        <h1>{user ? user.display_name : 'New Player'}</h1>
 
         <div className={styles.buttons}>
           <Link to={ROUTES.GAME}>
