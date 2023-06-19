@@ -1,15 +1,13 @@
 import { useRef, useState } from 'react';
 import type { ChangeEvent, SyntheticEvent } from 'react';
-import { Button, Modal } from 'components';
-import { updateAvatar } from 'api';
+import { Button, Modal, Loader } from 'components';
+import { useUpdateAvatarMutation } from 'api';
 
 import styles from './profileAvatar.module.scss';
-import { WithUserProps } from '../withUser';
-import { WithLoadingProps } from '../withLoading';
 
 const MAX_FILE_SIZE = 1048576;
 
-interface AvatarModalProps extends WithUserProps, WithLoadingProps {
+interface AvatarModalProps {
   handleCloseModal: () => void;
 }
 
@@ -17,11 +15,10 @@ let avatarFile: File;
 
 export function AvatarModal({
   handleCloseModal,
-  setUser,
-  setIsLoading,
 }: AvatarModalProps): JSX.Element {
   const [error, setError] = useState('');
   const avatarRef = useRef<HTMLImageElement>(null);
+  const [updateAvatar, { isLoading }] = useUpdateAvatarMutation();
 
   const onSubmit = async (event: SyntheticEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -32,15 +29,10 @@ export function AvatarModal({
     formData.append('avatar', avatarFile);
 
     try {
-      setIsLoading(true);
-      const { data } = await updateAvatar(formData);
-      setUser(data);
-
-      setIsLoading(false);
+      await updateAvatar(formData).unwrap();
       handleCloseModal();
     } catch {
       setError('Ошибка, попробуйте ещё раз');
-      setIsLoading(false);
     }
   };
 
@@ -72,29 +64,32 @@ export function AvatarModal({
   };
 
   return (
-    <Modal onClose={handleCloseModal} className={styles.modal}>
-      {!error && <p className={styles.title}>Загрузите файл</p>}
-      {error && <p className={styles.error}>{error}</p>}
-      <form onSubmit={onSubmit}>
-        <input
-          id="avatar"
-          type="file"
-          name="avatar"
-          onChange={onChange}
-          accept="image/png, image/gif, image/jpeg"
-          className={styles.input}
-        />
-        <label htmlFor="avatar" className={styles.label}>
-          Выбрать файл на компьютере
-        </label>
-        <img ref={avatarRef} className={styles.image} />
-        <div className={styles.buttons}>
-          <Button thema="light" onClick={handleCloseModal}>
-            Сбросить
-          </Button>
-          <Button type="submit">Загрузить</Button>
-        </div>
-      </form>
-    </Modal>
+    <>
+      {isLoading && <Loader />}
+      <Modal onClose={handleCloseModal} className={styles.modal}>
+        {!error && <p className={styles.title}>Загрузите файл</p>}
+        {error && <p className={styles.error}>{error}</p>}
+        <form onSubmit={onSubmit}>
+          <input
+            id="avatar"
+            type="file"
+            name="avatar"
+            onChange={onChange}
+            accept="image/png, image/gif, image/jpeg"
+            className={styles.input}
+          />
+          <label htmlFor="avatar" className={styles.label}>
+            Выбрать файл на компьютере
+          </label>
+          <img ref={avatarRef} className={styles.image} />
+          <div className={styles.buttons}>
+            <Button thema="light" onClick={handleCloseModal}>
+              Сбросить
+            </Button>
+            <Button type="submit">Загрузить</Button>
+          </div>
+        </form>
+      </Modal>
+    </>
   );
 }
