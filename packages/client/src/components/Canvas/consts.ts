@@ -60,11 +60,39 @@ export const blinkyPath = makePathCycle([
 ]);
 
 export const inkyPath = makePathCycle([
+  { direction: DirectionsType.down, steps: 2 },
+  { direction: DirectionsType.left, steps: 2 },
+  { direction: DirectionsType.up, steps: 4 },
+  { direction: DirectionsType.left, steps: 3 },
+  { direction: DirectionsType.down, steps: 2 },
+  { direction: DirectionsType.right, steps: 1 },
   { direction: DirectionsType.down, steps: 3 },
+  { direction: DirectionsType.left, steps: 1 },
+  { direction: DirectionsType.up, steps: 1 },
+  { direction: DirectionsType.right, steps: 1 },
+  { direction: DirectionsType.up, steps: 2 },
+  { direction: DirectionsType.right, steps: 2 },
+  { direction: DirectionsType.down, steps: 5 },
+  { direction: DirectionsType.right, steps: 5 },
+  { direction: DirectionsType.down, steps: 1 },
+  { direction: DirectionsType.right, steps: 2 },
 ]);
 
 export const clydePath = makePathCycle([
   { direction: DirectionsType.down, steps: 2 },
+  { direction: DirectionsType.left, steps: 2 },
+  { direction: DirectionsType.down, steps: 2 },
+  { direction: DirectionsType.right, steps: 4 },
+  { direction: DirectionsType.up, steps: 7 },
+  { direction: DirectionsType.right, steps: 3 },
+  { direction: DirectionsType.down, steps: 2 },
+  { direction: DirectionsType.left, steps: 1 },
+  { direction: DirectionsType.down, steps: 3 },
+  { direction: DirectionsType.right, steps: 1 },
+  { direction: DirectionsType.up, steps: 1 },
+  { direction: DirectionsType.left, steps: 1 },
+  { direction: DirectionsType.up, steps: 2 },
+  { direction: DirectionsType.left, steps: 2 },
 ]);
 
 export const pacmanSpritesConfig: SpritesData = {
@@ -275,21 +303,21 @@ export const enemiesConfig: {
     [CellsType.blinky]: {
       path: blinkyPath,
       icon: blinkySpritesConfig,
-      activationTime: 3,
+      activationTime: 4,
     },
   },
   {
     [CellsType.inky]: {
       path: inkyPath,
       icon: inkySpritesConfig,
-      activationTime: 3,
+      activationTime: 5,
     },
   },
   {
     [CellsType.clyde]: {
       path: clydePath,
       icon: clydeSpritesConfig,
-      activationTime: 3,
+      activationTime: 7,
     },
   },
 ];
