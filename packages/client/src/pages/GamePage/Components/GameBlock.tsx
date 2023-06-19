@@ -47,7 +47,8 @@ export function GameBlock(): JSX.Element {
 
   // количество очков = собранные таблетки * на оставшиеся жизни + 5*(60 - потрченное время)
   const totalScore = useMemo(() => {
-    return (points * lives + 5 * (60 - time)).toString();
+    const timeBonus = 5 * (60 - time) > 0 ? 5 * (60 - time) : 0;
+    return (points * (lives + 1) + timeBonus).toString();
   }, [points, lives, time]);
 
   useEffect(() => {
@@ -75,13 +76,22 @@ export function GameBlock(): JSX.Element {
 
   return (
     <>
-      <div>
-        <p className={styles.text}>{`Current points ${points}`}</p>
-        <p className={styles.text}>{`Current lives ${lives}`}</p>
-        <p className={styles.text}>{`Time ${time}`}</p>
-        <div className={styles.fullscreenIconContainer}>
-          <FullscreenButton />
-        </div>
+      <div className={styles.gameControl}>
+        <p className={styles.gameInfo}>
+          Очки:
+          <span className={styles.gameInfoCount}>{points}</span>
+        </p>
+        <p className={styles.gameInfo}>
+          Оставшиеся жизни:
+          <span className={styles.gameInfoCount}>{lives}</span>
+        </p>
+        <p className={styles.gameInfo}>
+          Время:
+          <span className={styles.gameInfoCount}>{time}</span>
+        </p>
+      </div>
+      <div className={styles.fullscreenIconContainer}>
+        <FullscreenButton />
       </div>
       <div className={cn(styles.canvasContainer, isPaused && styles.paused)}>
         {
@@ -100,6 +110,7 @@ export function GameBlock(): JSX.Element {
       </div>
 
       <EndGameScreen
+        className={styles.endGame}
         username={MOCK_USER_NAME}
         show={gameIsOver}
         onClose={handleModalClose}

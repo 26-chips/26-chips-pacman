@@ -92,10 +92,6 @@ export class Pacman extends Character {
     }
   }
 
-  paint(ctx: CanvasRenderingContext2D) {
-    super.paint(ctx);
-  }
-
   reset() {
     super.reset();
     this.updateDirection(DirectionsType.still);

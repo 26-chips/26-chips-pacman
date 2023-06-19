@@ -72,10 +72,6 @@ export class Enemy extends Character {
     }
   }
 
-  paint(ctx: CanvasRenderingContext2D) {
-    super.paint(ctx);
-  }
-
   getCollisionWithPacman(x: number, y: number) {
     if (this.isStopped) {
       return false;

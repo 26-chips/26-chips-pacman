@@ -1,7 +1,10 @@
 import { makePathCycle } from './helpers';
 import wallImg from 'assets/wall.jpg';
-import spriteImg from 'assets/sprites.png';
-import pinkyImg from 'assets/pinky.png';
+import pacmanSprites from 'assets/sprites/pacman-sprites.png';
+import pinkySprites from 'assets/sprites/sprites-enemy1.png';
+import blinkySprites from 'assets/sprites/sprites-enemy2.png';
+import inkySprites from 'assets/sprites/sprites-enemy3.png';
+import clydeSprites from 'assets/sprites/sprites-enemy4.png';
 import pacmanImg from 'assets/pacman.png';
 import smallPillImg from 'assets/pill1.png';
 import bigPillImg from 'assets/pill2.png';
@@ -21,10 +24,13 @@ export type CoordinatesType = {
 };
 
 export const imagesConfig = {
-  sprite: spriteImg,
+  pacmanSprite: pacmanSprites,
+  pinkySprite: pinkySprites,
+  blinkySprite: blinkySprites,
+  inkySprite: inkySprites,
+  clydeSprite: clydeSprites,
   wallIcon: wallImg,
   pacmanIcon: pacmanImg,
-  pinkyIcon: pinkyImg,
   smallPillIcon: smallPillImg,
   bigPillIcon: bigPillImg,
 };
@@ -54,48 +60,228 @@ export const blinkyPath = makePathCycle([
 ]);
 
 export const inkyPath = makePathCycle([
+  { direction: DirectionsType.down, steps: 2 },
+  { direction: DirectionsType.left, steps: 2 },
+  { direction: DirectionsType.up, steps: 4 },
+  { direction: DirectionsType.left, steps: 3 },
+  { direction: DirectionsType.down, steps: 2 },
+  { direction: DirectionsType.right, steps: 1 },
   { direction: DirectionsType.down, steps: 3 },
+  { direction: DirectionsType.left, steps: 1 },
+  { direction: DirectionsType.up, steps: 1 },
+  { direction: DirectionsType.right, steps: 1 },
+  { direction: DirectionsType.up, steps: 2 },
+  { direction: DirectionsType.right, steps: 2 },
+  { direction: DirectionsType.down, steps: 5 },
+  { direction: DirectionsType.right, steps: 5 },
+  { direction: DirectionsType.down, steps: 1 },
+  { direction: DirectionsType.right, steps: 2 },
 ]);
 
 export const clydePath = makePathCycle([
   { direction: DirectionsType.down, steps: 2 },
+  { direction: DirectionsType.left, steps: 2 },
+  { direction: DirectionsType.down, steps: 2 },
+  { direction: DirectionsType.right, steps: 4 },
+  { direction: DirectionsType.up, steps: 7 },
+  { direction: DirectionsType.right, steps: 3 },
+  { direction: DirectionsType.down, steps: 2 },
+  { direction: DirectionsType.left, steps: 1 },
+  { direction: DirectionsType.down, steps: 3 },
+  { direction: DirectionsType.right, steps: 1 },
+  { direction: DirectionsType.up, steps: 1 },
+  { direction: DirectionsType.left, steps: 1 },
+  { direction: DirectionsType.up, steps: 2 },
+  { direction: DirectionsType.left, steps: 2 },
 ]);
 
 export const pacmanSpritesConfig: SpritesData = {
   [DirectionsType.down]: {
-    sprite: icons.sprite,
-    canvasPos: { x: 0, y: 39 * 3 },
-    frameSize: { x: 39, y: 39 },
-    speed: 1,
-    frames: [0, 1, 2, 3, 4, 5, 6, 7],
+    sprite: icons.pacmanSprite,
+    canvasPos: { x: 0, y: 48 * 2 },
+    frameSize: { x: 48, y: 48 },
+    speed: 5,
+    frames: [0, 1, 2, 3],
   },
   [DirectionsType.up]: {
-    sprite: icons.sprite,
+    sprite: icons.pacmanSprite,
     canvasPos: { x: 0, y: 0 },
-    frameSize: { x: 39, y: 39 },
-    speed: 1,
-    frames: [0, 1],
+    frameSize: { x: 48, y: 48 },
+    speed: 5,
+    frames: [0, 1, 2, 3],
   },
   [DirectionsType.left]: {
-    sprite: icons.sprite,
-    canvasPos: { x: 0, y: 0 },
-    frameSize: { x: 39, y: 39 },
-    speed: 1,
-    frames: [0, 1],
+    sprite: icons.pacmanSprite,
+    canvasPos: { x: 0, y: 48 * 3 },
+    frameSize: { x: 48, y: 48 },
+    speed: 5,
+    frames: [0, 1, 2, 3],
   },
   [DirectionsType.right]: {
-    sprite: icons.sprite,
-    canvasPos: { x: 0, y: 0 },
-    frameSize: { x: 39, y: 39 },
-    speed: 1,
-    frames: [0, 1],
+    sprite: icons.pacmanSprite,
+    canvasPos: { x: 0, y: 48 },
+    frameSize: { x: 48, y: 48 },
+    speed: 5,
+    frames: [0, 1, 2, 3],
   },
   [DirectionsType.still]: {
-    sprite: icons.sprite,
+    sprite: icons.pacmanSprite,
+    canvasPos: { x: 0, y: 48 * 4 },
+    frameSize: { x: 48, y: 48 },
+    speed: 5,
+    frames: [0, 1, 2, 3],
+  },
+};
+
+export const pinkySpritesConfig: SpritesData = {
+  [DirectionsType.down]: {
+    sprite: icons.pinkySprite,
+    canvasPos: { x: 0, y: 48 * 2 },
+    frameSize: { x: 48, y: 48 },
+    speed: 5,
+    frames: [0],
+  },
+  [DirectionsType.up]: {
+    sprite: icons.pinkySprite,
     canvasPos: { x: 0, y: 0 },
-    frameSize: { x: 39, y: 39 },
-    speed: 1,
-    frames: [0, 1],
+    frameSize: { x: 48, y: 48 },
+    speed: 5,
+    frames: [0],
+  },
+  [DirectionsType.left]: {
+    sprite: icons.pinkySprite,
+    canvasPos: { x: 0, y: 48.3 * 3 },
+    frameSize: { x: 48, y: 47 },
+    speed: 5,
+    frames: [0],
+  },
+  [DirectionsType.right]: {
+    sprite: icons.pinkySprite,
+    canvasPos: { x: 0, y: 48.2 },
+    frameSize: { x: 48, y: 48 },
+    speed: 5,
+    frames: [0],
+  },
+  [DirectionsType.still]: {
+    sprite: icons.pinkySprite,
+    canvasPos: { x: 0, y: 48.2 * 4 },
+    frameSize: { x: 48, y: 48 },
+    speed: 5,
+    frames: [0, 1, 2, 3],
+  },
+};
+
+export const blinkySpritesConfig: SpritesData = {
+  [DirectionsType.down]: {
+    sprite: icons.blinkySprite,
+    canvasPos: { x: 0, y: 48 * 2 },
+    frameSize: { x: 48, y: 48 },
+    speed: 5,
+    frames: [0],
+  },
+  [DirectionsType.up]: {
+    sprite: icons.blinkySprite,
+    canvasPos: { x: 0, y: 0 },
+    frameSize: { x: 48, y: 48 },
+    speed: 5,
+    frames: [0],
+  },
+  [DirectionsType.left]: {
+    sprite: icons.blinkySprite,
+    canvasPos: { x: 0, y: 48 * 3 },
+    frameSize: { x: 48, y: 48 },
+    speed: 5,
+    frames: [0],
+  },
+  [DirectionsType.right]: {
+    sprite: icons.blinkySprite,
+    canvasPos: { x: 0, y: 48.2 },
+    frameSize: { x: 48, y: 48 },
+    speed: 5,
+    frames: [0],
+  },
+  [DirectionsType.still]: {
+    sprite: icons.blinkySprite,
+    canvasPos: { x: 0, y: 48.2 * 4 },
+    frameSize: { x: 48, y: 48 },
+    speed: 5,
+    frames: [0, 1, 2, 3],
+  },
+};
+
+export const inkySpritesConfig: SpritesData = {
+  [DirectionsType.down]: {
+    sprite: icons.inkySprite,
+    canvasPos: { x: 0, y: 48 * 2 },
+    frameSize: { x: 48, y: 48 },
+    speed: 5,
+    frames: [0],
+  },
+  [DirectionsType.up]: {
+    sprite: icons.inkySprite,
+    canvasPos: { x: 0, y: 0 },
+    frameSize: { x: 48, y: 48 },
+    speed: 5,
+    frames: [0],
+  },
+  [DirectionsType.left]: {
+    sprite: icons.inkySprite,
+    canvasPos: { x: 0, y: 48.3 * 3 },
+    frameSize: { x: 48, y: 48 },
+    speed: 5,
+    frames: [0],
+  },
+  [DirectionsType.right]: {
+    sprite: icons.inkySprite,
+    canvasPos: { x: 0, y: 48.2 },
+    frameSize: { x: 48, y: 48 },
+    speed: 5,
+    frames: [0],
+  },
+  [DirectionsType.still]: {
+    sprite: icons.inkySprite,
+    canvasPos: { x: 0, y: 48.2 * 4 },
+    frameSize: { x: 48, y: 48 },
+    speed: 5,
+    frames: [0, 1, 2, 3],
+  },
+};
+
+export const clydeSpritesConfig: SpritesData = {
+  [DirectionsType.down]: {
+    sprite: icons.clydeSprite,
+    canvasPos: { x: 0, y: 48 * 2 },
+    frameSize: { x: 48, y: 48 },
+    speed: 3,
+    frames: [0],
+  },
+  [DirectionsType.up]: {
+    sprite: icons.clydeSprite,
+    canvasPos: { x: 0, y: 0 },
+    frameSize: { x: 48, y: 48 },
+    speed: 3,
+    frames: [0],
+  },
+  [DirectionsType.left]: {
+    sprite: icons.clydeSprite,
+    canvasPos: { x: 0, y: 48.3 * 3 },
+    frameSize: { x: 48, y: 48 },
+    speed: 3,
+    frames: [0],
+  },
+  [DirectionsType.right]: {
+    sprite: icons.clydeSprite,
+    canvasPos: { x: 0, y: 48.2 },
+    frameSize: { x: 48, y: 48 },
+    speed: 3,
+    frames: [0],
+  },
+  [DirectionsType.still]: {
+    sprite: icons.clydeSprite,
+    canvasPos: { x: 0, y: 48.2 * 4 },
+    frameSize: { x: 48, y: 48 },
+    speed: 7,
+    frames: [0, 1, 2, 3],
   },
 };
 
@@ -109,29 +295,29 @@ export const enemiesConfig: {
   {
     [CellsType.pinky]: {
       path: pinkyPath,
-      icon: pacmanSpritesConfig,
+      icon: pinkySpritesConfig,
       activationTime: 3,
     },
   },
   {
     [CellsType.blinky]: {
       path: blinkyPath,
-      icon: pacmanSpritesConfig,
-      activationTime: 3,
+      icon: blinkySpritesConfig,
+      activationTime: 4,
     },
   },
   {
     [CellsType.inky]: {
       path: inkyPath,
-      icon: pacmanSpritesConfig,
-      activationTime: 3,
+      icon: inkySpritesConfig,
+      activationTime: 5,
     },
   },
   {
     [CellsType.clyde]: {
       path: clydePath,
-      icon: pacmanSpritesConfig,
-      activationTime: 3,
+      icon: clydeSpritesConfig,
+      activationTime: 7,
     },
   },
 ];
