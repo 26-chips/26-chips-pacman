@@ -24,7 +24,7 @@ export function FullscreenButton(): JSX.Element {
 
   useEffect(() => {
     const handleFSKey = (e: KeyboardEvent) => {
-      if (e.key === '27') {
+      if (e.key === 'F11') {
         e.preventDefault();
         toggleFullscreen();
       }
