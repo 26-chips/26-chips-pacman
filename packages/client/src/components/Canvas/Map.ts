@@ -53,7 +53,7 @@ const symbolsToInstances: Record<StringMapSymbols, CellsType> = {
 
 const enemiesNames: EnemiesNamesType[] = [
   CellsType.pinky,
-  CellsType.blinky,
+  //CellsType.blinky,
   CellsType.inky,
   CellsType.clyde,
 ];
