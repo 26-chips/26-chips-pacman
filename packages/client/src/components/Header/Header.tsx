@@ -15,8 +15,9 @@ export const Header = () => {
     location.pathname === ROUTES.GAME || location.pathname === ROUTES.START;
 
   return (
-    <>
-      <header className={styles.header}>
+    <header className={styles.header}>
+      <div className={styles.headerContent}>
+        <div></div>
         {showToGameButton() ? (
           <div></div>
         ) : (
@@ -55,7 +56,7 @@ export const Header = () => {
             defaultActiveItem={0}
           />
         </div>
-      </header>
-    </>
+      </div>
+    </header>
   );
 };
