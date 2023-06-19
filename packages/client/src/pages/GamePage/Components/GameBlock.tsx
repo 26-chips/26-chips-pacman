@@ -5,6 +5,7 @@ import { useState, useEffect, useMemo } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { EndGameScreen } from 'components';
 import cn from 'classnames';
+import { FullscreenButton } from './FullscreenButton';
 
 const START_COUNT = 3;
 const LIVES = 3;
@@ -89,8 +90,10 @@ export function GameBlock(): JSX.Element {
           <span className={styles.gameInfoCount}>{time}</span>
         </p>
       </div>
-      <div
-        className={cn(styles['canvas-container'], isPaused && styles.paused)}>
+      <div className={styles.fullscreenIconContainer}>
+        <FullscreenButton />
+      </div>
+      <div className={cn(styles.canvasContainer, isPaused && styles.paused)}>
         {
           <CanvasComponent
             setPoints={setPoints}
@@ -117,16 +120,14 @@ export function GameBlock(): JSX.Element {
 
       {isCountDown && (
         <div className={styles.overlay}>
-          <div className={cn(styles.countdown, styles['overlay-content'])}>
+          <div className={cn(styles.countdown, styles.overlayContent)}>
             {count}
           </div>
         </div>
       )}
       {isPaused && !isCountDown && (
         <div className={styles.overlay}>
-          <div className={cn(styles.pause, styles['overlay-content'])}>
-            PAUSED
-          </div>
+          <div className={cn(styles.pause, styles.overlayContent)}>PAUSED</div>
         </div>
       )}
     </>
