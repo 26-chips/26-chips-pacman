@@ -17,7 +17,6 @@ export const Header = () => {
   return (
     <header className={styles.header}>
       <div className={styles.headerContent}>
-        <div></div>
         {showToGameButton() ? (
           <div></div>
         ) : (
