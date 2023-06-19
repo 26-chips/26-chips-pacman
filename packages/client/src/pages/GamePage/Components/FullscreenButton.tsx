@@ -38,8 +38,8 @@ export function FullscreenButton(): JSX.Element {
     document.addEventListener('fullscreenchange', setFS);
 
     return () => {
-      window.removeEventListener('keydown', handleFSKey);
-      window.removeEventListener('fullscreenchange', setFS);
+      document.removeEventListener('keydown', handleFSKey);
+      document.removeEventListener('fullscreenchange', setFS);
     };
   }, []);
 
