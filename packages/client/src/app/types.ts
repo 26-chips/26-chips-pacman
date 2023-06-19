@@ -24,7 +24,7 @@ export type SignupData = {
   repeat_password: string;
 };
 
-export type ProfileData = Pick<User, 'login' | 'first_name' | 'second_name' | 'email' | 'phone'> & { display_name: string };
+export type ProfileData = Omit<User, 'id' | 'avatar'>;
 
 export type PasswordData = {
   oldPassword: string;
