@@ -4,9 +4,8 @@ import styles from './gameBlock.module.scss';
 import { useState, useEffect, useMemo } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { EndGameScreen } from 'components';
-import shrink from 'assets/icons/fullscreen-shrink.svg';
-import expand from 'assets/icons/fullscreen-expand.svg';
 import cn from 'classnames';
+import { FullscreenButton } from './FullscreenButton';
 
 const START_COUNT = 3;
 const LIVES = 3;
@@ -14,8 +13,6 @@ const MOCK_USER_NAME = 'User';
 
 export function GameBlock(): JSX.Element {
   const navigate = useNavigate();
-
-  const [isFullscreen, setFullscreen] = useState(false);
 
   const [points, setPoints] = useState(0);
   const [lives, setLives] = useState<number>(LIVES);
@@ -76,61 +73,17 @@ export function GameBlock(): JSX.Element {
     }
   }, [allPillsCollected]);
 
-  const isFullscreenDisabled = !document.fullscreenEnabled;
-
-  // ignore mozRequestFullScreen, webkitRequestFullScreen, msRequestFullscreen, etc
-  const toggleFullscreen = () => {
-    if (isFullscreenDisabled) {
-      alert('Fullscreen API not supported');
-      return;
-    }
-
-    if (!document.fullscreenElement) {
-      document.body.requestFullscreen();
-    } else {
-      document.exitFullscreen();
-    }
-
-    setFullscreen(Boolean(document.fullscreenElement));
-  };
-
-  // handle f11 and ESC
-  document.addEventListener('keydown', e => {
-    if (e.keyCode === 27 || e.keyCode === 122) {
-      e.preventDefault();
-      toggleFullscreen();
-    }
-  });
-
-  document.addEventListener('fullscreenchange', () => {
-    setFullscreen(Boolean(document.fullscreenElement));
-  });
-
   return (
     <>
       <div>
         <p className={styles.text}>{`Current points ${points}`}</p>
         <p className={styles.text}>{`Current lives ${lives}`}</p>
         <p className={styles.text}>{`Time ${time}`}</p>
-
-        <div onClick={() => toggleFullscreen()}>
-          {isFullscreen ? (
-            <img
-              className={styles.fullscreenIcon}
-              src={expand}
-              alt="fullscreen"
-            />
-          ) : (
-            <img
-              className={styles.fullscreenIcon}
-              src={shrink}
-              alt="exit fullscreen"
-            />
-          )}
+        <div className={styles.fullscreenIconContainer}>
+          <FullscreenButton />
         </div>
       </div>
-      <div
-        className={cn(styles['canvas-container'], isPaused && styles.paused)}>
+      <div className={cn(styles.canvasContainer, isPaused && styles.paused)}>
         {
           <CanvasComponent
             setPoints={setPoints}
@@ -156,16 +109,14 @@ export function GameBlock(): JSX.Element {
 
       {isCountDown && (
         <div className={styles.overlay}>
-          <div className={cn(styles.countdown, styles['overlay-content'])}>
+          <div className={cn(styles.countdown, styles.overlayContent)}>
             {count}
           </div>
         </div>
       )}
       {isPaused && !isCountDown && (
         <div className={styles.overlay}>
-          <div className={cn(styles.pause, styles['overlay-content'])}>
-            PAUSED
-          </div>
+          <div className={cn(styles.pause, styles.overlayContent)}>PAUSED</div>
         </div>
       )}
     </>
