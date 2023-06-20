@@ -58,9 +58,30 @@ const routes: RouteObject[] = [
           </PrivateRoute>
         ),
       },
-      { path: ROUTES.LEADERBOARD, element: <LeaderboardPage /> },
-      { path: ROUTES.FORUM, element: <ForumPage /> },
-      { path: ROUTES.FORUM_TOPIC, element: <ForumChatPage /> },
+      {
+        path: ROUTES.LEADERBOARD,
+        element: (
+          <PrivateRoute>
+            <LeaderboardPage />
+          </PrivateRoute>
+        ),
+      },
+      {
+        path: ROUTES.FORUM,
+        element: (
+          <PrivateRoute>
+            <ForumPage />
+          </PrivateRoute>
+        ),
+      },
+      {
+        path: ROUTES.FORUM_TOPIC,
+        element: (
+          <PrivateRoute>
+            <ForumChatPage />
+          </PrivateRoute>
+        ),
+      },
       { path: ROUTES.UI, element: <UIPage /> },
     ],
   },

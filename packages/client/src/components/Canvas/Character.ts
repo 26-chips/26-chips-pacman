@@ -114,7 +114,7 @@ export abstract class Character {
     return this.position;
   }
 
-  private updateSprite() {
+  updateSprite() {
     this.sprite.update();
   }
 

@@ -15,8 +15,8 @@ self.addEventListener('activate', async () => {
   const cacheNames = await cache.keys();
   await Promise.all(
     cacheNames
-    .filter(name => name !== CACHE_NAME || name !== D_CACHE_NAME)
-    .map(name => caches.delete(name))
+      .filter(name => name !== CACHE_NAME || name !== D_CACHE_NAME)
+      .map(name => caches.delete(name))
   );
 })
 

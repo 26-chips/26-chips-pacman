@@ -1,4 +1,4 @@
-import { FunctionComponent } from 'react';
+import { FunctionComponent, useMemo } from 'react';
 import styles from './startPage.module.scss';
 import { Button } from 'components';
 import Logo from 'assets/img/Mainpage.svg';
@@ -8,6 +8,12 @@ import { useFetchUserQuery } from 'api';
 
 const StartPage = () => {
   const { data: user } = useFetchUserQuery();
+
+  const displayedName = useMemo(() => {
+    return user?.display_name
+      ? user?.display_name
+      : `${user?.first_name} ${user?.second_name}`;
+  }, [user]);
 
   return (
     <div className={styles.container}>
@@ -19,7 +25,7 @@ const StartPage = () => {
           className={styles.image}
         />
 
-        <h1>{user ? user.display_name : 'New Player'}</h1>
+        <h1>{user ? displayedName : 'New Player'}</h1>
 
         <div className={styles.buttons}>
           <Link to={ROUTES.GAME}>
