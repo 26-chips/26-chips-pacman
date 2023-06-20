@@ -1,0 +1,29 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<Input /> Should match snapshot 1`] = `
+<div>
+  <label
+    className="undefined"
+  >
+    <input
+      className=""
+      name="Name test"
+      title="Title test"
+    />
+    <span
+      className="undefined"
+    >
+      Title test
+    </span>
+    <span>
+      Error test
+    </span>
+    <button
+      onClick={[Function]}
+      type="button"
+    >
+      <div />
+    </button>
+  </label>
+</div>
+`;

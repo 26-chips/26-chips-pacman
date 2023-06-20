@@ -17,4 +17,5 @@ export default {
     '^app(.*)$': '<rootDir>/src/app$1',
     '^hocs(.*)$': '<rootDir>/src/hocs$1',
   },
+  setupFilesAfterEnv: ['./tests.config.ts'],
 };
