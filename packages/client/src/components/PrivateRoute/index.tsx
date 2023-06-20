@@ -1,21 +1,15 @@
 import type { ReactNode } from 'react';
 import { Navigate } from 'react-router-dom';
 import { ROUTES } from 'router';
-import { Loader } from 'components';
-import { useFetchUserQuery } from 'api';
+import { withAuth } from 'hocs';
+import type { User } from 'app/types';
 
 type PrivateRouteProps = {
   children: ReactNode;
+  user?: User;
 };
 
-export const PrivateRoute = ({ children }: PrivateRouteProps): JSX.Element => {
-  const { data: user, isLoading } = useFetchUserQuery();
-
-  return isLoading ? (
-    <Loader />
-  ) : user ? (
-    <>{children}</>
-  ) : (
-    <Navigate to={ROUTES.SIGNIN} />
-  );
-};
+export const PrivateRoute = withAuth(
+  ({ children, user }: PrivateRouteProps): JSX.Element =>
+    user ? <>{children}</> : <Navigate to={ROUTES.SIGNIN} />
+);
