@@ -1,15 +1,25 @@
 import { Suspense } from 'react';
-import { Outlet } from 'react-router-dom';
+import { Outlet, useLocation } from 'react-router-dom';
 import styles from './layout.module.scss';
-import { Menu, Loader } from 'components';
+import { Header, Loader } from 'components';
+import { ROUTES } from '../../router';
 
-export const Layout = () => (
-  <div className={styles.layout}>
-    <Menu />
-    <Suspense fallback={<Loader />}>
-      <div className={styles.content}>
-        <Outlet />
-      </div>
-    </Suspense>
-  </div>
-);
+export const Layout = () => {
+  const location = useLocation();
+
+  const isHeaderShowing = () =>
+    location.pathname !== ROUTES.MAIN &&
+    location.pathname !== ROUTES.SIGNIN &&
+    location.pathname !== ROUTES.SIGNUP;
+
+  return (
+    <div className={styles.layout}>
+      {isHeaderShowing() ? <Header /> : ''}
+      <Suspense fallback={<Loader />}>
+        <div className={styles.content}>
+          <Outlet />
+        </div>
+      </Suspense>
+    </div>
+  );
+};

@@ -1,35 +1,25 @@
 import { useState } from 'react';
 import type { SyntheticEvent } from 'react';
-import { Form, Button, Link } from 'components';
-import { updateProfile } from 'api';
+import { Form, Button, Link, Loader } from 'components';
+import { useUpdateProfileMutation, useFetchUserQuery } from 'api';
 import { ROUTES } from 'router';
-
+import type { ProfileData } from 'app/types';
 import { profileConfig } from '../configs';
-
-import type { WithUserProps, IUser } from './withUser';
-import type { WithLoadingProps } from './withLoading';
 import styles from './profile.module.scss';
 
-interface ProfileFormProps extends WithUserProps, WithLoadingProps {}
-
-const ProfileForm = ({
-  user,
-  setUser,
-  setIsLoading,
-}: ProfileFormProps): JSX.Element => {
+const ProfileForm = (): JSX.Element => {
   const [isEditMode, setIsEditMode] = useState(false);
+  const { data: user } = useFetchUserQuery();
+  const [updateProfile, { isLoading }] = useUpdateProfileMutation();
 
-  const onSubmit = async (data: IUser) => {
+  const onSubmit = async (data: ProfileData) => {
     try {
-      setIsLoading(true);
-      const updatedUser = await updateProfile(data);
-      setUser(updatedUser.data);
-      setIsLoading(false);
+      await updateProfile(data).unwrap();
     } catch (e) {
-      console.log(e);
-      setIsLoading(false);
+      throw new Error((e as Error).message);
+    } finally {
+      setIsEditMode(false);
     }
-    setIsEditMode(false);
   };
 
   const handleEditButtonClick = (event: SyntheticEvent<HTMLButtonElement>) => {
@@ -40,9 +30,9 @@ const ProfileForm = ({
   const initialValues = profileConfig.reduce(
     (acc, { name }) => ({
       ...acc,
-      [name]: user ? user[name as keyof IUser] : '',
+      [name]: user ? user[name as keyof ProfileData] : '',
     }),
-    {} as IUser & { password: string }
+    {} as ProfileData & { password: string }
   );
 
   const styledFields = profileConfig.map(field => ({
@@ -60,15 +50,18 @@ const ProfileForm = ({
   );
 
   return (
-    <Form
-      initialValues={initialValues}
-      className={styles.form}
-      fields={styledFields}
-      onSubmit={onSubmit}>
-      <div className={styles.buttons}>
-        {isEditMode ? <Button type="submit">Сохранить</Button> : buttons}
-      </div>
-    </Form>
+    <>
+      {isLoading && <Loader />}
+      <Form
+        initialValues={initialValues}
+        className={styles.form}
+        fields={styledFields}
+        onSubmit={onSubmit}>
+        <div className={styles.buttons}>
+          {isEditMode ? <Button type="submit">Сохранить</Button> : buttons}
+        </div>
+      </Form>
+    </>
   );
 };
 

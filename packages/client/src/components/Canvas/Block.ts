@@ -20,10 +20,6 @@ export abstract class Block {
     this.elementSize = elementSize;
   }
 
-  setPacmanPosition(x: number, y: number) {
-    this.pacmanPosition = { x, y };
-  }
-
   checkCollisions(x: number, y: number) {
     return isCollidesSquare(
       this.position.x * this.cellSize + this.cellSize / 2,

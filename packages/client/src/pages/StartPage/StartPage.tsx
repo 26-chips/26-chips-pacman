@@ -1,23 +1,16 @@
-import React, { FunctionComponent, useState } from 'react';
+import { FunctionComponent } from 'react';
 import styles from './startPage.module.scss';
-import { Button, Switch } from 'components';
+import { Button } from 'components';
 import Logo from 'assets/img/Mainpage.svg';
 import { ROUTES } from 'router';
 import { Link } from 'react-router-dom';
+import { useFetchUserQuery } from 'api';
 
 const StartPage = () => {
-  const [isDark, toggleTheme] = useState(false);
-  const toggle = () => {
-    toggleTheme(!isDark);
-  };
+  const { data: user } = useFetchUserQuery();
 
   return (
     <div className={styles.container}>
-      <div className={styles.header}>
-        <span>{isDark ? 'Темная тема' : 'Светлая тема'}</span>
-        <Switch checked={isDark} onChange={toggle} />
-      </div>
-
       <div className={styles.imageContainer}>
         <img
           src={Logo}
@@ -26,7 +19,7 @@ const StartPage = () => {
           className={styles.image}
         />
 
-        <h1>IvanovI</h1>
+        <h1>{user ? user.display_name : 'New Player'}</h1>
 
         <div className={styles.buttons}>
           <Link to={ROUTES.GAME}>

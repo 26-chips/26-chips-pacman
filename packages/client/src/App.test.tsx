@@ -1,5 +1,7 @@
 import App from './App';
-import { render, screen, waitFor } from '@testing-library/react';
+import { render, waitFor } from '@testing-library/react';
+import { Provider } from 'react-redux';
+import { store } from 'app/store';
 
 const appContent = 'Наш github репозиторий';
 
@@ -9,6 +11,11 @@ global.fetch = jest.fn(() =>
 );
 
 test('Example test', async () => {
-  render(<App />);
-  await waitFor(() => expect(screen.getByText(appContent)).toBeDefined());
+  const app = render(
+    <Provider store={store}>
+      <App />
+    </Provider>
+  );
+
+  await waitFor(() => expect(app.getByText(appContent)).toBeDefined());
 });
