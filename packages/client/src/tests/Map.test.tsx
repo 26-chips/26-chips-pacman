@@ -1,7 +1,7 @@
 import { Map } from 'components/Canvas/Map';
 import { mapString } from 'components/Canvas/lvl1';
 
-const map = new Map(mapString);
+export const map = new Map(mapString);
 
 export const mapBlkStub = map.fillMapAsBlocks(mapString);
 

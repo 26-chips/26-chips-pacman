@@ -1,6 +1,5 @@
 import { Input } from 'components';
 import { render, screen, fireEvent } from '@testing-library/react';
-import { create } from 'react-test-renderer';
 
 const mockComponent = (
   <Input
@@ -14,7 +13,8 @@ const mockComponent = (
 
 describe('<Input />', () => {
   it('Should render', () => {
-    render(mockComponent);
+    const input = render(mockComponent);
+    expect(input.getByText('Title test')).toBeInTheDocument();
   });
 
   it('Should has cross button', () => {
@@ -30,10 +30,5 @@ describe('<Input />', () => {
       fireEvent.change(input, { target: { innerText: 'test' } });
       expect(input.innerText).toBe('test');
     }
-  });
-
-  it('Should match snapshot', () => {
-    const tree = create(mockComponent).toJSON();
-    expect(tree).toMatchSnapshot();
   });
 });

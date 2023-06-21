@@ -32,9 +32,10 @@ describe('<EndGameScreen />', () => {
     );
   });
 
-  // EGSProps.show must be true
-  it('Should match snapshot', () => {
-    const tree = create(<EGSMock />).toJSON();
+  it('Should match snapshot', async () => {
+    EGSProps.show = true;
+
+    const tree = await create(<EGSMock />).toJSON();
     expect(tree).toMatchSnapshot();
   });
 });
