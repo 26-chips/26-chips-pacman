@@ -29,7 +29,7 @@ exports[`<EndGameScreen /> Should match snapshot 1`] = `
           href="/game"
         >
           <button
-            className="undefined undefined undefined"
+            className=""
             type="button"
           >
             Начать сначала
@@ -41,7 +41,7 @@ exports[`<EndGameScreen /> Should match snapshot 1`] = `
           onClick={[Function]}
         >
           <button
-            className="undefined undefined undefined"
+            className=""
             type="button"
           >
             На главную

@@ -2,7 +2,7 @@
 
 exports[`<Button /> Should match snapshot 1`] = `
 <button
-  className="undefined undefined undefined"
+  className=""
   type="button"
 >
   Default Button

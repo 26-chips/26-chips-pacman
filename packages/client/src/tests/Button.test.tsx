@@ -6,7 +6,7 @@ const mockComponent = <Button>Default Button</Button>;
 
 describe('<Button />', () => {
   it('Should render correctly', () => {
-    const button = render(<Button>Default Button</Button>);
+    const button = render(mockComponent);
     expect(button.getByText('Default Button')).toBeInTheDocument();
   });
 
