@@ -53,7 +53,7 @@ const symbolsToInstances: Record<StringMapSymbols, CellsType> = {
 
 const enemiesNames: EnemiesNamesType[] = [
   CellsType.pinky,
-  CellsType.blinky,
+  //CellsType.blinky,
   CellsType.inky,
   CellsType.clyde,
 ];
@@ -77,7 +77,7 @@ export class Map {
     this.mapAsBlocks = this.fillMapAsBlocks(this.mapUrl);
   }
 
-  fillMapAsBlocks(str: string) {
+  private fillMapAsBlocks(str: string) {
     const result: CellsClassInstances[][] = [];
     const arr = str.split('\n');
 
@@ -117,7 +117,7 @@ export class Map {
     return total;
   }
 
-  fillMapAsStrings(str: string) {
+  private fillMapAsStrings(str: string) {
     const result: CellsType[][] = [];
 
     const arr = str.split('\n');

@@ -88,8 +88,10 @@ const ForumPage = () => {
 
   return (
     <div className={styles.forum}>
-      <h1 className={styles.title}>forum</h1>
-      <div className={styles.line}></div>
+      <div className={styles.forumHeader}>
+        <h1 className={styles.title}>forum</h1>
+        <div className={styles.line}></div>
+      </div>
       {createTopic ? (
         <CreateTopic handleChangeCreateTopic={handleChangeCreateTopic} />
       ) : (

@@ -14,3 +14,5 @@ export * from './Dropdown';
 export * from './ErrorBoundary';
 export * from './Avatar';
 export * from './Canvas';
+export * from './PrivateRoute';
+export * from './AuthRoute';

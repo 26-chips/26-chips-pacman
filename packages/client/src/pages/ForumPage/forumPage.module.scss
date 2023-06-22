@@ -3,6 +3,10 @@
 .forum {
   max-width: 1280px;
   margin: auto;
+
+  &-header {
+    position: relative;
+  }
 }
 
 .title {
@@ -15,7 +19,7 @@
 .line {
   position: absolute;
   width: 100vw;
-  top: 171px;
+  top: 70px;
   left: 0;
   border-top: 1px solid $blue;
 }
@@ -27,5 +31,5 @@
 }
 
 .orange-logo {
-  z-index: 10;
+  z-index: 1;
 }

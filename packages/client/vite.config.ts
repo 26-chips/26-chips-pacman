@@ -22,10 +22,11 @@ export default defineConfig({
       router: path.resolve(__dirname, './src/router'),
       style_constants: path.resolve(__dirname, './src/_constants.scss'),
       assets: path.resolve(__dirname, 'src', 'assets'),
-      axiosConfig: path.resolve(__dirname, 'src', 'axiosConfig'),
       api: path.resolve(__dirname, 'src', 'api'),
-      hooks: path.resolve(__dirname, 'src', 'hooks')
-    }
+      hooks: path.resolve(__dirname, 'src', 'hooks'),
+      app: path.resolve(__dirname, 'src', 'app'),
+      hocs: path.resolve(__dirname, 'src', 'hocs'),
+    },
   },
   css: {
     modules: {
