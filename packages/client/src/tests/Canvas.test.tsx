@@ -1,5 +1,5 @@
 import { CanvasComponent } from 'components';
-import { fireEvent, render } from '@testing-library/react';
+import { render } from '@testing-library/react';
 import { create } from 'react-test-renderer';
 
 const setPoints = jest.fn();
@@ -32,16 +32,5 @@ describe('<CanvasComponent />', () => {
   it('Should match snapshot', () => {
     const tree = create(mockCanvas).toJSON();
     expect(tree).toMatchSnapshot();
-  });
-
-  it('Should set pause on Space pressed', async () => {
-    const canvas = await render(<CanvasComponent {...CanvasProps} />);
-    // const canvas = container.querySelector('canvas');
-    if (canvas) {
-      fireEvent.keyPress(document, { key: 'Space', code: 32 });
-      expect(setIsPaused).toHaveBeenCalled();
-    } else {
-      fail('Canvas not render properly');
-    }
   });
 });

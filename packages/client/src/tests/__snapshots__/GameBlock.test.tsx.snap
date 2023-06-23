@@ -4,14 +4,30 @@ exports[`<GameBlock /> Should match snapshot 1`] = `
 Array [
   <div>
     <p>
-      Current points 0
+      Очки:
+      <span>
+        0
+      </span>
     </p>
     <p>
-      Current lives 3
+      Оставшиеся жизни:
+      <span>
+        3
+      </span>
     </p>
     <p>
-      Time 0
+      Время:
+      <span>
+        0
+      </span>
     </p>
+  </div>,
+  <div>
+    <img
+      alt="fullscreen switch"
+      onClick={[Function]}
+      src="default"
+    />
   </div>,
   <div
     className=""

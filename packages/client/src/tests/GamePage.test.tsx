@@ -18,7 +18,7 @@ describe('<GamePage />', () => {
     });
     if (container) {
       // @ts-ignore
-      expect(container.getByText(/Time/i)).toBeDefined();
+      expect(container.getByText(/Время/i)).toBeDefined();
     } else {
       fail('Page not render properly (or not contains "Time" string)');
     }

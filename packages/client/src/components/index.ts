@@ -1,4 +1,4 @@
-export * from './Menu';
+export * from './Header';
 export * from './Input';
 export * from './Button';
 export * from './Checkbox';
@@ -13,6 +13,6 @@ export * from './EndGameScreen';
 export * from './Dropdown';
 export * from './ErrorBoundary';
 export * from './Avatar';
-export * from './Canvas';
 export * from './PrivateRoute';
 export * from './AuthRoute';
+export * from './Canvas';
