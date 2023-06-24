@@ -9,6 +9,12 @@ import { useFetchUserQuery } from 'api';
 const StartPage = () => {
   const { data: user } = useFetchUserQuery();
 
+  const userName = user
+    ? user.display_name
+      ? user.display_name
+      : `${user.first_name} ${user.second_name}`
+    : 'Guest';
+
   return (
     <div className={styles.container}>
       <div className={styles.imageContainer}>
@@ -19,7 +25,7 @@ const StartPage = () => {
           className={styles.image}
         />
 
-        <h1>{user ? user.display_name : 'New Player'}</h1>
+        <h1>{user ? userName : 'New Player'}</h1>
 
         <div className={styles.buttons}>
           <Link to={ROUTES.GAME}>
