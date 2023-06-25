@@ -14,7 +14,7 @@ export const Layout = () => {
 
   return (
     <div className={styles.layout}>
-      {isHeaderShowing() ? <Header /> : ''}
+      {isHeaderShowing() && <Header />}
       <Suspense fallback={<Loader />}>
         <div className={styles.content}>
           <Outlet />

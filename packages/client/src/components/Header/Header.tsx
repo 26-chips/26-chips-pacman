@@ -23,9 +23,10 @@ export const Header = () => {
     try {
       await logout().unwrap();
       dispatch(apiSlice.util.resetApiState());
-      navigate(ROUTES.SIGNIN);
     } catch (e) {
       throw new Error((e as Error).message);
+    } finally {
+      navigate(ROUTES.MAIN);
     }
   };
 
