@@ -7,6 +7,7 @@ import { EndGameScreen } from 'components';
 import cn from 'classnames';
 import { FullscreenButton } from './FullscreenButton';
 import { useFetchUserQuery } from 'api';
+import { formUserName } from 'utils/helpers';
 
 const START_COUNT = 3;
 const LIVES = 3;
@@ -21,12 +22,6 @@ export function GameBlock(): JSX.Element {
   const [count, setCount] = useState(START_COUNT);
   const [isPaused, setIsPaused] = useState(true);
   const [maximumPoints, setMaximumPoints] = useState(0);
-
-  const userName = user
-    ? user.display_name
-      ? user.display_name
-      : `${user.first_name} ${user.second_name}`
-    : 'Guest';
 
   const reduceLives = () => {
     setLives(prev => prev - 1);
@@ -124,7 +119,7 @@ export function GameBlock(): JSX.Element {
 
       <EndGameScreen
         className={styles.endGame}
-        username={userName}
+        username={formUserName('Guest', user)}
         show={gameIsOver}
         onClose={handleModalClose}
         score={totalScore}
