@@ -1,4 +1,4 @@
-import { User } from '../app/types';
+import { User } from 'app/types';
 
 export const formUserName = (user?: User, defaultName = 'USER') => {
   return user
