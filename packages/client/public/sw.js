@@ -3,7 +3,7 @@ const D_CACHE_NAME = 'dynamic_pacman_cache';
 
 self.addEventListener('message', async ({ data }) => {
   const cache = await caches.open(CACHE_NAME);
-  cache.addAll(data);
+  cache.addAll(Array.from(new Set(data)));
 })
 
 self.addEventListener('activate', async () => {
