@@ -20,7 +20,7 @@ const StartPage = () => {
           className={styles.image}
         />
 
-        <h1>{formUserName('New Player', user)}</h1>
+        <h1>{formUserName(user, 'New Player')}</h1>
 
         <div className={styles.buttons}>
           <Link to={ROUTES.GAME}>

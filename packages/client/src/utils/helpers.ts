@@ -1,6 +1,6 @@
 import { User } from '../app/types';
 
-export const formUserName = (defaultName: string, user?: User) => {
+export const formUserName = (user?: User, defaultName = 'USER') => {
   return user
     ? user.display_name
       ? user.display_name

@@ -119,7 +119,7 @@ export function GameBlock(): JSX.Element {
 
       <EndGameScreen
         className={styles.endGame}
-        username={formUserName('Guest', user)}
+        username={formUserName(user, 'Guest')}
         show={gameIsOver}
         onClose={handleModalClose}
         score={totalScore}
