@@ -23,13 +23,13 @@ async function cacheFirst(request) {
 }
 
 async function networkFirst(request) {
-  if (request.method !== 'GET') return;
-
   const cache = await caches.open(D_CACHE_NAME);
 
   try {
     const response = await fetch(request);
-    await cache.put(request, response.clone());
+    if (request.method === 'GET') {
+      await cache.put(request, response.clone());
+    }
     return response;
   } catch {
     const cached = await cache.match(request);
