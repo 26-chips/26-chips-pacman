@@ -1,5 +1,5 @@
 import { makePathCycle } from './helpers';
-import wallImg from 'assets/wall.jpg';
+import wallImg from 'assets/wall.png';
 import pacmanSprites from 'assets/sprites/pacman-sprites.png';
 import pinkySprites from 'assets/sprites/sprites-enemy1.png';
 import blinkySprites from 'assets/sprites/sprites-enemy2.png';

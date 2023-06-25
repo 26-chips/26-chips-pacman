@@ -6,12 +6,14 @@ import { useNavigate } from 'react-router-dom';
 import { EndGameScreen } from 'components';
 import cn from 'classnames';
 import { FullscreenButton } from './FullscreenButton';
+import { useFetchUserQuery } from 'api';
+import { formUserName } from 'utils/helpers';
 
 const START_COUNT = 3;
 const LIVES = 3;
-const MOCK_USER_NAME = 'User';
 
 export function GameBlock(): JSX.Element {
+  const { data: user } = useFetchUserQuery();
   const navigate = useNavigate();
 
   const [points, setPoints] = useState(0);
@@ -74,6 +76,12 @@ export function GameBlock(): JSX.Element {
     }
   }, [allPillsCollected]);
 
+  // TODO найти способ получше задать черный фон
+  useEffect(() => {
+    document.body.classList.add('blackBG');
+    return () => document.body.classList.remove('blackBG');
+  });
+
   return (
     <>
       <div className={styles.gameControl}>
@@ -111,7 +119,7 @@ export function GameBlock(): JSX.Element {
 
       <EndGameScreen
         className={styles.endGame}
-        username={MOCK_USER_NAME}
+        username={formUserName(user, 'Guest')}
         show={gameIsOver}
         onClose={handleModalClose}
         score={totalScore}

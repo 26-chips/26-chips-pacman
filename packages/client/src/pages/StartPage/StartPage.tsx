@@ -5,6 +5,7 @@ import Logo from 'assets/img/Mainpage.svg';
 import { ROUTES } from 'router';
 import { Link } from 'react-router-dom';
 import { useFetchUserQuery } from 'api';
+import { formUserName } from 'utils/helpers';
 
 const StartPage = () => {
   const { data: user } = useFetchUserQuery();
@@ -19,7 +20,7 @@ const StartPage = () => {
           className={styles.image}
         />
 
-        <h1>{user ? user.display_name : 'New Player'}</h1>
+        <h1>{formUserName(user, 'New Player')}</h1>
 
         <div className={styles.buttons}>
           <Link to={ROUTES.GAME}>
