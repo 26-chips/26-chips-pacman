@@ -2,11 +2,15 @@ import { GameBlock } from 'pages/GamePage/Components/GameBlock';
 import { render } from '@testing-library/react';
 import { BrowserRouter } from 'react-router-dom';
 import { create } from 'react-test-renderer';
+import { store } from '../app/store';
+import { Provider } from 'react-redux';
 
 const mockComponent = (
-  <BrowserRouter>
-    <GameBlock />
-  </BrowserRouter>
+  <Provider store={store}>
+    <BrowserRouter>
+      <GameBlock />
+    </BrowserRouter>
+  </Provider>
 );
 
 describe('<GameBlock />', () => {

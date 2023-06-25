@@ -18,6 +18,7 @@ export default {
     '^api(.*)$': '<rootDir>/src/api$1',
     '^app(.*)$': '<rootDir>/src/app$1',
     '^hocs(.*)$': '<rootDir>/src/hocs$1',
+    '^utils(.*)$': '<rootDir>/src/utils$1',
   },
   setupFilesAfterEnv: ['./tests.config.ts'],
 };
