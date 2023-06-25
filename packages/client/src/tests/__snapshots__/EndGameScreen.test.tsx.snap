@@ -1,0 +1,62 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<EndGameScreen /> Should match snapshot 1`] = `
+<div
+  onClick={[MockFunction]}
+>
+  <div
+    className=""
+    onClick={[Function]}
+  >
+    <div
+      className=""
+    >
+      <h1>
+        test
+      </h1>
+      <h1>
+        Ваши результаты
+      </h1>
+      <h1>
+        999
+      </h1>
+      <h3>
+        00:16:39
+      </h3>
+      <div>
+        <a
+          className={[Function]}
+          href="/game"
+        >
+          <button
+            className=""
+            type="button"
+          >
+            Начать сначала
+          </button>
+        </a>
+        <a
+          className={[Function]}
+          href="/"
+          onClick={[Function]}
+        >
+          <button
+            className=""
+            type="button"
+          >
+            На главную
+          </button>
+        </a>
+      </div>
+    </div>
+    <button
+      onClick={[MockFunction]}
+    >
+      <img
+        alt="close icon"
+        src="default"
+      />
+    </button>
+  </div>
+</div>
+`;

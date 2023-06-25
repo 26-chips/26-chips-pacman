@@ -15,3 +15,4 @@ export * from './ErrorBoundary';
 export * from './Avatar';
 export * from './PrivateRoute';
 export * from './AuthRoute';
+export * from './Canvas';

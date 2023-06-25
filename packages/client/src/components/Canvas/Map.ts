@@ -77,7 +77,7 @@ export class Map {
     this.mapAsBlocks = this.fillMapAsBlocks(this.mapUrl);
   }
 
-  private fillMapAsBlocks(str: string) {
+  fillMapAsBlocks(str: string) {
     const result: CellsClassInstances[][] = [];
     const arr = str.split('\n');
 
@@ -117,7 +117,7 @@ export class Map {
     return total;
   }
 
-  private fillMapAsStrings(str: string) {
+  fillMapAsStrings(str: string) {
     const result: CellsType[][] = [];
 
     const arr = str.split('\n');

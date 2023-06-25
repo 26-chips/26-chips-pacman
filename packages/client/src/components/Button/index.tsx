@@ -21,7 +21,7 @@ export const Button = (props: ButtonProps) => {
 
   return (
     <button
-      className={cn(`${styles.button} ${className} ${styles[thema]}`, {
+      className={cn(styles.button, className, styles[thema], {
         [styles.loading]: loading,
       })}
       type={type}
