@@ -1,0 +1,60 @@
+@import 'style_constants';
+
+.table {
+  position: relative;
+  overflow-y: auto;
+  height: 450px;
+  z-index: 10;
+  margin-top: 40px;
+}
+
+.headers {
+  display: grid;
+  background-color: $black;
+  grid-template-columns: repeat(5, 1fr);
+  font-family: LexendPeta, sans-serif;
+  font-weight: 700;
+  font-size: 18px;
+  padding-left: 9px;
+  position: sticky;
+  top: 0;
+  left: 0;
+}
+
+.themes {
+  grid-column-start: 3;
+}
+
+.header {
+  text-align: center;
+}
+
+.link {
+  text-decoration: none;
+  color: $white;
+}
+
+.table-container {
+  display: flex;
+  flex-direction: column;
+}
+
+.button-add-theme {
+  display: flex;
+  font-size: 16px;
+  align-items: center;
+  background-color: $black;
+  color: $white;
+  border: none;
+  column-gap: 10px;
+  cursor: pointer;
+  align-self: end;
+
+  &:hover {
+    color: $blue-hover;
+  }
+}
+
+.button-add-theme-title {
+  margin: 0;
+}

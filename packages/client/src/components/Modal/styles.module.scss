@@ -1,0 +1,36 @@
+@import 'style_constants';
+
+.modal {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: fixed;
+  z-index: 10000;
+  background-color: #282828cc;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+}
+
+.content {
+  background-color: $black;
+  border: 1px solid $blue;
+  box-shadow: 0 0 20px #163bf3cc;
+  border-radius: 8px;
+  padding: 20px;
+  position: relative;
+
+  .close {
+    width: 14px;
+    height: 14px;
+    margin-right: auto;
+    position: absolute;
+    margin-top: 20px;
+    display: flex;
+    align-items: center;
+    right: 20px;
+    top: 0;
+    justify-content: center;
+  }
+}
