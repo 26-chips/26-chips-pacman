@@ -6,5 +6,5 @@ interface LeaderboardFieldProps {
 export function LeaderboardField({
   title,
 }: LeaderboardFieldProps): JSX.Element {
-  return <th>{title}</th>;
+  return <li>{title}</li>;
 }

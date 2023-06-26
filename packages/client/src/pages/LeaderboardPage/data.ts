@@ -15,4 +15,8 @@ export const leaderboardFields = [
     id: 'score',
     title: 'Очки',
   },
+  {
+    id: 'time',
+    title: 'Время, c.',
+  },
 ];
