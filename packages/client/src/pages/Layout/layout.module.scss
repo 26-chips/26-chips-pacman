@@ -1,0 +1,11 @@
+.layout {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.content {
+  position: relative;
+  padding-bottom: 40px;
+  flex: 1;
+}

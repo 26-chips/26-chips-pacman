@@ -1,0 +1,111 @@
+@import 'style_constants';
+
+.chat {
+  position: relative;
+  margin-top: 48px;
+}
+
+.line {
+  position: absolute;
+  width: 100vw;
+  top: 0;
+  left: 0;
+  border-top: 1px solid $blue;
+}
+
+.chat-container {
+  display: flex;
+  max-width: 1280px;
+  margin: auto;
+  height: 100%;
+}
+
+.back-area {
+  position: relative;
+  padding-top: 30px;
+  padding-right: 40px;
+  border-right: 1px solid $blue;
+}
+
+.chat-content {
+  padding-top: 30px;
+  padding-left: 20px;
+  width: 100%;
+}
+
+.chat-title {
+  margin: 0;
+  font-size: 18px;
+  font-weight: 700;
+}
+
+.chat-content-header {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.participants-list-btn {
+  position: relative;
+  display: flex;
+  align-items: center;
+  column-gap: 8px;
+  background-color: transparent;
+  border: none;
+  color: $white;
+  font-size: 16px;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.chat-wrapper {
+  display: flex;
+  flex-direction: column;
+  margin-top: 30px;
+}
+
+.messages {
+  display: flex;
+  flex-direction: column;
+  height: 500px;
+  overflow-y: auto;
+}
+
+.chat-date {
+  margin-bottom: 21px;
+  color: $white;
+  font-size: 12px;
+  text-align: center;
+}
+
+.form {
+  width: 100%;
+  display: flex;
+  column-gap: 15px;
+  height: 32px;
+}
+
+.input {
+  background-color: transparent;
+  width: 100%;
+  border: none;
+  border-bottom: 1px solid $blue;
+  font-size: 16px;
+  color: $white;
+  padding: 0 10px;
+
+  &:focus {
+    border: none;
+    outline: none;
+    border-bottom: 1px solid $blue;
+  }
+}
+
+.submit-button {
+  cursor: pointer;
+  width: 100%;
+  max-width: 57px;
+  border-radius: 10px;
+  background-color: $blue;
+  border: none;
+}
