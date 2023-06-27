@@ -6,8 +6,8 @@ export interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
   inlineTitle?: boolean;
   errorMessage?: string;
   showDeleteSymbol?: boolean;
-  name: string;
-  setValue: (field: string, value: unknown) => Promise<void>;
+  name?: string;
+  setValue?: (field: string, value: unknown) => Promise<void>;
 }
 
 export const Input = ({
@@ -16,11 +16,13 @@ export const Input = ({
   errorMessage,
   inlineTitle,
   setValue,
-  name,
+  name = '',
   ...otherProps
 }: InputProps) => {
   const handleClear = () => {
-    setValue(name, '');
+    if (setValue) {
+      setValue(name, '');
+    }
   };
 
   return (
