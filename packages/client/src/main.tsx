@@ -4,7 +4,8 @@ import { Provider } from 'react-redux';
 import { store } from 'app/store';
 import App from './App';
 
-ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
+ReactDOM.hydrateRoot(
+  document.getElementById('root') as HTMLElement,
   <React.StrictMode>
     <Provider store={store}>
       <App />
