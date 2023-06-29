@@ -81,6 +81,7 @@ export const apiSlice = createApi({
         url: '/leaderboard',
         method: 'POST',
         body: data,
+        responseHandler: 'text',
       }),
     }),
 

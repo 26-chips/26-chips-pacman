@@ -1,6 +1,7 @@
 import defaultAvatar from 'assets/icons/default_avatar.svg';
 import styles from './leaderboard.module.scss';
 import { LeaderboardInfo } from './types';
+import { Avatar } from '../../components';
 
 interface LeaderboardRowProps extends Partial<LeaderboardInfo> {
   place: number;
@@ -16,9 +17,8 @@ export function LeaderboardRow({
   return (
     <li className={styles.leaderboardRow}>
       <p>{place}</p>
-      <img
-        src={userAvatar || defaultAvatar}
-        alt="default avatar"
+      <Avatar
+        image={userAvatar ? userAvatar : defaultAvatar}
         className={styles.avatar}
       />
       <p>{userNickname}</p>

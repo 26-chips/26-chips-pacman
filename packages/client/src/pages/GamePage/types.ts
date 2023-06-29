@@ -1,9 +1,9 @@
 export interface GameResult {
   points: string;
   time?: number;
-  userId: number | undefined;
+  userId?: number;
   userNickname: string;
-  userAvatar: string | undefined;
+  userAvatar?: string;
 }
 
 export interface GameResultForLeaderboard {

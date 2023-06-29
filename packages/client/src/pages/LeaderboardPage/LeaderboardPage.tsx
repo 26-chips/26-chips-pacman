@@ -12,22 +12,22 @@ function LeaderboardPage(): JSX.Element {
   const [getLeaderboard] = useGetLeaderboardMutation();
   const [leaderbordList, setLeaderboardList] = useState<LeaderboardData[]>([]);
 
-  const submitData: GetLeaderboardType = {
-    ratingFieldName: 'points',
-    cursor: 0,
-    limit: 10,
-  };
-
-  const getLeaderboardList = async (data: GetLeaderboardType) => {
-    try {
-      const list = await getLeaderboard(data).unwrap();
-      setLeaderboardList(list);
-    } catch (err) {
-      throw new Error((err as Error).message);
-    }
-  };
-
   useEffect(() => {
+    const submitData: GetLeaderboardType = {
+      ratingFieldName: 'points',
+      cursor: 0,
+      limit: 10,
+    };
+
+    const getLeaderboardList = async (data: GetLeaderboardType) => {
+      try {
+        const list = await getLeaderboard(data).unwrap();
+        setLeaderboardList(list);
+      } catch (err) {
+        throw new Error((err as Error).message);
+      }
+    };
+
     getLeaderboardList(submitData);
   }, []);
 

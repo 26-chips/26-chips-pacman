@@ -81,27 +81,27 @@ export function GameBlock(): JSX.Element {
     return () => document.body.classList.remove('blackBG');
   });
 
-  const submitData: GameResultForLeaderboard = {
-    data: {
-      points: totalScore,
-      time: time,
-      userId: user?.id,
-      userNickname: formUserName(user, 'Guest'),
-      userAvatar: user?.avatar,
-    },
-    ratingFieldName: 'points',
-    teamName: 'chips',
-  };
-
-  const addResultToLeaderboard = async () => {
-    try {
-      await addUserToLeaderboard(submitData).unwrap();
-    } catch (err) {
-      throw new Error((err as Error).message);
-    }
-  };
-
   useEffect(() => {
+    const submitData: GameResultForLeaderboard = {
+      data: {
+        points: totalScore,
+        time: time,
+        userId: user?.id,
+        userNickname: formUserName(user, 'Guest'),
+        userAvatar: user?.avatar,
+      },
+      ratingFieldName: 'points',
+      teamName: 'chips',
+    };
+
+    const addResultToLeaderboard = async () => {
+      try {
+        await addUserToLeaderboard(submitData).unwrap();
+      } catch (err) {
+        throw new Error((err as Error).message);
+      }
+    };
+
     if (gameIsOver) {
       addResultToLeaderboard();
     }
