@@ -46,7 +46,7 @@ export function FullscreenButton(): JSX.Element {
   return (
     <img
       onClick={() => toggleFullscreen()}
-      className={styles.fullscreenIcon}
+      className={styles.icon}
       src={isFullscreen ? expand : shrink}
       alt="fullscreen switch"
     />

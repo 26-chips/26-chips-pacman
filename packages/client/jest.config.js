@@ -10,7 +10,7 @@ export default {
   },
   moduleNameMapper: {
     '\\.(scss)$': 'identity-obj-proxy',
-    '\\.(jpg|png|gif|svg)$': '<rootDir>/file.mock.js',
+    '\\.(jpg|png|gif|svg|mp3)$': '<rootDir>/file.mock.js',
     '^components(.*)$': '<rootDir>/src/components$1',
     '^router(.*)$': '<rootDir>/src/router$1',
     '^pages(.*)$': '<rootDir>/src/pages$1',
@@ -18,6 +18,7 @@ export default {
     '^api(.*)$': '<rootDir>/src/api$1',
     '^app(.*)$': '<rootDir>/src/app$1',
     '^hocs(.*)$': '<rootDir>/src/hocs$1',
+    '^hooks(.*)$': '<rootDir>/src/hooks$1',
     '^utils(.*)$': '<rootDir>/src/utils$1',
   },
   setupFilesAfterEnv: ['./tests.config.ts'],

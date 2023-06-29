@@ -8,6 +8,8 @@ import cn from 'classnames';
 import { FullscreenButton } from './FullscreenButton';
 import { useFetchUserQuery } from 'api';
 import { formUserName } from 'utils/helpers';
+import { SoundButton } from './SoundButton';
+import { useSound } from 'hooks';
 
 const START_COUNT = 3;
 const LIVES = 3;
@@ -22,8 +24,15 @@ export function GameBlock(): JSX.Element {
   const [count, setCount] = useState(START_COUNT);
   const [isPaused, setIsPaused] = useState(true);
   const [maximumPoints, setMaximumPoints] = useState(0);
+  const { play, toggleMute, isMuted } = useSound();
+
+  const setPointsProxy = (p: number) => {
+    play('crack');
+    setPoints(p);
+  };
 
   const reduceLives = () => {
+    play('fail');
     setLives(prev => prev - 1);
   };
 
@@ -58,6 +67,7 @@ export function GameBlock(): JSX.Element {
       const timer = count > 0 && setInterval(() => setCount(count - 1), 1000);
       return () => {
         if (timer) {
+          play('countdown');
           clearInterval(timer);
         }
       };
@@ -98,13 +108,15 @@ export function GameBlock(): JSX.Element {
           <span className={styles.gameInfoCount}>{time}</span>
         </p>
       </div>
-      <div className={styles.fullscreenIconContainer}>
+      <div className={styles.iconContainer}>
         <FullscreenButton />
+        <SoundButton toggleMute={toggleMute} isMuted={isMuted} />
       </div>
       <div className={cn(styles.canvasContainer, isPaused && styles.paused)}>
         {
           <CanvasComponent
-            setPoints={setPoints}
+            //@ts-ignore
+            setPoints={setPointsProxy}
             reduceLives={reduceLives}
             setTime={setTime}
             isPaused={isPaused}
