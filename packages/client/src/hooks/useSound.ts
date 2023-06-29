@@ -7,61 +7,59 @@ import winSound from 'assets/sounds/win.mp3';
 
 export const useSound = () => {
   const sounds = {
-    crack: new Audio(crackSound),
-    fail: new Audio(failSound),
     win: new Audio(winSound),
+    fail: new Audio(failSound),
+    crack: new Audio(crackSound),
+    gameLoop: new Audio(gameLoopSound),
     countdown: new Audio(countdownSound),
-    music: new Audio(gameLoopSound),
   };
 
-  sounds.music.volume = 0.1;
-  sounds.countdown.volume = 0.5;
+  sounds.gameLoop.volume = 0.05;
+  sounds.countdown.volume = 0.2;
 
   const [isMuted, setMute] = useState(false);
   const [sources] = useState(sounds);
+  type KeyOfSourcesType = keyof typeof sources;
 
   useEffect(() => {
-    if (sounds.music.paused && !isMuted) {
-      sounds.music.play();
+    if (sounds.gameLoop.paused && !isMuted) {
+      sounds.gameLoop.play();
     }
   });
 
-  const play = async (key: string) => {
+  const play = async (key: KeyOfSourcesType) => {
     if (!isMuted) {
-      await sources[key as keyof typeof sources].play();
+      await sources[key].play();
     }
   };
 
-  const pause = async (key: string) => {
-    await sources[key as keyof typeof sources].pause();
+  const pause = async (key: KeyOfSourcesType) => {
+    await sources[key].pause();
   };
 
-  const toggleMute = async () => {
+  const toggleMute = () => {
     if (isMuted) {
       setMute(false);
     } else {
       setMute(true);
       Object.keys(sources).forEach(key => {
-        sources[key as keyof typeof sources].pause();
+        sources[key as KeyOfSourcesType].pause();
       });
     }
   };
 
   useEffect(() => {
     Object.keys(sources).forEach(key => {
-      sources[key as keyof typeof sources].addEventListener('ended', () => {
-        pause(key);
+      sources[key as KeyOfSourcesType].addEventListener('ended', () => {
+        pause(key as KeyOfSourcesType);
       });
     });
 
     return () => {
       Object.keys(sources).forEach(key => {
-        sources[key as keyof typeof sources].removeEventListener(
-          'ended',
-          () => {
-            pause(key);
-          }
-        );
+        sources[key as KeyOfSourcesType].removeEventListener('ended', () => {
+          pause(key as KeyOfSourcesType);
+        });
       });
     };
   }, []);
