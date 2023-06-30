@@ -49,7 +49,7 @@ export function GameBlock(): JSX.Element {
   // количество очков = собранные таблетки * на оставшиеся жизни + 5*(60 - потрченное время)
   const totalScore = useMemo(() => {
     const timeBonus = 5 * (60 - time) > 0 ? 5 * (60 - time) : 0;
-    return (points * (lives + 1) + timeBonus).toString();
+    return points * (lives + 1) + timeBonus;
   }, [points, lives, time]);
 
   useEffect(() => {

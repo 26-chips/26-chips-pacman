@@ -1,12 +1,34 @@
 import type { FunctionComponent } from 'react';
 
-import { leaderboardFields } from './data';
 import { LeaderboardField } from './LeaderboardField';
 import { LeaderboardRow } from './LeaderboardRow';
 import styles from './leaderboard.module.scss';
 import { useEffect, useState } from 'react';
 import { useGetLeaderboardMutation } from 'api';
 import { GetLeaderboardType, LeaderboardData } from './types';
+
+export const leaderboardFields = [
+  {
+    id: 'place',
+    title: 'Рейтинг',
+  },
+  {
+    id: 'avatar',
+    title: '',
+  },
+  {
+    id: 'username',
+    title: 'Никнейм',
+  },
+  {
+    id: 'score',
+    title: 'Очки',
+  },
+  {
+    id: 'time',
+    title: 'Время, c.',
+  },
+];
 
 function LeaderboardPage(): JSX.Element {
   const [getLeaderboard] = useGetLeaderboardMutation();
@@ -39,16 +61,21 @@ function LeaderboardPage(): JSX.Element {
         ))}
       </ul>
       <ul className={styles.list}>
-        {leaderbordList.map((data, index) => (
-          <LeaderboardRow
-            key={data.data.userId}
-            points={data.data.points}
-            userAvatar={data.data.userAvatar}
-            userNickname={data.data.userNickname}
-            time={data.data.time}
-            place={index + 1}
-          />
-        ))}
+        {leaderbordList.map(
+          (
+            { data: { userId, points, userAvatar, userNickname, time } },
+            index
+          ) => (
+            <LeaderboardRow
+              key={userId}
+              points={points}
+              userAvatar={userAvatar}
+              userNickname={userNickname}
+              time={time}
+              place={index + 1}
+            />
+          )
+        )}
       </ul>
     </section>
   );

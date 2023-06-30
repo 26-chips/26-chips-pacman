@@ -1,5 +1,5 @@
 export interface GameResult {
-  points: string;
+  points: number;
   time?: number;
   userId?: number;
   userNickname: string;
