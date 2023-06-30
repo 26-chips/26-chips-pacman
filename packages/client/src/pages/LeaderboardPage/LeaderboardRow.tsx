@@ -16,7 +16,7 @@ export function LeaderboardRow({
   return (
     <li className={styles.leaderboardRow}>
       <p>{place}</p>
-      <Avatar image={userAvatar ?? userAvatar} className={styles.avatar} />
+      <Avatar image={userAvatar} className={styles.avatar} />
       <p>{userNickname}</p>
       <p>{points}</p>
       <p>{time}</p>
