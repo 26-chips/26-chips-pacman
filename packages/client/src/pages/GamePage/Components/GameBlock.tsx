@@ -27,7 +27,7 @@ export function GameBlock(): JSX.Element {
 
   const location = useLocation();
 
-  // pause all sounds on location change
+  // pause all sounds when exit /game
   useEffect(() => {
     pauseAll();
   }, [location]);
@@ -37,10 +37,6 @@ export function GameBlock(): JSX.Element {
       AudioElements.gameLoop.play();
     }
   });
-
-  const handleSetPoints = (p: number) => {
-    setPoints(p);
-  };
 
   const reduceLives = () => {
     setLives(prev => prev - 1);
@@ -59,7 +55,6 @@ export function GameBlock(): JSX.Element {
   }, [lives, maximumPoints, points]);
 
   const handleModalClose = () => {
-    pauseAll();
     navigate(ROUTES.MAIN);
   };
 
@@ -125,8 +120,7 @@ export function GameBlock(): JSX.Element {
       <div className={cn(styles.canvasContainer, isPaused && styles.paused)}>
         {
           <CanvasComponent
-            //@ts-ignore
-            setPoints={handleSetPoints}
+            setPoints={setPoints}
             reduceLives={reduceLives}
             setTime={setTime}
             isPaused={isPaused}

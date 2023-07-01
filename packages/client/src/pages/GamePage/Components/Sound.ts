@@ -4,6 +4,7 @@ import failSound from 'assets/sounds/fail.mp3';
 import countdownSound from 'assets/sounds/countdown.mp3';
 import winSound from 'assets/sounds/win.mp3';
 import bonusSound from 'assets/sounds/bonus.mp3';
+import toggleSound from 'assets/sounds/toggle.mp3';
 import blockedSound from 'assets/sounds/blocked.mp3';
 
 class Sound {
@@ -48,7 +49,7 @@ class Sound {
   play = () => {
     if (!this.isMuted && this.audio) {
       this.audio.play();
-      // play multiple times if already playing
+      // play again if already playing
       if (!this.audio.paused && !this.audio.loop && this.playMultipleTimes) {
         // @ts-ignore
         this.audio.cloneNode(true).play();
@@ -86,12 +87,14 @@ const gameLoop = new Sound(gameLoopSound, true, 0.1);
 const countdown = new Sound(countdownSound, false, 0.5);
 const crack = new Sound(crackSound, false, 0.8, 0.8, true);
 const blocked = new Sound(blockedSound, false, 0.4);
+const toggle = new Sound(toggleSound, false, 0.2, 0.5);
 
 export const AudioElements = {
   win: win,
   fail: fail,
   crack: crack,
   bonus: bonus,
+  toggle: toggle,
   blocked: blocked,
   gameLoop: gameLoop,
   countdown: countdown,
