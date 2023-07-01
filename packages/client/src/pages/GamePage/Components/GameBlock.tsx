@@ -2,14 +2,14 @@ import { ROUTES } from 'router';
 import { CanvasComponent } from 'components/Canvas/Canvas';
 import styles from './gameBlock.module.scss';
 import { useState, useEffect, useMemo } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 import { EndGameScreen } from 'components';
 import cn from 'classnames';
 import { FullscreenButton } from './FullscreenButton';
 import { useFetchUserQuery } from 'api';
 import { formUserName } from 'utils/helpers';
 import { SoundButton } from './SoundButton';
-import { useSound } from 'hooks';
+import { AudioElements, pauseAll, toggleMute } from './Sound';
 
 const START_COUNT = 3;
 const LIVES = 3;
@@ -24,15 +24,25 @@ export function GameBlock(): JSX.Element {
   const [count, setCount] = useState(START_COUNT);
   const [isPaused, setIsPaused] = useState(true);
   const [maximumPoints, setMaximumPoints] = useState(0);
-  const { play, toggleMute, isMuted } = useSound();
 
-  const setPointsProxy = (p: number) => {
-    play('crack');
+  const location = useLocation();
+
+  // pause all sounds on location change
+  useEffect(() => {
+    pauseAll();
+  }, [location]);
+
+  useEffect(() => {
+    if (AudioElements.gameLoop.isPaused()) {
+      AudioElements.gameLoop.play();
+    }
+  });
+
+  const handleSetPoints = (p: number) => {
     setPoints(p);
   };
 
   const reduceLives = () => {
-    play('fail');
     setLives(prev => prev - 1);
   };
 
@@ -49,6 +59,7 @@ export function GameBlock(): JSX.Element {
   }, [lives, maximumPoints, points]);
 
   const handleModalClose = () => {
+    pauseAll();
     navigate(ROUTES.MAIN);
   };
 
@@ -67,7 +78,6 @@ export function GameBlock(): JSX.Element {
       const timer = count > 0 && setInterval(() => setCount(count - 1), 1000);
       return () => {
         if (timer) {
-          play('countdown');
           clearInterval(timer);
         }
       };
@@ -110,13 +120,13 @@ export function GameBlock(): JSX.Element {
       </div>
       <div className={styles.iconContainer}>
         <FullscreenButton />
-        <SoundButton toggleMute={toggleMute} isMuted={isMuted} />
+        <SoundButton toggleMute={toggleMute} />
       </div>
       <div className={cn(styles.canvasContainer, isPaused && styles.paused)}>
         {
           <CanvasComponent
             //@ts-ignore
-            setPoints={setPointsProxy}
+            setPoints={handleSetPoints}
             reduceLives={reduceLives}
             setTime={setTime}
             isPaused={isPaused}
