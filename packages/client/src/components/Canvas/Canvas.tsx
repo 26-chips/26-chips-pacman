@@ -8,7 +8,7 @@ import { loadImage } from './resources';
 import { Pacman } from './Pacman';
 import { Enemy } from './Enemy';
 import { Sprite } from './Sprite';
-import { AudioElements, pauseAll } from '../../pages/GamePage/Components/Sound';
+import { AudioElements, pauseAll } from 'pages/GamePage/Components/Sound';
 
 type Props = {
   setTime: (value: number) => void;
