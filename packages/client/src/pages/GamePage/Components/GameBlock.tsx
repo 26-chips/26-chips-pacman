@@ -33,10 +33,12 @@ export function GameBlock(): JSX.Element {
   }, [location]);
 
   useEffect(() => {
-    if (AudioElements.gameLoop.isPaused()) {
+    if (isPaused) {
+      AudioElements.gameLoop.pause();
+    } else {
       AudioElements.gameLoop.play();
     }
-  });
+  }, [isPaused]);
 
   const reduceLives = () => {
     setLives(prev => prev - 1);

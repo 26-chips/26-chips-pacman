@@ -10,13 +10,13 @@ interface SoundButtonProps {
 
 export const SoundButton = (props: SoundButtonProps) => {
   const { toggleMute } = props;
-  const [isMuted, mute] = useState(false);
+  const [isMuted, setIsMuted] = useState(false);
 
   return (
     <img
       onClick={() => {
         toggleMute();
-        mute(!isMuted);
+        setIsMuted(!isMuted);
         AudioElements.toggle.play();
       }}
       className={styles.icon}
