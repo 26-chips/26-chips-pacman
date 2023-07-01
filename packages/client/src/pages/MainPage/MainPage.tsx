@@ -1,4 +1,4 @@
-import { FunctionComponent } from 'react';
+import { FunctionComponent, useEffect } from 'react';
 import styles from './mainPage.module.scss';
 import { Button } from 'components';
 import { Link } from 'react-router-dom';
@@ -11,6 +11,8 @@ import avatar3 from 'assets/img/developersAvatars/avatar3.svg';
 import avatar4 from 'assets/img/developersAvatars/avatar4.svg';
 import avatar5 from 'assets/img/developersAvatars/avatar5.svg';
 import { DeveloperType } from './types';
+import { useOAuthYandexMutation } from 'api';
+import { OAUTH_REDIRECT_URL } from 'utils/consts';
 
 const developersList: DeveloperType[] = [
   {
@@ -46,6 +48,26 @@ const developersList: DeveloperType[] = [
 ];
 
 const MainPage: FunctionComponent = () => {
+  const [auth] = useOAuthYandexMutation();
+
+  const authWithCode = async (code: string | null) => {
+    if (code) {
+      await auth({
+        code,
+        redirect_uri: OAUTH_REDIRECT_URL,
+      });
+    }
+  };
+
+  useEffect(() => {
+    const data = new URLSearchParams(document.location.search);
+    const code = data.get('code');
+
+    if (code) {
+      authWithCode(code);
+    }
+  }, []);
+
   return (
     <section className={styles.container}>
       <div className={styles.header}>
