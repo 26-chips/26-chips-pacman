@@ -23,7 +23,14 @@ const routes: RouteObject[] = [
     element: <Layout />,
     errorElement: <ErrorBoundary />,
     children: [
-      { index: true, element: <MainPage /> },
+      {
+        index: true,
+        element: (
+          <AuthRoute>
+            <MainPage />
+          </AuthRoute>
+        ),
+      },
       { path: ROUTES.START, element: <StartPage /> },
       {
         path: ROUTES.SIGNIN,
