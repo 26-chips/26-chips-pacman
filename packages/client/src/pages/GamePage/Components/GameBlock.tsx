@@ -9,7 +9,7 @@ import { FullscreenButton } from './FullscreenButton';
 import { useFetchUserQuery } from 'api';
 import { formUserName } from 'utils/helpers';
 import { SoundButton } from './SoundButton';
-import { AudioElements, pauseAll, toggleMute } from './Sound';
+import { AudioElements, pauseAll, toggleMute } from './SoundConfig';
 
 const START_COUNT = 3;
 const LIVES = 3;

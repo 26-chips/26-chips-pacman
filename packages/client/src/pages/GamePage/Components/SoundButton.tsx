@@ -2,7 +2,7 @@ import styles from './gameBlock.module.scss';
 import muteIcon from 'assets/icons/mute.svg';
 import playIcon from 'assets/icons/play.svg';
 import { useState } from 'react';
-import { AudioElements } from './Sound';
+import { AudioElements } from './SoundConfig';
 
 interface SoundButtonProps {
   toggleMute: () => void;
