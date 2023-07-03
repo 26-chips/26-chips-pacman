@@ -6,7 +6,7 @@ import cn from 'classnames';
 
 export interface EndGameComponentProps {
   username: string;
-  score: string;
+  score: number;
   className?: string;
   elapsedTimeSec: number | string;
 }
