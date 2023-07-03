@@ -17,7 +17,11 @@ const onError = (event: SyntheticEvent<HTMLImageElement>) => {
 export function Avatar({ image, className }: AvatarProps) {
   return (
     <img
-      src={`https://ya-praktikum.tech/api/v2/resources${image}`}
+      src={
+        image
+          ? `https://ya-praktikum.tech/api/v2/resources${image}`
+          : defaultAvatar
+      }
       alt="user avatar"
       className={cn(styles.avatar, className)}
       loading="lazy"

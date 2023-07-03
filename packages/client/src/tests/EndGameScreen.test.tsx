@@ -7,7 +7,7 @@ const EGSProps = {
   username: 'test',
   show: false,
   onClose: jest.fn(),
-  score: '999',
+  score: 999,
   elapsedTimeSec: '999',
 };
 

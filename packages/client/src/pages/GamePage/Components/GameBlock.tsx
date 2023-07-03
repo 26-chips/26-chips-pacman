@@ -6,10 +6,11 @@ import { useNavigate, useLocation } from 'react-router-dom';
 import { EndGameScreen } from 'components';
 import cn from 'classnames';
 import { FullscreenButton } from './FullscreenButton';
-import { useFetchUserQuery } from 'api';
+import { useFetchUserQuery, useAddUserToLeaderboardMutation } from 'api';
 import { formUserName } from 'utils/helpers';
 import { SoundButton } from './SoundButton';
 import { AudioElements, pauseAll, toggleMute } from './SoundConfig';
+import { GameResultForLeaderboard } from '../types';
 
 const START_COUNT = 3;
 const LIVES = 3;
@@ -40,6 +41,8 @@ export function GameBlock(): JSX.Element {
     }
   }, [isPaused]);
 
+  const [addUserToLeaderboard] = useAddUserToLeaderboardMutation();
+
   const reduceLives = () => {
     setLives(prev => prev - 1);
   };
@@ -56,10 +59,6 @@ export function GameBlock(): JSX.Element {
     return lives <= 0 || allPillsCollected;
   }, [lives, maximumPoints, points]);
 
-  const handleModalClose = () => {
-    navigate(ROUTES.MAIN);
-  };
-
   const resetCounter = () => {
     setCount(START_COUNT);
   };
@@ -67,7 +66,7 @@ export function GameBlock(): JSX.Element {
   // количество очков = собранные таблетки * на оставшиеся жизни + 5*(60 - потрченное время)
   const totalScore = useMemo(() => {
     const timeBonus = 5 * (60 - time) > 0 ? 5 * (60 - time) : 0;
-    return (points * (lives + 1) + timeBonus).toString();
+    return points * (lives + 1) + timeBonus;
   }, [points, lives, time]);
 
   useEffect(() => {
@@ -98,6 +97,36 @@ export function GameBlock(): JSX.Element {
     document.body.classList.add('blackBG');
     return () => document.body.classList.remove('blackBG');
   });
+
+  useEffect(() => {
+    const submitData: GameResultForLeaderboard = {
+      data: {
+        points: totalScore,
+        time: time,
+        userId: user?.id,
+        userNickname: formUserName(user, 'Guest'),
+        userAvatar: user?.avatar,
+      },
+      ratingFieldName: 'points',
+      teamName: 'chips',
+    };
+
+    const addResultToLeaderboard = async () => {
+      try {
+        await addUserToLeaderboard(submitData).unwrap();
+      } catch (err) {
+        throw new Error((err as Error).message);
+      }
+    };
+
+    if (gameIsOver) {
+      addResultToLeaderboard();
+    }
+  }, [gameIsOver]);
+
+  const handleModalClose = () => {
+    navigate(ROUTES.MAIN);
+  };
 
   return (
     <>

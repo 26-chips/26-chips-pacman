@@ -75,6 +75,23 @@ export const apiSlice = createApi({
       }),
       invalidatesTags: ['User'],
     }),
+
+    addUserToLeaderboard: builder.mutation({
+      query: data => ({
+        url: '/leaderboard',
+        method: 'POST',
+        body: data,
+        responseHandler: 'text',
+      }),
+    }),
+
+    getLeaderboard: builder.mutation({
+      query: data => ({
+        url: '/leaderboard/chips',
+        method: 'POST',
+        body: data,
+      }),
+    }),
   }),
 });
 
@@ -86,4 +103,6 @@ export const {
   useUpdatePasswordMutation,
   useUpdateAvatarMutation,
   useLogoutMutation,
+  useAddUserToLeaderboardMutation,
+  useGetLeaderboardMutation,
 } = apiSlice;
