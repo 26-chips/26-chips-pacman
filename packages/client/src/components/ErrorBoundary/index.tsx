@@ -4,6 +4,13 @@ import { useRouteError, isRouteErrorResponse } from 'react-router-dom';
 export const ErrorBoundary = () => {
   const error = useRouteError();
 
+  const errorProps404 = {
+    statusCode: '404',
+    errorText:
+      'Страница не найдена :(\nВозможно, вы ввели некорректный адрес, проверьте и попробуйте еще раз',
+    image: 'Blue',
+  };
+
   const serverErrorProps = {
     statusCode: '500',
     errorText:
@@ -20,7 +27,7 @@ export const ErrorBoundary = () => {
   if (isRouteErrorResponse(error)) {
     switch (error.status) {
       case 404:
-        return <ErrorPage />;
+        return <ErrorPage {...errorProps404} />;
       default:
         //@ts-ignore
         return <ErrorPage {...serverErrorProps} />;

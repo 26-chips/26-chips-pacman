@@ -17,7 +17,20 @@ export default defineConfig({
       output: {
         dir: 'ssr-dist',
       },
-      external: ['router'],
+    },
+  },
+  resolve: {
+    alias: {
+      components: path.resolve(__dirname, './src/components'),
+      pages: path.resolve(__dirname, './src/pages'),
+      router: path.resolve(__dirname, './src/router'),
+      style_constants: path.resolve(__dirname, './src/_constants.scss'),
+      assets: path.resolve(__dirname, 'src', 'assets'),
+      api: path.resolve(__dirname, 'src', 'api'),
+      hooks: path.resolve(__dirname, 'src', 'hooks'),
+      app: path.resolve(__dirname, 'src', 'app'),
+      hocs: path.resolve(__dirname, 'src', 'hocs'),
+      utils: path.resolve(__dirname, 'src', 'utils'),
     },
   },
 });
