@@ -2,12 +2,14 @@ import { ROUTES } from 'router';
 import { CanvasComponent } from 'components/Canvas/Canvas';
 import styles from './gameBlock.module.scss';
 import { useState, useEffect, useMemo } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 import { EndGameScreen } from 'components';
 import cn from 'classnames';
 import { FullscreenButton } from './FullscreenButton';
 import { useFetchUserQuery, useAddUserToLeaderboardMutation } from 'api';
 import { formUserName } from 'utils/helpers';
+import { SoundButton } from './SoundButton';
+import { AudioElements, pauseAll, toggleMute } from './SoundConfig';
 import { GameResultForLeaderboard } from '../types';
 
 const START_COUNT = 3;
@@ -23,6 +25,21 @@ export function GameBlock(): JSX.Element {
   const [count, setCount] = useState(START_COUNT);
   const [isPaused, setIsPaused] = useState(true);
   const [maximumPoints, setMaximumPoints] = useState(0);
+
+  const location = useLocation();
+
+  // pause all sounds when exit /game
+  useEffect(() => {
+    pauseAll();
+  }, [location]);
+
+  useEffect(() => {
+    if (isPaused) {
+      AudioElements.gameLoop.pause();
+    } else {
+      AudioElements.gameLoop.play();
+    }
+  }, [isPaused]);
 
   const [addUserToLeaderboard] = useAddUserToLeaderboardMutation();
 
@@ -127,8 +144,9 @@ export function GameBlock(): JSX.Element {
           <span className={styles.gameInfoCount}>{time}</span>
         </p>
       </div>
-      <div className={styles.fullscreenIconContainer}>
+      <div className={styles.iconContainer}>
         <FullscreenButton />
+        <SoundButton toggleMute={toggleMute} />
       </div>
       <div className={cn(styles.canvasContainer, isPaused && styles.paused)}>
         {
