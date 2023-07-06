@@ -8,7 +8,6 @@
 .authorization {
   box-sizing: border-box;
   width: 360px;
-  height: 388px;
   border: 2px solid $blue;
   border-radius: 12px;
   margin: 0 auto;
@@ -26,5 +25,12 @@
     gap: 20px;
     align-items: center;
     margin-top: 57px;
+  }
+
+  .yandexButtonContent {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
   }
 }

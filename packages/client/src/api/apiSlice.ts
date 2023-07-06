@@ -92,6 +92,26 @@ export const apiSlice = createApi({
         body: data,
       }),
     }),
+    // prettier-ignore
+    fetchYandexServiceId: builder.mutation<{ service_id: string }, { redirect_uri: string }>({
+      query: data => ({
+        url: `/oauth/yandex/service-id?redirect_uri=${encodeURIComponent(
+          data.redirect_uri
+        )}`,
+        method: 'GET',
+      }),
+    }),
+
+    OAuthYandex: builder.mutation<void, { code: string; redirect_uri: string }>(
+      {
+        query: data => ({
+          url: '/oauth/yandex',
+          method: 'POST',
+          body: data,
+        }),
+        invalidatesTags: ['User'],
+      }
+    ),
   }),
 });
 
@@ -105,4 +125,6 @@ export const {
   useLogoutMutation,
   useAddUserToLeaderboardMutation,
   useGetLeaderboardMutation,
+  useFetchYandexServiceIdMutation,
+  useOAuthYandexMutation,
 } = apiSlice;
