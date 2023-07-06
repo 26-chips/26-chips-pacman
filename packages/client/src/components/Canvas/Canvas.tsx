@@ -8,6 +8,7 @@ import { loadImage } from './resources';
 import { Pacman } from './Pacman';
 import { Enemy } from './Enemy';
 import { Sprite } from './Sprite';
+import { AudioElements, pauseAll } from 'pages/GamePage/Components/SoundConfig';
 
 type Props = {
   setTime: (value: number) => void;
@@ -70,6 +71,7 @@ export function CanvasComponent({
           break;
         case 'Space':
           if (!isCountDown) {
+            pauseAll();
             setIsPaused(current => !current);
           }
           break;
@@ -79,6 +81,7 @@ export function CanvasComponent({
   );
 
   const handleDeath = () => {
+    AudioElements.fail.play();
     document.removeEventListener('keydown', handleKeyboard);
     deathIsProcessing.current = true;
     const { x, y } = pacmanRef.current.getPosition();
@@ -135,9 +138,11 @@ export function CanvasComponent({
           // TODO возможно заменить на dispatch евента внутри класса
           if (block.checkCollisions(x, y)) {
             if (block instanceof Pill) {
+              AudioElements.crack.play();
               setPoints((prev: number) => prev + smallPillPoints);
             }
             if (block instanceof BigPill) {
+              AudioElements.bonus.play();
               setPoints((prev: number) => prev + bigPillPoints);
             }
           }
@@ -227,6 +232,7 @@ export function CanvasComponent({
   }, [isCountDown]);
 
   useEffect(() => {
+    AudioElements.win.play();
     document.removeEventListener('keydown', handleKeyboard);
   }, [allPillsCollected]);
 

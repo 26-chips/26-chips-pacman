@@ -10,7 +10,7 @@ export default {
   },
   moduleNameMapper: {
     '\\.(scss)$': 'identity-obj-proxy',
-    '\\.(jpg|png|gif|svg)$': '<rootDir>/file.mock.js',
+    '\\.(jpg|png|gif|svg|mp3)$': '<rootDir>/file.mock.js',
     '^components(.*)$': '<rootDir>/src/components$1',
     '^router(.*)$': '<rootDir>/src/router$1',
     '^pages(.*)$': '<rootDir>/src/pages$1',
