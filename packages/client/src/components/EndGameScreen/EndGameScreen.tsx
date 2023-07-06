@@ -3,7 +3,7 @@ import { EndGameComponent } from './EndGameComponent';
 
 export interface EndGameComponentProps {
   username: string;
-  score: string;
+  score: number;
   show: boolean;
   onClose: () => void;
   className?: string;
