@@ -42,7 +42,7 @@ async function startServer() {
   app.use('*', async (req, res, next) => {
     const url = req.originalUrl;
 
-    browserEnv(['document', 'window', 'navigator', 'Image']);
+    browserEnv(['document', 'window', 'navigator', 'Image', 'Audio']);
 
     try {
       let template = fs.readFileSync(
