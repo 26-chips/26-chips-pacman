@@ -95,7 +95,7 @@ export const apiSlice = createApi({
     // prettier-ignore
     fetchYandexServiceId: builder.mutation<{ service_id: string }, { redirect_uri: string }>({
       query: data => ({
-        url: `https://ya-praktikum.tech/api/v2/oauth/yandex/service-id?redirect_uri=${encodeURIComponent(
+        url: `/oauth/yandex/service-id?redirect_uri=${encodeURIComponent(
           data.redirect_uri
         )}`,
         method: 'GET',
@@ -105,7 +105,7 @@ export const apiSlice = createApi({
     OAuthYandex: builder.mutation<void, { code: string; redirect_uri: string }>(
       {
         query: data => ({
-          url: 'https://ya-praktikum.tech/api/v2/oauth/yandex',
+          url: '/oauth/yandex',
           method: 'POST',
           body: data,
         }),
