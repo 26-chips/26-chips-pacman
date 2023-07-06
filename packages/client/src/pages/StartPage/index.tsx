@@ -1,7 +1,6 @@
 import styles from './startPage.module.scss';
 import { Button } from 'components';
 import Logo from 'assets/img/Mainpage.svg';
-import { ROUTES } from 'router';
 import { Link } from 'react-router-dom';
 import { useFetchUserQuery } from 'api';
 import { formUserName } from 'utils/helpers';
