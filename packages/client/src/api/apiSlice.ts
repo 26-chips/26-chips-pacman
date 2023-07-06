@@ -7,11 +7,20 @@ import type {
   PasswordData,
 } from 'app/types';
 
+const REDIRECT_URI = 'http://localhost:3001';
+
 export const apiSlice = createApi({
   reducerPath: 'api',
   baseQuery: fetchBaseQuery({
-    baseUrl: 'https://ya-praktikum.tech/api/v2',
+    baseUrl: `${REDIRECT_URI}/api/v2`,
     credentials: 'include',
+    prepareHeaders: (headers, { extra }) => {
+      if (extra) {
+        headers.set('cookie', extra as string);
+      }
+
+      return headers;
+    },
   }),
   tagTypes: ['User'],
   endpoints: builder => ({
@@ -85,7 +94,7 @@ export const apiSlice = createApi({
       }),
     }),
 
-    getLeaderboard: builder.mutation({
+    getLeaderboard: builder.query({
       query: data => ({
         url: '/leaderboard/chips',
         method: 'POST',
@@ -124,7 +133,7 @@ export const {
   useUpdateAvatarMutation,
   useLogoutMutation,
   useAddUserToLeaderboardMutation,
-  useGetLeaderboardMutation,
+  useGetLeaderboardQuery,
   useFetchYandexServiceIdMutation,
   useOAuthYandexMutation,
 } = apiSlice;

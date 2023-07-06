@@ -18,8 +18,5 @@
     "baseUrl": "./src"
   },
   "include": ["src", "ssr.tsx"],
-  "references": [{ "path": "./tsconfig.node.json" }],
-  "rules": {
-    "@typescript-eslint/no-non-null-assertion": "off"
-  }
+  "references": [{ "path": "./tsconfig.node.json" }]
 }

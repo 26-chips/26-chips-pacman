@@ -1,8 +1,7 @@
 import App from '../App';
 import { render, waitFor } from '@testing-library/react';
 import { Provider } from 'react-redux';
-import { store } from 'app/store';
-import { BrowserRouter } from 'react-router-dom';
+import { createStore } from 'app/store';
 
 const appContent = 'Наш github репозиторий';
 
@@ -13,11 +12,9 @@ global.fetch = jest.fn(() =>
 
 test('Example test', async () => {
   const app = render(
-    <BrowserRouter>
-      <Provider store={store}>
-        <App />
-      </Provider>
-    </BrowserRouter>
+    <Provider store={createStore()}>
+      <App />
+    </Provider>
   );
 
   await waitFor(() => expect(app.getByText(appContent)).toBeDefined());

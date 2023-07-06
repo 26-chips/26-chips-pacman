@@ -1,17 +1,10 @@
-import { Route, Routes } from 'react-router-dom';
-import { paths } from 'router';
-import styles from './styles.module.scss';
+import { RouterProvider, createBrowserRouter } from 'react-router-dom';
+import { routes } from 'router';
+
+const router = createBrowserRouter(routes);
 
 function App() {
-  return (
-    <div className={styles.app}>
-      <Routes>
-        {paths.map(route => {
-          return <Route key={route.path} {...route} />;
-        })}
-      </Routes>
-    </div>
-  );
+  return <RouterProvider router={router} />;
 }
 
 export default App;
