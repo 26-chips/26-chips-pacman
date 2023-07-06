@@ -125,7 +125,7 @@ export const UIPage: FunctionComponent = () => {
           username="IvanovI"
           show={showEndGame}
           onClose={() => toggleEndGame(false)}
-          score={Math.trunc(Math.random() * 1000).toString()}
+          score={Math.trunc(Math.random() * 1000)}
           elapsedTimeSec={Math.trunc(Math.random() * 1000).toString()}
         />
       </div>
