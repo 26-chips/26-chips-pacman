@@ -15,7 +15,7 @@ async function startServer() {
   const distPath = path.dirname(
     path.resolve('node_modules/client/dist/index.html')
   );
-  const srcPath = path.dirname(path.resolve('node_modules/client'));
+  const srcPath = path.resolve('node_modules/client');
   const ssrDistPath = path.resolve('node_modules/client/ssr-dist/client.cjs');
   const port = Number(process.env.SERVER_PORT) || 3001;
   const isDev = process.env.NODE_ENV === 'development';
