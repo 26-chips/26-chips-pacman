@@ -10,7 +10,12 @@
     "test": "lerna run test",
     "lint": "lerna run lint",
     "format": "lerna run format",
-    "preview": "lerna run preview"
+    "preview": "lerna run preview",
+    "pgadmin": "docker compose -f docker-compose.pgadmin.yml up",
+    "pgadmin-detach": "docker compose -f docker-compose.pgadmin.yml up -d",
+    "pgadmin-build": "docker compose -f docker-compose.pgadmin.yml build",
+    "docker-stop-all": "docker stop $(docker ps -aq)",
+    "docker-delete-images": "docker rmi $(docker images -q)"
   },
   "license": "MIT",
   "workspaces": [
