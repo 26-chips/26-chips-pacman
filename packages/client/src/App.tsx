@@ -1,19 +1,18 @@
-import { useEffect } from 'react';
 import { RouterProvider } from 'react-router-dom';
 import { router } from 'router';
 import styles from './styles.module.scss';
+import { useEffect, useState } from 'react';
 
 function App() {
-  useEffect(() => {
-    const fetchServerData = async () => {
-      const url = `http://localhost:${__SERVER_PORT__ || 3001}/api`;
-      const response = await fetch(url);
-      const data = await response.json();
-      console.log(data);
-    };
+  const [firstRender, setFirstRender] = useState(true);
 
-    fetchServerData();
+  useEffect(() => {
+    setFirstRender(false);
   }, []);
+
+  if (firstRender) {
+    return null;
+  }
 
   return (
     <div className={styles.app}>

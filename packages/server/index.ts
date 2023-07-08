@@ -49,6 +49,7 @@ async function startServer() {
         path.resolve(isDev ? srcPath : distPath, 'index.html'),
         'utf-8'
       );
+
       let render: () => Promise<string>;
 
       if (isDev) {
@@ -74,10 +75,6 @@ async function startServer() {
   });
 
   // createClientAndConnect();
-
-  app.get('/api', (_, res) => {
-    res.json('👋 Howdy from the server :)');
-  });
 
   app.listen(port, () => {
     console.log(`  ➜ 🎸 Server is listening on port: ${port}`);
