@@ -1,5 +1,5 @@
 import { Sequelize, SequelizeOptions } from 'sequelize-typescript';
-
+import { User } from './models/user';
 const { POSTGRES_USER, POSTGRES_PASSWORD, POSTGRES_DB, POSTGRES_PORT } =
   process.env;
 
@@ -13,6 +13,7 @@ const sequelizeOptions: SequelizeOptions = {
 };
 
 export const sequelize = new Sequelize(sequelizeOptions);
+sequelize.addModels([User]);
 
 export async function dbConnect() {
   try {
