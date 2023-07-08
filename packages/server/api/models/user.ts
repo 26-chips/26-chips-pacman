@@ -9,23 +9,23 @@ import {
   DataType,
   AllowNull,
   Unique,
-  ForeignKey,
-  AfterBulkCreate,
 } from 'sequelize-typescript';
-import { ModelAttributes } from 'sequelize/types';
 
-export interface IUser {
+export type UserType = {
   id: number;
   name: string;
-  avatar_url?: string;
-}
+  avatarUrl?: string;
+};
+
+export type CreateUserType = Omit<UserType, 'id'>;
 
 @Table({
-  timestamps: true,
+  createdAt: false,
+  updatedAt: false,
   underscored: true,
   tableName: 'users',
 })
-export class User extends Model<IUser> {
+export class User extends Model<UserType, CreateUserType> {
   @AutoIncrement
   @Unique
   @PrimaryKey
@@ -38,5 +38,5 @@ export class User extends Model<IUser> {
 
   @AllowNull(true)
   @Column(DataType.STRING)
-  avatar_url: string;
+  avatarUrl: string;
 }

@@ -5,11 +5,17 @@ import fs from 'fs';
 //@ts-ignore
 import browserEnv from 'browser-env';
 import { createServer, ViteDevServer } from 'vite';
+import { dbConnect } from './api/db';
+import { apiRouter } from './api/router/router';
+import bodyParser from 'body-parser';
 
 dotenv.config();
 
 import express from 'express';
 // import { createClientAndConnect } from './db';
+
+//const app = express();
+
 
 async function startServer() {
   const distPath = path.dirname(require.resolve('client/dist/index.html'));
@@ -20,6 +26,7 @@ async function startServer() {
   let vite: ViteDevServer | undefined;
 
   const app = express();
+  dbConnect();
 
   app.use(cors());
 
@@ -75,6 +82,11 @@ async function startServer() {
   });
 
   // createClientAndConnect();
+
+  const bParser = bodyParser.json();
+
+  app.use(cors()).use(bParser).use('/api', apiRouter);
+
 
   app.listen(port, () => {
     console.log(`  ➜ 🎸 Server is listening on port: ${port}`);
