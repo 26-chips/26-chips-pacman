@@ -13,25 +13,26 @@ import {
   BelongsTo,
 } from 'sequelize-typescript';
 
-import { User } from '.';
+import { User, Topic } from '.';
 
-export type TopicType = {
+export type CommentType = {
   id: string;
-  title: string;
+  text: string;
   authorId: number;
   createdAt: Date;
-  updatedAt: Date;
+  topicId: number;
+  parentCommentId?: string;
 };
 
-export type CreateTopicType = Omit<TopicType, 'id' | 'createdAt' | 'updatedAt'>;
+export type CreateCommentType = Omit<CommentType, 'id' | 'createdAt'>;
 
 @Table({
   createdAt: true,
-  updatedAt: true,
+  updatedAt: false,
   underscored: true,
-  tableName: 'topics',
+  tableName: 'comments',
 })
-export class Topic extends Model<TopicType, CreateTopicType> {
+export class Comment extends Model<CommentType, CreateCommentType> {
   @AutoIncrement
   @Unique
   @PrimaryKey
@@ -40,7 +41,11 @@ export class Topic extends Model<TopicType, CreateTopicType> {
 
   @AllowNull(false)
   @Column(DataType.STRING)
-  title: string;
+  text: string;
+
+  @AllowNull(true)
+  @Column(DataType.STRING)
+  parentCommentId: string;
 
   @ForeignKey(() => User)
   @AllowNull(false)
@@ -52,4 +57,17 @@ export class Topic extends Model<TopicType, CreateTopicType> {
 
   @BelongsTo(() => User)
   user: User;
+
+  @ForeignKey(() => Topic)
+  @AllowNull(false)
+  @Column({
+    type: DataType.INTEGER,
+    field: 'topic_id',
+  })
+  topicId: number;
+
+  @BelongsTo(() => Topic, {
+    onDelete: 'CASCADE',
+  })
+  topic: Topic;
 }
