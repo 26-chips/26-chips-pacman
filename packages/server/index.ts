@@ -50,7 +50,7 @@ async function startServer() {
         'utf-8'
       );
 
-      let render: () => Promise<string>;
+      let render: (url: string) => Promise<string>;
 
       if (isDev) {
         template = await vite!.transformIndexHtml(url, template);
@@ -60,7 +60,7 @@ async function startServer() {
         render = (await import(ssrDistPath)).render;
       }
 
-      const appHTML = await render();
+      const appHTML = await render(url);
 
       const html = template.replace('<!--ssr-content-->', appHTML);
 

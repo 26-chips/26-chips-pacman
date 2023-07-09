@@ -1,11 +1,15 @@
-import { RouterProvider } from 'react-router-dom';
-import { router } from 'router';
+import { Route, Routes } from 'react-router-dom';
+import { paths } from 'router';
 import styles from './styles.module.scss';
 
 function App() {
   return (
     <div className={styles.app}>
-      <RouterProvider router={router} />
+      <Routes>
+        {paths.map(route => {
+          return <Route key={route.path} {...route} />;
+        })}
+      </Routes>
     </div>
   );
 }

@@ -5,9 +5,9 @@ import { useNavigate } from 'react-router-dom';
 import { ROUTES } from 'router';
 
 export interface ErrorPageProps {
-  statusCode: string;
-  errorText: string;
-  image: string;
+  statusCode?: string;
+  errorText?: string;
+  image?: string;
 }
 
 export const ErrorPage = ({
