@@ -20,9 +20,40 @@ export const StartPage = () => {
     }
   };
 
+  const fetchLeaderbord = async () => {
+    try {
+      const response = await fetch('/api/v2/auth/user', {
+        credentials: 'include',
+      });
+      const data = await response.json();
+      console.log(data);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  const auth = async () => {
+    try {
+      const response = await fetch('/api/v2/auth/signin', {
+        method: 'POST',
+        credentials: 'include',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ login: 'Futuringer523', password: '324334aA' }),
+      });
+      const data = await response.json();
+      console.log(data);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
   return (
     <div className={styles.container}>
       <button onClick={fetchUser}>13212313</button>
+      <button onClick={fetchLeaderbord}>333333</button>
+      <button onClick={auth}>55555</button>
       <div className={styles.imageContainer}>
         <img
           src={Logo}

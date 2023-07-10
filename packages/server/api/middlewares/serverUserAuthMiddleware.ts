@@ -21,32 +21,3 @@ export const helloMiddleware = async (
   console.log('HELLO');
   next();
 };
-
-// const isAuthUser = (res: Response) => {
-//   if (res.locals.user !== undefined && res.locals.user !== null) return true;
-//   return false;
-// };
-
-// export const isAuthMiddleware = (
-//   _req: Request,
-//   res: Response,
-//   next: NextFunction
-// ) => {
-//   if (isAuthUser(res)) {
-//     next();
-//   } else {
-//     res.status(401).send('not authorized');
-//   }
-// };
-
-// export const proxyAuth = (
-//   _req: Request,
-//   res: Response,
-//   next: NextFunction
-// ) => {
-//   if (isAuthUser(res)) {
-//     next();
-//   } else {
-//     res.status(401).send('not authorized');
-//   }
-// };

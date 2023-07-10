@@ -21,7 +21,9 @@ dotenv.config();
 import express from 'express';
 import cors from 'cors';
 //import { createClientAndConnect } from './db';
-
+// import {
+//   createProxyMiddleware,
+// } from 'http-proxy-middleware';
 //const app = express();
 
 async function startServer() {
@@ -48,7 +50,7 @@ async function startServer() {
   if (!isDev) {
     app.use('/assets', express.static(path.resolve(distPath, 'assets')));
     app.use('/app.js', express.static(path.resolve(distPath, 'app.js')));
-    app.use('/sw.js', express.static(path.resolve(distPath, 'sw.js')));
+    // app.use('/sw.js', express.static(path.resolve(distPath, 'sw.js')));
   }
 
   dbConnect();
@@ -57,45 +59,44 @@ async function startServer() {
 
     .use(cookieParser())
     .use(bParser)
-    // .use(serverUserAuthMiddleware)
+    .use('/api/v2/auth', proxyMiddleware)
     .use(helloMiddleware)
-    .use(proxyMiddleware)
-    .use('/api3', apiRouter);
+    .use('/api', apiRouter)
+    .use('*', async (req, res, next) => {
+      const url = req.originalUrl;
+      console.log('***');
+      browserEnv(['document', 'window', 'navigator', 'Image', 'Audio']);
 
-  app.use('*', async (req, res, next) => {
-    const url = req.originalUrl;
+      try {
+        let template = fs.readFileSync(
+          path.resolve(isDev ? srcPath : distPath, 'index.html'),
+          'utf-8'
+        );
 
-    browserEnv(['document', 'window', 'navigator', 'Image', 'Audio']);
+        let render: () => Promise<string>;
 
-    try {
-      let template = fs.readFileSync(
-        path.resolve(isDev ? srcPath : distPath, 'index.html'),
-        'utf-8'
-      );
+        if (isDev) {
+          template = await vite!.transformIndexHtml(url, template);
+          render = (await vite!.ssrLoadModule(path.resolve(srcPath, 'ssr.tsx')))
+            .render;
+        } else {
+          render = (await import(ssrDistPath)).render;
+        }
 
-      let render: () => Promise<string>;
+        const appHTML = await render();
 
-      if (isDev) {
-        template = await vite!.transformIndexHtml(url, template);
-        render = (await vite!.ssrLoadModule(path.resolve(srcPath, 'ssr.tsx')))
-          .render;
-      } else {
-        render = (await import(ssrDistPath)).render;
+        const html = template.replace('<!--ssr-content-->', appHTML);
+
+        res.status(200).set({ 'Content-Type': 'text/html' }).end(html);
+      } catch (e) {
+        if (isDev) {
+          vite!.ssrFixStacktrace(e as Error);
+        } else {
+          next(e);
+        }
       }
+    });
 
-      const appHTML = await render();
-
-      const html = template.replace('<!--ssr-content-->', appHTML);
-
-      res.status(200).set({ 'Content-Type': 'text/html' }).end(html);
-    } catch (e) {
-      if (isDev) {
-        vite!.ssrFixStacktrace(e as Error);
-      } else {
-        next(e);
-      }
-    }
-  });
   app.listen(port, () => {
     console.log(`  ➜ 🎸 Server is listening on port: ${port}`);
   });
