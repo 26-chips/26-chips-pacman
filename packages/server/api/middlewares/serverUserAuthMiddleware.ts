@@ -1,56 +1,52 @@
 import { NextFunction, Request, Response } from 'express';
-import axios from 'axios';
+// import axios from 'axios';
 
-const PRAKTIKUM_AUTH_ENDPOINT = 'https://ya-praktikum.tech/api/v2/auth/user';
+// const PRAKTIKUM_AUTH_ENDPOINT = 'https://ya-praktikum.tech/api/v2/auth/user';
 
 export const serverUserAuthMiddleware = async (
   request: Request,
-  response: Response,
+  _response: Response,
   next: NextFunction
 ): Promise<void> => {
   console.log('REQUEST', request?.cookies);
-  const authData = {
-    uuid: request?.cookies?.uuid,
-    authCookie: request?.cookies?.authCookie,
-  };
-
-  response.locals.user = null;
-
-  if (authData.authCookie && authData.uuid) {
-    const cookies = Object.entries(authData)
-      .map(([key, value]) => `${key}=${value}`)
-      .join(';');
-
-    try {
-      const { data } = await axios.get(PRAKTIKUM_AUTH_ENDPOINT, {
-        headers: { Cookie: cookies },
-      });
-
-      response.locals.user = data;
-      response.locals.cookies = cookies;
-    } catch (err) {
-      response.locals.user = null;
-      // eslint-disable-next-line no-console
-      console.error('error', err);
-    }
-  }
-
+  console.log('REQUEST', request?.headers?.cookie);
   next();
 };
 
-const isAuthUser = (res: Response) => {
-  if (res.locals.user !== undefined && res.locals.user !== null) return true;
-  return false;
+export const helloMiddleware = async (
+  _request: Request,
+  _response: Response,
+  next: NextFunction
+): Promise<void> => {
+  console.log('HELLO');
+  next();
 };
 
-export const isAuthMiddleware = (
-  _req: Request,
-  res: Response,
-  next: NextFunction
-) => {
-  if (isAuthUser(res)) {
-    next();
-  } else {
-    res.status(401).send('not authorized');
-  }
-};
+// const isAuthUser = (res: Response) => {
+//   if (res.locals.user !== undefined && res.locals.user !== null) return true;
+//   return false;
+// };
+
+// export const isAuthMiddleware = (
+//   _req: Request,
+//   res: Response,
+//   next: NextFunction
+// ) => {
+//   if (isAuthUser(res)) {
+//     next();
+//   } else {
+//     res.status(401).send('not authorized');
+//   }
+// };
+
+// export const proxyAuth = (
+//   _req: Request,
+//   res: Response,
+//   next: NextFunction
+// ) => {
+//   if (isAuthUser(res)) {
+//     next();
+//   } else {
+//     res.status(401).send('not authorized');
+//   }
+// };

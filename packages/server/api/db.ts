@@ -1,14 +1,21 @@
 import { Sequelize, SequelizeOptions } from 'sequelize-typescript';
 import { User, Topic, Comment } from './models';
-const { POSTGRES_USER, POSTGRES_PASSWORD, POSTGRES_DB, POSTGRES_PORT } =
-  process.env;
+// const { POSTGRES_USER, POSTGRES_PASSWORD, POSTGRES_DB, POSTGRES_PORT } =
+//   process.env;
+
+// CLIENT_PORT=3000
+// SERVER_PORT=3001
+// POSTGRES_USER=postgres
+// POSTGRES_PASSWORD=324334aa
+// POSTGRES_DB=postgres
+// POSTGRES_PORT=5432
 
 const sequelizeOptions: SequelizeOptions = {
   host: 'localhost',
-  port: Number(POSTGRES_PORT),
-  username: POSTGRES_USER,
-  password: POSTGRES_PASSWORD,
-  database: POSTGRES_DB,
+  port: Number(5432),
+  username: 'postgres',
+  password: '324334aa',
+  database: 'postgres',
   dialect: 'postgres', // 'mysql', 'sqlite', 'mariadb', 'mssql'
 };
 

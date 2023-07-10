@@ -8,8 +8,21 @@ import { formUserName } from 'utils/helpers';
 export const StartPage = () => {
   const { data: user } = useFetchUserQuery();
 
+  const fetchUser = async () => {
+    try {
+      const response = await fetch('http://localhost:3001/api/user?id=1', {
+        credentials: 'include',
+      });
+      const data = await response.json();
+      console.log(data);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
   return (
     <div className={styles.container}>
+      <button onClick={fetchUser}>13212313</button>
       <div className={styles.imageContainer}>
         <img
           src={Logo}
