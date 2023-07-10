@@ -13,7 +13,6 @@ import {
   watchCookiesMW,
 } from './api/middlewares/watchCookiesMW';
 import { proxyMW } from './api/middlewares/proxyMW';
-//import { apiProxy } from './api/middlewares/proxy';
 // eslint-disable-next-line @typescript-eslint/no-var-requires
 const cookieParser = require('cookie-parser');
 dotenv.config();
