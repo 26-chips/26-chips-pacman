@@ -5,9 +5,9 @@ import {
   responseInterceptor,
 } from 'http-proxy-middleware';
 
-export const proxyMiddleware: RequestHandler = createProxyMiddleware({
+export const proxyMW: RequestHandler = createProxyMiddleware({
   target: 'https://ya-praktikum.tech',
-  // pathRewrite: { '^/api/v2': '/v2' },
+  secure: true,
   changeOrigin: true,
   cookieDomainRewrite: 'localhost',
   selfHandleResponse: true,

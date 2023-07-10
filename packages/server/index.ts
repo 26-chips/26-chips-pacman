@@ -10,9 +10,9 @@ import { apiRouter } from './api/router/router';
 import bodyParser from 'body-parser';
 import {
   //serverUserAuthMiddleware,
-  helloMiddleware,
-} from './api/middlewares/serverUserAuthMiddleware';
-import { proxyMiddleware } from './api/middlewares/proxy';
+  watchCookiesMW,
+} from './api/middlewares/watchCookiesMW';
+import { proxyMW } from './api/middlewares/proxyMW';
 //import { apiProxy } from './api/middlewares/proxy';
 // eslint-disable-next-line @typescript-eslint/no-var-requires
 const cookieParser = require('cookie-parser');
@@ -56,11 +56,10 @@ async function startServer() {
   dbConnect();
   app
     .use(cors())
-
     .use(cookieParser())
     .use(bParser)
-    .use('/api/v2/auth', proxyMiddleware)
-    .use(helloMiddleware)
+    .use(watchCookiesMW)
+    .use('/api/v2/auth', proxyMW)
     .use('/api', apiRouter)
     .use('*', async (req, res, next) => {
       const url = req.originalUrl;

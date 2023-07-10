@@ -51,9 +51,9 @@ export const StartPage = () => {
 
   return (
     <div className={styles.container}>
-      <button onClick={fetchUser}>13212313</button>
-      <button onClick={fetchLeaderbord}>333333</button>
-      <button onClick={auth}>55555</button>
+      <button onClick={fetchUser}>BD</button>
+      <button onClick={fetchLeaderbord}>USER</button>
+      <button onClick={auth}>AUTH</button>
       <div className={styles.imageContainer}>
         <img
           src={Logo}
