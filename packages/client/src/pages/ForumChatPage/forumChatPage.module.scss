@@ -13,39 +13,39 @@
   border-top: 1px solid $blue;
 }
 
-.chat-container {
+.chatContainer {
   display: flex;
   max-width: 1280px;
   margin: auto;
   height: 100%;
 }
 
-.back-area {
+.backArea {
   position: relative;
   padding-top: 30px;
   padding-right: 40px;
   border-right: 1px solid $blue;
 }
 
-.chat-content {
+.chatContent {
   padding-top: 30px;
   padding-left: 20px;
   width: 100%;
 }
 
-.chat-title {
+.chatTitle {
   margin: 0;
   font-size: 18px;
   font-weight: 700;
 }
 
-.chat-content-header {
+.chatContentHeader {
   display: flex;
   justify-content: space-between;
   width: 100%;
 }
 
-.participants-list-btn {
+.participantsListBtn {
   position: relative;
   display: flex;
   align-items: center;
@@ -58,7 +58,7 @@
   cursor: pointer;
 }
 
-.chat-wrapper {
+.chatWrapper {
   display: flex;
   flex-direction: column;
   margin-top: 30px;
@@ -71,7 +71,7 @@
   overflow-y: auto;
 }
 
-.chat-date {
+.chatDate {
   margin-bottom: 21px;
   color: $white;
   font-size: 12px;
@@ -101,7 +101,7 @@
   }
 }
 
-.submit-button {
+.submitButton {
   cursor: pointer;
   width: 100%;
   max-width: 57px;

@@ -34,12 +34,12 @@
   color: $white;
 }
 
-.table-container {
+.tableContainer {
   display: flex;
   flex-direction: column;
 }
 
-.button-add-theme {
+.buttonAddTheme {
   display: flex;
   font-size: 16px;
   align-items: center;
@@ -55,6 +55,6 @@
   }
 }
 
-.button-add-theme-title {
+.buttonAddThemeTitle {
   margin: 0;
 }
