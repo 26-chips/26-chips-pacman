@@ -42,5 +42,5 @@ module.exports = {
       },
     },
   ],
-  ignorePatterns: ['.eslintrc.js', '*.config.*']
+  ignorePatterns: ['.eslintrc.js', '*.config.*', 'dist', 'ssr-dist']
 };

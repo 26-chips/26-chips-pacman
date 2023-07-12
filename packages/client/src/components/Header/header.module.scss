@@ -15,18 +15,18 @@
   justify-content: space-between;
 }
 
-.back-button {
+.backButton {
   display: flex;
   column-gap: 8px;
 }
 
 .link,
-.link-active {
+.linkActive {
   text-decoration: none;
   color: $white;
 }
 
-.link-active {
+.linkActive {
   font-weight: 700;
 }
 
@@ -37,6 +37,6 @@
   align-items: end;
 }
 
-.switch-container {
+.switchContainer {
   padding-right: 10px;
 }

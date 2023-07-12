@@ -20,6 +20,7 @@ export default {
     '^hocs(.*)$': '<rootDir>/src/hocs$1',
     '^hooks(.*)$': '<rootDir>/src/hooks$1',
     '^utils(.*)$': '<rootDir>/src/utils$1',
+    '^assets(.*)$': '<rootDir>/src/assets$1',
   },
   setupFilesAfterEnv: ['./tests.config.ts'],
 };

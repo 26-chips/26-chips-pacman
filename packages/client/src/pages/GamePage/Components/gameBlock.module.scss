@@ -19,7 +19,7 @@
   background-color: rgba(10 7 8 / 50%);
 }
 
-.overlay-content {
+.overlayContent {
   margin: auto;
   color: $white;
 }
@@ -37,14 +37,14 @@
   height: 50px;
 }
 
-.icon-container {
+.iconContainer {
   position: absolute;
   display: grid;
   z-index: 10;
   margin-left: 60px;
 }
 
-.game-control {
+.gameControl {
   display: flex;
   flex-direction: column;
   row-gap: 15px;
@@ -56,11 +56,11 @@
   margin-left: 60px;
 }
 
-.game-info {
+.gameInfo {
   font-size: 20px;
   margin: 0;
 
-  &-count {
+  &Count {
     font-family: LexendPeta, sans-serif;
     font-weight: 700;
     margin-left: 10px;

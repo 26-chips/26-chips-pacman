@@ -4,7 +4,9 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "tsc && vite build",
+    "build:client": "tsc && vite build",
+    "build:ssr": " rimraf ./ssr-dist && tsc && vite build --config ssr.config.ts",
+    "build": "yarn build:ssr && yarn build:client",
     "preview": "vite preview",
     "lint": "eslint . && stylelint .",
     "format": "prettier --write .",
@@ -44,6 +46,7 @@
     "lefthook": "^1.3.9",
     "prettier": "^2.7.1",
     "react-test-renderer": "^18.2.0",
+    "rimraf": "^5.0.1",
     "sass": "^1.62.1",
     "stylelint": "^15.6.2",
     "stylelint-config-standard-scss": "^9.0.0",

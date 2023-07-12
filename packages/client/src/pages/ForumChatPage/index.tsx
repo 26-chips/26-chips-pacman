@@ -1,4 +1,4 @@
-import { FunctionComponent, useState } from 'react';
+import { useState } from 'react';
 import styles from './forumChatPage.module.scss';
 import iconArrowBack from 'assets/icons/icon-arrow-back.svg';
 import { Link } from 'react-router-dom';
@@ -13,7 +13,8 @@ import { MessageLayoutType } from './types';
 const MessageMockServer: MessageLayoutType[] = [
   {
     name: 'petrov',
-    message: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris',
+    message:
+      'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris',
     avatar: defaultAvatar,
     time: '11:32',
   },
@@ -37,7 +38,7 @@ const MessageMockServer: MessageLayoutType[] = [
   },
 ];
 
-const ForumChatPage = () => {
+export const ForumChatPage = () => {
   const [showParticipantsList, setShowParticipantsList] = useState(false);
 
   const handleShowParticipantsList = () => {
@@ -72,7 +73,7 @@ const ForumChatPage = () => {
           <div className={styles.chatWrapper}>
             <div className={styles.messages}>
               <p className={styles.chatDate}>19 июня, 2022</p>
-              {MessageMockServer.map((item) =>
+              {MessageMockServer.map(item => (
                 <MessageLayout
                   name={item.name}
                   message={item.message}
@@ -81,7 +82,7 @@ const ForumChatPage = () => {
                   emojis={item.emojis}
                   isInterlocutor={item.isInterlocutor}
                 />
-              )}
+              ))}
             </div>
             <form className={styles.form}>
               <input placeholder="Сообщение" className={styles.input} />
@@ -95,5 +96,3 @@ const ForumChatPage = () => {
     </div>
   );
 };
-
-export default ForumChatPage as FunctionComponent;

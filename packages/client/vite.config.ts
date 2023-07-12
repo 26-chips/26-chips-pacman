@@ -12,7 +12,7 @@ export default defineConfig({
     host: '0.0.0.0',
   },
   define: {
-    __SERVER_PORT__: process.env.SERVER_PORT,
+    __SERVER_PORT__: process.env.SERVER_PORT || 3001,
   },
   plugins: [react(), stylelint()],
   resolve: {
