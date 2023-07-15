@@ -2,11 +2,11 @@ import { render, act } from '@testing-library/react';
 import { GamePage } from 'pages';
 import { BrowserRouter } from 'react-router-dom';
 import { create } from 'react-test-renderer';
-import { store } from '../app/store';
+import { createStore } from '../app/store';
 import { Provider } from 'react-redux';
 
 const mockComponent = (
-  <Provider store={store}>
+  <Provider store={createStore()}>
     <BrowserRouter>
       <GamePage />
     </BrowserRouter>

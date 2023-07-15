@@ -1,9 +1,8 @@
 import { LeaderboardField } from './LeaderboardField';
 import { LeaderboardRow } from './LeaderboardRow';
 import styles from './leaderboard.module.scss';
-import { useEffect, useState } from 'react';
-import { useGetLeaderboardMutation } from 'api';
-import { GetLeaderboardType, LeaderboardData } from './types';
+import { useGetLeaderboardQuery } from 'api';
+import { LeaderboardData, GetLeaderboardType } from './types';
 
 export const leaderboardFields = [
   {
@@ -28,28 +27,15 @@ export const leaderboardFields = [
   },
 ];
 
+export const leaderboardConfig: GetLeaderboardType = {
+  ratingFieldName: 'points',
+  cursor: 0,
+  limit: 10,
+};
+
 export function LeaderboardPage(): JSX.Element {
-  const [getLeaderboard] = useGetLeaderboardMutation();
-  const [leaderbordList, setLeaderboardList] = useState<LeaderboardData[]>([]);
-
-  useEffect(() => {
-    const submitData: GetLeaderboardType = {
-      ratingFieldName: 'points',
-      cursor: 0,
-      limit: 10,
-    };
-
-    const getLeaderboardList = async (data: GetLeaderboardType) => {
-      try {
-        const list = await getLeaderboard(data).unwrap();
-        setLeaderboardList(list);
-      } catch (err) {
-        throw new Error((err as Error).message);
-      }
-    };
-
-    getLeaderboardList(submitData);
-  }, []);
+  const { data: leaderbordList }: { data?: LeaderboardData[] } =
+    useGetLeaderboardQuery(leaderboardConfig);
 
   return (
     <section className={styles.leaderboard}>
@@ -59,13 +45,13 @@ export function LeaderboardPage(): JSX.Element {
         ))}
       </ul>
       <ul className={styles.list}>
-        {leaderbordList.map(
+        {leaderbordList?.map(
           (
             { data: { userId, points, userAvatar, userNickname, time } },
             index
           ) => (
             <LeaderboardRow
-              key={userId}
+              key={`${userId}_${index}`}
               points={points}
               userAvatar={userAvatar}
               userNickname={userNickname}

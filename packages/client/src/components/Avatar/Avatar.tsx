@@ -18,9 +18,7 @@ export function Avatar({ image, className }: AvatarProps) {
   return (
     <img
       src={
-        image
-          ? `https://ya-praktikum.tech/api/v2/resources${image}`
-          : defaultAvatar
+        image ? `http://localhost:3001/api/v2/resources${image}` : defaultAvatar
       }
       alt="user avatar"
       className={cn(styles.avatar, className)}

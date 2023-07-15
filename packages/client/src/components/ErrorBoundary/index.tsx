@@ -22,11 +22,9 @@ export const ErrorBoundary = () => {
       case 404:
         return <ErrorPage />;
       default:
-        //@ts-ignore
         return <ErrorPage {...serverErrorProps} />;
     }
   } else {
-    //@ts-ignore
     return <ErrorPage {...clientErrorProps} />;
   }
 };

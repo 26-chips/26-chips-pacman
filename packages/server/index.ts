@@ -2,14 +2,21 @@ import dotenv from 'dotenv';
 import cors from 'cors';
 import path from 'path';
 import fs from 'fs';
-//@ts-ignore
+import React from 'react';
+import cookieParser from 'cookie-parser';
 import browserEnv from 'browser-env';
-import { createServer, ViteDevServer } from 'vite';
+import { createServer as createViteServer, type ViteDevServer } from 'vite';
+import { createProxyMiddleware } from 'http-proxy-middleware';
+import express from 'express';
+// import { createClientAndConnect } from './db';
+
+React.useLayoutEffect = React.useEffect;
 
 dotenv.config();
 
-import express from 'express';
-// import { createClientAndConnect } from './db';
+interface SSRModule {
+  render: (req: express.Request, url: string) => Promise<string>;
+}
 
 async function startServer() {
   const distPath = path.dirname(require.resolve('client/dist/index.html'));
@@ -23,8 +30,19 @@ async function startServer() {
 
   app.use(cors());
 
+  app.use(
+    '/api/v2/*',
+    createProxyMiddleware({
+      changeOrigin: true,
+      cookieDomainRewrite: {
+        '*': '',
+      },
+      target: 'https://ya-praktikum.tech',
+    })
+  );
+
   if (isDev) {
-    vite = await createServer({
+    vite = await createViteServer({
       server: { middlewareMode: true },
       root: srcPath,
       appType: 'custom',
@@ -39,7 +57,7 @@ async function startServer() {
     app.use('/sw.js', express.static(path.resolve(distPath, 'sw.js')));
   }
 
-  app.use('*', async (req, res, next) => {
+  app.use('*', cookieParser(), async (req, res, next) => {
     const url = req.originalUrl;
 
     browserEnv(['document', 'window', 'navigator', 'Image', 'Audio']);
@@ -50,19 +68,28 @@ async function startServer() {
         'utf-8'
       );
 
-      let render: (url: string) => Promise<string>;
+      let mod: SSRModule;
 
       if (isDev) {
         template = await vite!.transformIndexHtml(url, template);
-        render = (await vite!.ssrLoadModule(path.resolve(srcPath, 'ssr.tsx')))
-          .render;
-      } else {
-        render = (await import(ssrDistPath)).render;
       }
 
-      const appHTML = await render(url);
+      if (isDev) {
+        mod = (await vite!.ssrLoadModule(
+          path.resolve(srcPath, 'ssr.tsx')
+        )) as SSRModule;
+      } else {
+        mod = await import(ssrDistPath);
+      }
 
-      const html = template.replace('<!--ssr-content-->', appHTML);
+      const { render } = mod;
+
+      const [initialState, appHTML] = await render(req, url);
+      const initStateSerialized = JSON.stringify(initialState);
+
+      const html = template
+        .replace('<!--ssr-content-->', appHTML)
+        .replace('<!--store-data-->', initStateSerialized);
 
       res.status(200).set({ 'Content-Type': 'text/html' }).end(html);
     } catch (e) {

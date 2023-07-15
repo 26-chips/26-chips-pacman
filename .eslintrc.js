@@ -30,6 +30,7 @@ module.exports = {
         'space-in-parens': 'error',
         'no-multiple-empty-lines': 'error',
         '@typescript-eslint/ban-ts-comment': 0,
+        '@typescript-eslint/no-non-null-assertion': 'off',
         '@typescript-eslint/comma-dangle': [
           'error',
           {
